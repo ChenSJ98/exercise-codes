@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include<math.h>
-int add(int base, int a){
+int add(int base, int a)
+{
   int sum=base;
-  while (sum+a>0){
+  while (sum+a>0)
+  {
     sum+=a;
-}
+  }
   return sum;
-    }
-int main(){
+}
+int main()
+{
   int sum,base=1;
   while (10*base>0) {base*=10;};
   sum=base;
