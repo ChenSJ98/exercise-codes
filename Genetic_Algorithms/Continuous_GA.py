@@ -1,6 +1,5 @@
 '''
 Implementation of u-lamda Genetic Algorithm for continuous optimization  problems.
-
 There's no mutation of child in this algorithm. The program may fail to approach global optimal solution.
 '''
 import numpy as np
@@ -107,8 +106,6 @@ while done == False:
         # update best-so-far solution
         if funcValue(u) < funcValue(bsf):
             bsf = u
-            
-        
     # environment selection, keep the best half solutions from P|Q
     R = p
     R += Q
@@ -120,7 +117,7 @@ while done == False:
         done = True
     
 print(t," generations, bsf: ",bsf,"  with optimal value: ", funcValue(bsf))
-
+# generate plot showing the descending of object function value against number of generations
 x = np.arange(1 , t + 1,1)
 y = bsfs
 pt.plot(x,y)

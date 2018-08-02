@@ -1,4 +1,7 @@
-
+'''
+This is a simple implementation of genetic algorithm for solving TSP problems.
+Using the Western Sahara's 29 city problem (wi29) dataset with cities indexed from 0 to 28, I get a best solution of [0,1,5,4,3,2,6,8,7,9,10,11,12,13,16,17,14,18,21,22,20,28,27,25,19,15,24,26,23] with optimal value 23727.13694 which is below the reference value of 27603. (weird but plausible result)
+'''
 import numpy as np
 import matplotlib.pyplot as pt
 
@@ -154,11 +157,9 @@ while done == False:
         done = True
 
 print("the best solution is: ",bsf, " with optimal value:" ,funcValue(bsf))
-
-
+# generate plot showing the descending of object function value against number of generations
 x = np.arange(1 , NumGen,1)
 y = bsfs
 pt.plot(x,y)
-
 pt.title("function val")
 pt.show()
