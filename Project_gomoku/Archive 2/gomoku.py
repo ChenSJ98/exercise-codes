@@ -27,7 +27,7 @@ class AI(object):
             return COLOR_BLACK
     point_COLOR_BLACK = {
         (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):1000000000000,
-        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):2000000000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):3000000000,
         (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_WHITE):41000000,
         (COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):41000000,
         (COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK):41000000,
@@ -46,7 +46,7 @@ class AI(object):
     }
     point_COLOR_WHITE = {
         (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):1000000000000,
-        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):2000000000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):3000000000,
         (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_BLACK):41000000,
         (COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):41000000,
         (COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE):41000000,
@@ -77,41 +77,46 @@ class AI(object):
     }
     #class gobang:
     def if33white(self,str):
+        x1 = 0
         if(str == ((COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE))):
-            return 1
+            x1= 1
         if(str == ((COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE))):
-            return 1
+            x1= 1
         if(str == (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE)):
-            return 1
+            x1= 1
         if(str == (COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE)):
-            return 1
+            x1= 1
         if(str == (COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE)):
-            return 1
+            x1= 1
         if(str==(COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE)):
-            return 1
+            x1= 1
         if(str == ((COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE))):
-            return 10
+            x1= 10
         if(str == (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE)):
-            return 10
-        return 0
+            x1= 10
+        # x1= 0
+        if(x1 > 0):
+            print("33, str:", str)
+        return x1
     def if33black(self,str):
+        x1 = 0
         if(str == ((COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE))):
-            return 1
+            x1= 1
         if(str == ((COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK))):
-            return 1
+            x1= 1
         if(str == (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK)):
-            return 1
+            x1= 1
         if(str == (COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE)):
-            return 1
+            x1= 1
         if(str == (COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE)):
-            return 1
+            x1= 1
         if(str==(COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK)):
-            return 1
+            x1= 1
         if(str == ((COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE))):
-            return 10
+            x1= 10
         if(str == (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK)):
-            return 10
-        return 0
+            x1= 10
+        return x1
     def genSet(self,board):
         SearchSet =[]
         for i in range(0,self.chessboard_size):
@@ -172,8 +177,8 @@ class AI(object):
                 if board[i][j]==3:
                     SearchSet.append([i,j]) 
                     board[i][j] = COLOR_NONE
-        if(len(SearchSet) > 0):
-            random.shuffle(SearchSet)
+        # if(len(SearchSet) > 0):
+            # random.shuffle(SearchSet)
         return SearchSet
     def genValSet(self,board):
         length = len(board)
@@ -213,12 +218,21 @@ class AI(object):
         total = 0
         length = max(0,max(len(horizontal),len(vertical),len(s1),len(s2))-5) + 1
         n33 = 0
+        val33 = 0
+        count = 0
+        c1=0
+        c2=0
+        c3=0
+        c4=0
         if(color == COLOR_BLACK):
             for i in range(length):
                 if i+5<=len(horizontal):
                     if(tuple(horizontal[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(horizontal[i:i+5]))
-                    n33=n33+self.if33black(tuple(horizontal[i:i+5]))
+                    val33=self.if33black(tuple(horizontal[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c1=1
                         # print("call hori", tuple(horizontal[i:i+5]))
                 if i+6<=len(horizontal):
                     if(tuple(horizontal[i:i+6]) in self.point_COLOR_BLACK.keys()):
@@ -226,7 +240,10 @@ class AI(object):
                 if i+5<=len(vertical):
                     if(tuple(vertical[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(vertical[i:i+5]))
-                    n33=n33+self.if33black(tuple(vertical[i:i+5]))
+                    val33=self.if33black(tuple(vertical[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c2=1
                         # print("call vert ", tuple(vertical[i:i+5]))
                 if i+6<=len(vertical):
                     if(tuple(vertical[i:i+6]) in self.point_COLOR_BLACK.keys()):
@@ -234,14 +251,20 @@ class AI(object):
                 if i+5<=len(s1):
                     if(tuple(s1[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s1[i:i+5]))
-                    n33=n33+self.if33black(tuple(s1[i:i+5]))
+                    val33=self.if33black(tuple(s1[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c3=1
                 if i+6<=len(s1):
                     if(tuple(s1[i:i+6]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s1[i:i+6]))
                 if i+5<=len(s2):
                     if(tuple(s2[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s2[i:i+5]))
-                    n33=n33+self.if33black(tuple(s2[i:i+5]))
+                    val33=self.if33black(tuple(s2[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c4=1
                 if i+6<=len(s2):
                     if(tuple(s2[i:i+6]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s2[i:i+6]))      
@@ -250,114 +273,165 @@ class AI(object):
                 if i+5<=len(horizontal):
                     if(tuple(horizontal[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(horizontal[i:i+5]))
-                    n33=n33+self.if33white(tuple(horizontal[i:i+5]))
+                    val33=self.if33black(tuple(horizontal[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c1=1
+                        # print("call hori", tuple(horizontal[i:i+5]))
                 if i+6<=len(horizontal):
                     if(tuple(horizontal[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(horizontal[i:i+6]))
                 if i+5<=len(vertical):
                     if(tuple(vertical[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(vertical[i:i+5]))
-                    n33=n33+self.if33white(tuple(vertical[i:i+5]))
+                    val33=self.if33black(tuple(vertical[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c2=1
+                        # print("call vert ", tuple(vertical[i:i+5]))
                 if i+6<=len(vertical):
                     if(tuple(vertical[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(vertical[i:i+6]))
                 if i+5<=len(s1):
                     if(tuple(s1[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s1[i:i+5]))
-                    n33=n33+self.if33white(tuple(s1[i:i+5]))
+                    val33=self.if33black(tuple(s1[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c3=1
                 if i+6<=len(s1):
                     if(tuple(s1[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s1[i:i+6]))
                 if i+5<=len(s2):
                     if(tuple(s2[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s2[i:i+5]))
-                    n33=n33+self.if33white(tuple(s2[i:i+5]))
+                    val33=self.if33black(tuple(s2[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c4=1
                 if i+6<=len(s2):
                     if(tuple(s2[i:i+6]) in self.point_COLOR_WHITE.keys()):
-                        total = total + self.point_COLOR_WHITE.get(tuple(s2[i:i+6]))
-        if(n33 >= 10):
-            total = total + 2000000000
-        elif(n33 >= 2):
-            total = total + 1000000000
+                        total = total + self.point_COLOR_WHITE.get(tuple(s2[i:i+6]))      
+        count = c1+c2+c3+c4
+        print("Point calculationg ends. n33:",n33)
+        print("33 count:",count)
+        if(count > 1):
+            if(n33 > 10):
+                print("33 big")
+                total = total + 2000000000
+            else:
+                print("33 normal")
+                total = total + 300000000
         return total
     def getDanger(self,horizontal,vertical,s1,s2,color):
         
         total = 0
         length = max(0,max(len(horizontal),len(vertical),len(s1),len(s2))-5) + 1
         n33 = 0
+        count = 0
+        c1 = 0
+        c2 = 0
+        c3 = 0
+        c4 = 0
         if(color == COLOR_BLACK):
             for i in range(length):
                 if i+5<=len(horizontal):
-                    # print("hori5:", horizontal[i:i+5])
                     if(tuple(horizontal[i:i+5]) in self.point_danger_COLOR_WHITE.keys()):
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(horizontal[i:i+5]))
-                    if(self.if33white(tuple(horizontal[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33white(tuple(horizontal[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c1=1
+                        # print("call hori", tuple(horizontal[i:i+5]))
                 if i+6<=len(horizontal):
                     if(tuple(horizontal[i:i+6]) in self.point_danger_COLOR_WHITE.keys()):
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(horizontal[i:i+6]))
                 if i+5<=len(vertical):
                     if(tuple(vertical[i:i+5]) in self.point_danger_COLOR_WHITE.keys()):
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(vertical[i:i+5]))
-                    if(self.if33white(tuple(vertical[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33white(tuple(vertical[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c2=1
+                        # print("call vert ", tuple(vertical[i:i+5]))
                 if i+6<=len(vertical):
                     if(tuple(vertical[i:i+6]) in self.point_danger_COLOR_WHITE.keys()):
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(vertical[i:i+6]))
                 if i+5<=len(s1):
                     if(tuple(s1[i:i+5]) in self.point_danger_COLOR_WHITE.keys()):
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(s1[i:i+5]))
-                    if(self.if33white(tuple(s1[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33white(tuple(s1[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c3=1
                 if i+6<=len(s1):
                     if(tuple(s1[i:i+6]) in self.point_danger_COLOR_WHITE.keys()):
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(s1[i:i+6]))
                 if i+5<=len(s2):
                     if(tuple(s2[i:i+5]) in self.point_danger_COLOR_WHITE.keys()):
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(s2[i:i+5]))
-                    if(self.if33white(tuple(s2[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33white(tuple(s2[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c4=1
                 if i+6<=len(s2):
                     if(tuple(s2[i:i+6]) in self.point_danger_COLOR_WHITE.keys()):
-                        total = total + self.point_danger_COLOR_WHITE.get(tuple(s2[i:i+6]))      
+                        total = total + self.point_danger_COLOR_WHITE.get(tuple(s2[i:i+6]))            
         else:
             for i in range(length):
                 if i+5<=len(horizontal):
                     if(tuple(horizontal[i:i+5]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(horizontal[i:i+5]))
-                    if(self.if33black(tuple(horizontal[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33black(tuple(horizontal[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c1=1
+                        # print("call hori", tuple(horizontal[i:i+5]))
                 if i+6<=len(horizontal):
                     if(tuple(horizontal[i:i+6]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(horizontal[i:i+6]))
                 if i+5<=len(vertical):
                     if(tuple(vertical[i:i+5]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(vertical[i:i+5]))
-                    if(self.if33black(tuple(vertical[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33black(tuple(vertical[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c2=1
+                        # print("call vert ", tuple(vertical[i:i+5]))
                 if i+6<=len(vertical):
                     if(tuple(vertical[i:i+6]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(vertical[i:i+6]))
                 if i+5<=len(s1):
                     if(tuple(s1[i:i+5]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(s1[i:i+5]))
-                    if(self.if33black(tuple(s1[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33black(tuple(s1[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c3=1
                 if i+6<=len(s1):
                     if(tuple(s1[i:i+6]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(s1[i:i+6]))
                 if i+5<=len(s2):
                     if(tuple(s2[i:i+5]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(s2[i:i+5]))
-                    if(self.if33black(tuple(s2[i:i+5]))):
-                        n33 = n33 + 1
+                    val33=self.if33black(tuple(s2[i:i+5]))
+                    n33=n33+val33
+                    if(val33>0):
+                        c4=1
                 if i+6<=len(s2):
                     if(tuple(s2[i:i+6]) in self.point_danger_COLOR_BLACK.keys()):
-                        total = total + self.point_danger_COLOR_BLACK.get(tuple(s2[i:i+6]))
-        if(n33 >= 10):
-            total = total + 2000000000
-        if (n33 >= 2):
-            total = total + 1000000000
+                        total = total + self.point_danger_COLOR_BLACK.get(tuple(s2[i:i+6]))      
+        count = c1+c2+c3+c4
+        print("Danger calculationg ends. n33:",n33)
+        print("33 count:",count)
+        if(count > 1):
+            if(n33 > 10):
+                print("33 big")
+                total = total + 2000000000
+            else:
+                print("33 normal")
+                total = total + 300000000
+        
         return total 
     def getValue(self,cb2,pos,color):
         # total = 0
@@ -482,6 +556,7 @@ class AI(object):
 
                     subBoard[pos[0],pos[1]] = self.color
                     score, pos1 = self.minimax(subBoard, depth-1,False,pos)
+                    
                     if(value < score):
                         value = score
                         solution = pos
