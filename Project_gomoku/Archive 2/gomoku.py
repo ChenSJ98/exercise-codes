@@ -26,62 +26,92 @@ class AI(object):
         else:
             return COLOR_BLACK
     point_COLOR_BLACK = {
-        (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):1000000,
-        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):200000,
-        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_WHITE):41000,
-        (COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):41000,
-        (COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK):41000,
-        (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK):41000,
-        (COLOR_WHITE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):41000,
-        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):1000,
-        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE):1000,
-        (COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):1000,
-        (COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_NONE):100,
-        (COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE):100,
-        (COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_NONE):100,
+        (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):1000000000000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):2000000000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_WHITE):41000000,
+        (COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):41000000,
+        (COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK):41000000,
+        (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK):41000000,
+        (COLOR_WHITE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):41000000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_NONE):1000000,
+        (COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):1000000,
+        (COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK):1000000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE):100000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):100000,
+        (COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_NONE):1500,
+        (COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE):1000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_NONE):1000,
         (COLOR_NONE,COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_NONE):10,
         (COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_NONE,COLOR_NONE):10
     }
     point_COLOR_WHITE = {
-        (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):1000000,
-        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):200000,
-        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_BLACK):41000,
-        (COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):41000,
-        (COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE):41000,
-        (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE):41000,
-        (COLOR_BLACK,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):41000,
-        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):1000,
-        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE):1000,
-        (COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):1000,
-        (COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_NONE):100,
-        (COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE):100,
-        (COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_NONE):100,
+        (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):1000000000000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):2000000000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_BLACK):41000000,
+        (COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):41000000,
+        (COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE):41000000,
+        (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE):41000000,
+        (COLOR_BLACK,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):41000000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_NONE):1000000,
+        (COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):1000000,
+        (COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE):1000000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE):100000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):100000,
+        (COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_NONE):1500,
+        (COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE):1000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_NONE):1000,
         (COLOR_NONE,COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_NONE):10,
         (COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_NONE,COLOR_NONE):10
     }
     point_danger_COLOR_BLACK = {
-        (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):900000,
-        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):180000,
+        (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):900000000000,
+        # (COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_NONE):2100000000,
+        # (COLOR_NONE,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK):2100000000,
+        (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE):2100000000
     }
     point_danger_COLOR_WHITE = {
-        (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):900000,
-        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):180000,
+        (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):900000000000,
+        # (COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_NONE):2100000000,
+        # (COLOR_NONE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE):2100000000,
+        (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE):2100000000
     }
     #class gobang:
     def if33white(self,str):
         if(str == ((COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE))):
-            # print("white33:")
-            # print(str)
-            return True
-        else:
-            return False
+            return 1
+        if(str == ((COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE))):
+            return 1
+        if(str == (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE)):
+            return 1
+        if(str == (COLOR_WHITE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_NONE)):
+            return 1
+        if(str == (COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE)):
+            return 1
+        if(str==(COLOR_NONE,COLOR_WHITE,COLOR_NONE,COLOR_WHITE,COLOR_WHITE)):
+            return 1
+        if(str == ((COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_NONE))):
+            return 10
+        if(str == (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE)):
+            return 10
+        return 0
     def if33black(self,str):
         if(str == ((COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE))):
-            # print("black33:")
-            # print(str)
-            return True
-        else:
-            return False
+            return 1
+        if(str == ((COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK))):
+            return 1
+        if(str == (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK)):
+            return 1
+        if(str == (COLOR_BLACK,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_NONE)):
+            return 1
+        if(str == (COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_NONE)):
+            return 1
+        if(str==(COLOR_NONE,COLOR_BLACK,COLOR_NONE,COLOR_BLACK,COLOR_BLACK)):
+            return 1
+        if(str == ((COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_NONE))):
+            return 10
+        if(str == (COLOR_NONE,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK,COLOR_BLACK)):
+            return 10
+        return 0
     def genSet(self,board):
         SearchSet =[]
         for i in range(0,self.chessboard_size):
@@ -112,17 +142,51 @@ class AI(object):
                         # SearchSet.append([i+1,j-1])
                     if(j-1>=0)and (i-1>=0) and (board[i-1][j-1]!=COLOR_BLACK)and (board[i-1][j-1]!=COLOR_WHITE):
                         board[i-1][j-1]=3
-                        # SearchSet.append([i-1,j-1])
+                    
+                    # if(i-2>=0) and (board[i-2][j]!=COLOR_BLACK)and (board[i-2][j]!=COLOR_WHITE):
+                    #     board[i-2][j]=3
+                    #     # SearchSet.append([i-2,j])
+                    # if(j-2>=0) and (board[i][j-2]!=COLOR_BLACK)and (board[i][j-2]!=COLOR_WHITE):
+                    #     board[i][j-2]=3
+                    #     # SearchSet.append([i,j-2])
+                    # if(i+2<=self.chessboard_size-2) and (board[i+2][j]!=COLOR_BLACK)and (board[i+2][j]!=COLOR_WHITE):
+                    #     board[i+2][j]=3
+                    #     # SearchSet.append([i+2,j])
+                    # if(j+2<=self.chessboard_size-2) and (board[i][j+2]!=COLOR_BLACK)and (board[i][j+2]!=COLOR_WHITE):
+                    #     board[i][j+2]=3
+                    #     # SearchSet.append([i,j+2])
+                    # if(j+2<=self.chessboard_size-2) and (i+2<=self.chessboard_size-2) and (board[i+2][j+2]!=COLOR_BLACK)and (board[i+2][j+2]!=COLOR_WHITE):
+                    #     board[i+2][j+2]=3
+                    #     # SearchSet.append([i+2,j+2])
+                    # if(j+2<=self.chessboard_size-2) and (i-2>=0)and (board[i-2][j+2]!=COLOR_BLACK)and (board[i-2][j+2]!=COLOR_WHITE):
+                    #     board[i-2][j+2]=3
+                    #     # SearchSet.append([i-2,j+2])
+                    # if(j-2>=0) and (i+2<=self.chessboard_size-2)and (board[i+2][j-2]!=COLOR_BLACK)and (board[i+2][j-2]!=COLOR_WHITE):
+                    #     board[i+2][j-2]=3
+                    #     # SearchSet.append([i+2,j-2])
+                    # if(j-2>=0)and (i-2>=0) and (board[i-2][j-2]!=COLOR_BLACK)and (board[i-2][j-2]!=COLOR_WHITE):
+                    #     board[i-2][j-2]=3
+                        # SearchSet.append([i-2,j-2])
         for i in range(0,self.chessboard_size):
             for j in range(0,self.chessboard_size):
                 if board[i][j]==3:
                     SearchSet.append([i,j]) 
                     board[i][j] = COLOR_NONE
+        if(len(SearchSet) > 0):
+            random.shuffle(SearchSet)
         return SearchSet
-    def getStr(self,cb2,pos,color):
+    def genValSet(self,board):
+        length = len(board)
+        valSet = []
+        for i in range(length):
+            for j in range(length):
+                if(board[i][j]!=COLOR_NONE):
+                    valSet.append([i,j])
+        return valSet
+    def getStr(self,cb2,pos):
         row = pos[0]
         col=pos[1]
-        cb2[row][col] = color
+        # cb2[row][col] = color
         rMin = max(row-4,0)
         rMax = min(row+4,self.chessboard_size-1)
         cMin = max(col-4,0)
@@ -143,7 +207,7 @@ class AI(object):
             s1.append(cb2[row-min(dr2,dc2)+i][col-min(dc2,dr2)+i])
         for i in range(min(dr2,dc1)+min(dc2,dr1)+1):
             s2.append(cb2[row+min(dr1,dc2)-i][col-min(dr1,dc2)+i])
-        cb2[row][col] = COLOR_NONE
+        # cb2[row][col] = COLOR_NONE
         return horizontal,vertical,s1,s2
     def getScore(self,horizontal,vertical,s1,s2,color):
         total = 0
@@ -154,8 +218,7 @@ class AI(object):
                 if i+5<=len(horizontal):
                     if(tuple(horizontal[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(horizontal[i:i+5]))
-                    if(self.if33black(tuple(horizontal[i:i+5]))):
-                        n33 = n33 + 1
+                    n33=n33+self.if33black(tuple(horizontal[i:i+5]))
                         # print("call hori", tuple(horizontal[i:i+5]))
                 if i+6<=len(horizontal):
                     if(tuple(horizontal[i:i+6]) in self.point_COLOR_BLACK.keys()):
@@ -163,8 +226,7 @@ class AI(object):
                 if i+5<=len(vertical):
                     if(tuple(vertical[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(vertical[i:i+5]))
-                    if(self.if33black(tuple(vertical[i:i+5]))):
-                        n33 = n33 + 1
+                    n33=n33+self.if33black(tuple(vertical[i:i+5]))
                         # print("call vert ", tuple(vertical[i:i+5]))
                 if i+6<=len(vertical):
                     if(tuple(vertical[i:i+6]) in self.point_COLOR_BLACK.keys()):
@@ -172,18 +234,14 @@ class AI(object):
                 if i+5<=len(s1):
                     if(tuple(s1[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s1[i:i+5]))
-                    if(self.if33black(tuple(s1[i:i+5]))):
-                        # print("call s1 ", tuple(s1[i:i+5]))
-                        n33 = n33 + 1
+                    n33=n33+self.if33black(tuple(s1[i:i+5]))
                 if i+6<=len(s1):
                     if(tuple(s1[i:i+6]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s1[i:i+6]))
                 if i+5<=len(s2):
                     if(tuple(s2[i:i+5]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s2[i:i+5]))
-                    if(self.if33black(tuple(s2[i:i+5]))):
-                        n33 = n33 + 1
-                        # print("call s2", tuple(s2[i:i+5]))
+                    n33=n33+self.if33black(tuple(s2[i:i+5]))
                 if i+6<=len(s2):
                     if(tuple(s2[i:i+6]) in self.point_COLOR_BLACK.keys()):
                         total = total + self.point_COLOR_BLACK.get(tuple(s2[i:i+6]))      
@@ -192,39 +250,38 @@ class AI(object):
                 if i+5<=len(horizontal):
                     if(tuple(horizontal[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(horizontal[i:i+5]))
-                    if(self.if33white(tuple(horizontal[i:i+5]))):
-                        n33 = n33 + 1
+                    n33=n33+self.if33white(tuple(horizontal[i:i+5]))
                 if i+6<=len(horizontal):
                     if(tuple(horizontal[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(horizontal[i:i+6]))
                 if i+5<=len(vertical):
                     if(tuple(vertical[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(vertical[i:i+5]))
-                    if(self.if33white(tuple(vertical[i:i+5]))):
-                        n33 = n33 + 1
+                    n33=n33+self.if33white(tuple(vertical[i:i+5]))
                 if i+6<=len(vertical):
                     if(tuple(vertical[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(vertical[i:i+6]))
                 if i+5<=len(s1):
                     if(tuple(s1[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s1[i:i+5]))
-                    if(self.if33white(tuple(s1[i:i+5]))):
-                        n33 = n33 + 1
+                    n33=n33+self.if33white(tuple(s1[i:i+5]))
                 if i+6<=len(s1):
                     if(tuple(s1[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s1[i:i+6]))
                 if i+5<=len(s2):
                     if(tuple(s2[i:i+5]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s2[i:i+5]))
-                    if(self.if33white(tuple(s2[i:i+5]))):
-                        n33 = n33 + 1
+                    n33=n33+self.if33white(tuple(s2[i:i+5]))
                 if i+6<=len(s2):
                     if(tuple(s2[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s2[i:i+6]))
-        if(n33 >= 2):
-            total = total + 79000
+        if(n33 >= 10):
+            total = total + 2000000000
+        elif(n33 >= 2):
+            total = total + 1000000000
         return total
     def getDanger(self,horizontal,vertical,s1,s2,color):
+        
         total = 0
         length = max(0,max(len(horizontal),len(vertical),len(s1),len(s2))-5) + 1
         n33 = 0
@@ -233,7 +290,6 @@ class AI(object):
                 if i+5<=len(horizontal):
                     # print("hori5:", horizontal[i:i+5])
                     if(tuple(horizontal[i:i+5]) in self.point_danger_COLOR_WHITE.keys()):
-                        
                         total = total + self.point_danger_COLOR_WHITE.get(tuple(horizontal[i:i+5]))
                     if(self.if33white(tuple(horizontal[i:i+5]))):
                         n33 = n33 + 1
@@ -298,31 +354,49 @@ class AI(object):
                 if i+6<=len(s2):
                     if(tuple(s2[i:i+6]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(s2[i:i+6]))
-        if(n33 >= 2):
-            total = total + 70000
-        return total
+        if(n33 >= 10):
+            total = total + 2000000000
+        if (n33 >= 2):
+            total = total + 1000000000
+        return total 
     def getValue(self,cb2,pos,color):
-        total = 0
+        # total = 0
         score = 0
-        danger = 0
-        horizontal, vertical, s1, s2 = self.getStr(cb2,pos,color)
+        # danger = 0
+        horizontal, vertical, s1, s2 = self.getStr(cb2,pos)
         score = self.getScore(horizontal,vertical,s1,s2,color)
+        # if(cb2[pos[0],pos[1]]==self.otherColor(color)):
+            # score = score + self.getDanger(horizontal,vertical,s1,s2,color)
         # print(pos,'horizontal: ',horizontal,'vertical: ',vertical,"s1:: ",s1,"s2: ",s2,"score: ", score)
-        horizontal, vertical, s1, s2 = self.getStr(cb2,pos,self.otherColor(color))
-        danger = self.getDanger(horizontal,vertical,s1,s2,color)
-        total = score + danger
+        
+        # danger = self.getDanger(horizontal,vertical,s1,s2,color)
+        # total = score + danger
         # print(pos,'horizontal: ',horizontal,'vertical: ',vertical,"s1:: ",s1,"s2: ",s2,"danger: ", danger)
         # print(pos,"value: ", score,' + ',danger,' = ',total)
-        return total
-    def h(self,cbx,color):
+        return score
+    def h(self,cbx,pos1,maxPlayer):
+        # print("evaluate")
+        # self.show(cbx)
         # candidates = Q.PriorityQueue()
         score = 0
         # color = self.color
-        sSet =self.genSet(cbx)
-        for pos in sSet:
-            score = score + self.getValue(cbx,pos,color)
-            # candidates.put([-score,pos])
-        # print("return h with score: ", score)
+        vSet =self.genValSet(cbx)
+        # for pos in vSet:
+
+        score = score + self.getValue(cbx,pos1,self.color)
+        print("score:",score)
+        # if(maxPlayer): # do not compute dangervalue for mini step
+            # return score
+        # else:
+        cbx[pos1[0]][pos1[1]] = self.otherColor(self.color)
+            # print("get danger: ")
+            # self.show(cbx)
+        horizontal, vertical, s1, s2 = self.getStr(cbx,pos1)
+        print(horizontal, vertical, s1, s2)
+            # print(horizontal,vertical,s1,s2)
+        danger= self.getDanger(horizontal,vertical,s1,s2,self.color)
+        print("danger",danger)
+        score = score + danger
         return score
     def console (self,color):
         if sys.platform[:3] == 'win':
@@ -383,64 +457,51 @@ class AI(object):
             print()
             return 0
     
-    def minimax(self,chessboard,depth,maxPlayer,color):
+    def minimax(self,chessboard,depth,maxPlayer,pos):
         #  1 = X              -1 = O
-        if(maxPlayer):
-            print("call max, color:", color, "depth:",depth)
-        else:
-            print("call mini, color:", color, "depth:",depth)
-        self.show(chessboard)
+        
+        # self.show(chessboard)
         cboard = copy.deepcopy(chessboard)
-        # score = self.h(cboard,color)
-        # if(score >= 900000):# winning situation
-        #     return score, pos
         searchSet = self.genSet(chessboard)
-        if (depth == 0 or len(searchSet) == 1): 
-            print("end node")
-            score = self.h(cboard,self.color)
-            print("score: ",score)
-            return score, searchSet[0]
-
-            # print("ready to return")
-            # return x[0],x[1]
+        if (depth == 0): 
+            # print("end node")
+            score = self.h(cboard,pos,maxPlayer)
+            print("pos",pos,"score: ",score)
+            return score, [-1,-1]
         else:
+            if(maxPlayer):
+                print("call max, color:", self.color, "depth:",depth,"pos: ",pos)
+            else:
+                print("call mini, color:", self.otherColor(self.color), "depth:",depth,"pos: ",pos)
             if(maxPlayer):
                 value =float("-inf")
                 solution = [0,0]
                 for pos in searchSet: # maximize player
-                    print("sSet size: ", len(searchSet), "loop")
+                    # print("sSet size: ", len(searchSet), "loop")
                     subBoard = copy.deepcopy(cboard)
-                    pointScore = self.getValue(subBoard,pos,color)
-                    if(pointScore >= 900000):
-                        return pointScore, pos
-                    subBoard[pos[0],pos[1]] = color
-                    # print("call recursively")
-                    score, pos1 = self.minimax(subBoard, depth-1,False,self.otherColor(color))
-                    # print("return from recursive call")
-                    # score = -score
+
+                    subBoard[pos[0],pos[1]] = self.color
+                    score, pos1 = self.minimax(subBoard, depth-1,False,pos)
                     if(value < score):
                         value = score
                         solution = pos
                 print("loop over")
-                # print("solution: " + solution +"value: " + (value))
+                print("solution:",solution," with value: ",value)
                 return value, solution
             else:
                 value = float("inf")
                 solution = [0,0]
                 for pos in searchSet: # minimize player
-                    print("sSet size: ", len(searchSet), "loop")
+                    # print("sSet size: ", len(searchSet), "loop")
                     subBoard = copy.deepcopy(cboard)
-                    pointScore = self.getValue(subBoard,pos,color)
-                    if(pointScore >= 900000):
-                        return pointScore, pos
-                    subBoard[pos[0],pos[1]] = color
-                    score, pos1 = self.minimax(subBoard, depth-1,True,self.otherColor(color))
-                    score = -score
+                    subBoard[pos[0],pos[1]] = self.otherColor(self.color)
+                    score, pos1 = self.minimax(subBoard, depth-1,True,pos)
+                    score = score
                     if(value > score):
                         value = score
                         solution = pos
                 print("loop over")
-                # print("solution: " + solution +"value: " + (value))
+                print("solution:",solution," with value: ",value)
                 return value, solution
     
     
@@ -460,7 +521,7 @@ class AI(object):
             new_pos=tuple([int(size/2),int(size/2)])
         else:
             print("call minimax")
-            candidate=self.minimax(chessboard,1,True,self.color)
+            candidate=self.minimax(chessboard,1,True,[-1,-1])
             print("return minimax")
             best=candidate[1]
             new_pos=tuple(best)
