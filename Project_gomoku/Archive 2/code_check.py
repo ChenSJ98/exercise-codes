@@ -43,6 +43,9 @@ class CodeCheck():
         if not self.__check_simple_chessboard():
             self.errormsg = "Can not pass usability test."
             return False
+        else: 
+            print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+            print("pass usability test")
         
         # check advance condition, online test contain more test case than this demo
         if not self.__check_advance_chessboard():
@@ -103,4 +106,6 @@ class CodeCheck():
             if not self.__check_result(case.get_board(), case.get_rational_steps()):
                 print((case.get_board(), case.get_rational_steps()))
                 return False
+            else:
+                print("pass")
         return True

@@ -95,8 +95,8 @@ class AI(object):
         if(str == (COLOR_NONE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE)):
             x1= 10
         # x1= 0
-        if(x1 > 0):
-            print("33, str:", str)
+        # if(x1 > 0):
+            # print("33, str:", str)
         return x1
     def if33black(self,str):
         x1 = 0
@@ -185,7 +185,7 @@ class AI(object):
         valSet = []
         for i in range(length):
             for j in range(length):
-                if(board[i][j]!=COLOR_NONE):
+                if(board[i][j]==self.color):
                     valSet.append([i,j])
         return valSet
     def getStr(self,cb2,pos):
@@ -313,14 +313,14 @@ class AI(object):
                     if(tuple(s2[i:i+6]) in self.point_COLOR_WHITE.keys()):
                         total = total + self.point_COLOR_WHITE.get(tuple(s2[i:i+6]))      
         count = c1+c2+c3+c4
-        print("Point calculationg ends. n33:",n33)
-        print("33 count:",count)
+        # print("Point calculationg ends. n33:",n33)
+        # print("score 33 count:",count)
         if(count > 1):
             if(n33 > 10):
-                print("33 big")
+                # print("33 big")
                 total = total + 2000000000
             else:
-                print("33 normal")
+                # print("33 normal")
                 total = total + 300000000
         return total
     def getDanger(self,horizontal,vertical,s1,s2,color):
@@ -422,14 +422,14 @@ class AI(object):
                     if(tuple(s2[i:i+6]) in self.point_danger_COLOR_BLACK.keys()):
                         total = total + self.point_danger_COLOR_BLACK.get(tuple(s2[i:i+6]))      
         count = c1+c2+c3+c4
-        print("Danger calculationg ends. n33:",n33)
-        print("33 count:",count)
+        # print("Danger calculationg ends. n33:",n33)
+        # print("danger 33 count:",count)
         if(count > 1):
             if(n33 > 10):
-                print("33 big")
+                # print("33 big")
                 total = total + 2000000000
             else:
-                print("33 normal")
+                # print("33 normal")
                 total = total + 300000000
         
         return total 
@@ -456,9 +456,8 @@ class AI(object):
         # color = self.color
         vSet =self.genValSet(cbx)
         # for pos in vSet:
-
         score = score + self.getValue(cbx,pos1,self.color)
-        print("score:",score)
+        # print("score:",score)
         # if(maxPlayer): # do not compute dangervalue for mini step
             # return score
         # else:
@@ -466,10 +465,10 @@ class AI(object):
             # print("get danger: ")
             # self.show(cbx)
         horizontal, vertical, s1, s2 = self.getStr(cbx,pos1)
-        print(horizontal, vertical, s1, s2)
+        # print(horizontal, vertical, s1, s2)
             # print(horizontal,vertical,s1,s2)
         danger= self.getDanger(horizontal,vertical,s1,s2,self.color)
-        print("danger",danger)
+        # print("danger",danger)
         score = score + danger
         return score
     def console (self,color):
@@ -530,7 +529,6 @@ class AI(object):
                 print()
             print()
             return 0
-    
     def minimax(self,chessboard,depth,maxPlayer,pos):
         #  1 = X              -1 = O
         
@@ -547,7 +545,7 @@ class AI(object):
                 print("call max, color:", self.color, "depth:",depth,"pos: ",pos)
             else:
                 print("call mini, color:", self.otherColor(self.color), "depth:",depth,"pos: ",pos)
-            if(maxPlayer):
+            if(maxPlayer): # max player
                 value =float("-inf")
                 solution = [0,0]
                 for pos in searchSet: # maximize player
@@ -560,10 +558,10 @@ class AI(object):
                     if(value < score):
                         value = score
                         solution = pos
-                print("loop over")
-                print("solution:",solution," with value: ",value)
+                # print("loop over")
+                print(" max solution:",solution," with value: ",value)
                 return value, solution
-            else:
+            else: # min player
                 value = float("inf")
                 solution = [0,0]
                 for pos in searchSet: # minimize player
@@ -575,8 +573,8 @@ class AI(object):
                     if(value > score):
                         value = score
                         solution = pos
-                print("loop over")
-                print("solution:",solution," with value: ",value)
+                # print("loop over")
+                print(" mini solution:",solution," with value: ",value)
                 return value, solution
     
     
@@ -596,7 +594,7 @@ class AI(object):
             new_pos=tuple([int(size/2),int(size/2)])
         else:
             print("call minimax")
-            candidate=self.minimax(chessboard,1,True,[-1,-1])
+            candidate=self.minimax(chessboard,2,True,[-1,-1])
             print("return minimax")
             best=candidate[1]
             new_pos=tuple(best)
