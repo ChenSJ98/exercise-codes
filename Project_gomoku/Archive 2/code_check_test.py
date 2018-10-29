@@ -2,7 +2,7 @@
 
 from code_check import CodeCheck
 def main():
-    code_checker = CodeCheck('./gomoku.py',15)
+    code_checker = CodeCheck('./gomokuAC.py',15)
     if not code_checker.check_code():
         print(code_checker.errormsg)
     else:

@@ -7,6 +7,7 @@
     """
 import imp
 import traceback
+import time
 
 import numpy as np
 
@@ -103,9 +104,13 @@ class CodeCheck():
     def __check_advance_chessboard (self):
         case_list = ChessCase.load_cases_files("testcase.txt")
         for case in case_list:
+            time1 = time.time()
+
             if not self.__check_result(case.get_board(), case.get_rational_steps()):
                 print((case.get_board(), case.get_rational_steps()))
                 return False
             else:
                 print("pass")
+            time2 = time.time()
+            print("runtime: ",time2-time1,"s")
         return True
