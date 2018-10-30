@@ -48,7 +48,7 @@
   \subsection{GOMOKU Board Representation}
   The board is represented by a two-dimensional array as shown in figure 1. As in Python, its a \emph{list of lists}. For each entry, 0 represents empty intersection, 1 represents a black stone and -1 represents a white stone. To make pattern matching easier, such matrix is converted to a matrix of 'a', 'b' and 'c' in which 'a' represents black stones, 'b' represents white stones and 'c' represents empty intersections.
     
-	\begin{table}[H]
+	\begin{table}[htb]
 	\caption{representation of Gomoku board}
 	\centering
     \begin{tabular}{cccc}
@@ -76,7 +76,7 @@ This function scans the chessboard in four directions , do pattern-matching and 
 	
 	Scores of more \emph{dangerous} patterns must \emph{dominates} scores of less \emph{dangerous} ones. Table \ref{table:1} shows a score board for patterns in black('a').
 
-	\begin{table}[H]
+	\begin{table}[htb]
 	\caption{score board for global patterns}
 	\centering
     \begin{tabular}{cccc}
@@ -105,9 +105,9 @@ This function scans the chessboard in four directions , do pattern-matching and 
     \EndFor
     \ForAll{ $x \in patternCount.keys$}
         \If{$ x \in PlayerPattern$}
-        \State $playerScore \gets playerScore + GlobalScoreBoard.get(x) * patternCount.get(x)$
+        \State $playerScore \gets playerScore + GlobalScoreBoard*patternCount.get(x)$
         \Else
-        \State $opponentScore \gets opponentScore + Global ScoreBoard.get(x) * patternCount.get(x)$
+        \State $opponentScore \gets opponentScore + Global ScoreBoard*patternCount.get(x)$
         \EndIf
     \EndFor
     \State $Score \gets playerScore - opponentScore$
@@ -122,7 +122,7 @@ The score of a single point is used to sort the points in search set in \emph{pr
 	% $$Score = score + danger$$
 	Score Board for \emph{score} and \emph{danger}
 	
-	\begin{table}[H]
+	\begin{table}[htb]
 	\caption{score value for single position}
 	\centering
     \begin{tabular}{cccc}
@@ -152,7 +152,7 @@ The score of a single point is used to sort the points in search set in \emph{pr
 	\end{table}
 	
 
-	\begin{table}[H]
+	\begin{table}[htb]
 	\caption{danger value for single position}
 	\centering
     \begin{tabular}{cccc}
@@ -169,89 +169,30 @@ The score of a single point is used to sort the points in search set in \emph{pr
 % \end{enumerate}
 For a single position $pos$, get the strings that contains $pos$ in four directions. Then apply pattern matching to decide its score and danger value. Final score is the sum of score and danger value.
 \begin{algorithm}
-    \caption{Single Position Evaluation}
+    \caption{Global Evaluation}
 \begin{algorithmic}[1]
     \State $AC \gets new\; ACautomata()$
-    \State $AC.loadKeys(SingleScoreBoard.keys)$
-    \State $AC.loadKeys(SingleDangerBoard.keys)$
-    \State $scoreSlices \gets getStr(chessboard, pos, color)$
-    \State $dangerSlices \gets getStr(chessboard, pos, opponentColor)$
-    \ForAll{ $x \in scoreSlices \bigcup dangerSlices $}
+    \State $AC.loadKeys(SingleScoreBoard.keys$
+    \State $playerSlices \gets getStr(chessboard, pos, color)$
+    \State $opponentSlices \gets getStr(chessboard, pos, opponentColor)$
+    \ForAll{ $x \in playerSlices \bigcup opponentSlices $}
         \State $patternCount.add(AC.match(x))$
     \EndFor
 
     \ForAll{ $x \in patternCount.keys$}
         \If{$ x \in PlayerPattern$}
-        \State $score \gets score + SingleScoreBoard.get(x) * patternCount.get(x)$
+        \State $playerScore \gets playerScore + SingleScoreBoard*patternCount.get(x)$
         \Else
-        \State $danger \gets danger + SingleDangerBoard.get(x) * patternCount.get(x)$
+        \State $opponentScore \gets opponentScore + ingleDangerBoard*patternCount.get(x)$
         \EndIf
     \EndFor
-    \State $Score \gets score + danger$
+    \State $Score \gets playerScore + opponentScore$
 \end{algorithmic}
 \end{algorithm}
 \subsection{The Minimax Search Algorithm}
 Minimax Algorithm is used in this project as a main search algorithm. The idea is based on adversary search. Since the global evaluation function shows the extent to which the situation is good for the AI player, the AI player will try to maximize the evaluation score. On the contrary, the opponent will try to minimize the score. Minimax algorithm works by simulating this process. It uses strategy of the Max Player (the AI) and the Min Player (the opponent) alternatively on each level of search and finally obtain an optimal solution.
 
-\begin{itemize}
-    \item $genSet(chessboard)$ returns all the points whose neighboring position is not empty.
-    \item $chessboard.setStone(pos)$ sets $pos$ as color of AI player in $maxPlayer$, vice versa.
-\end{itemize}
 More details of this algorithm can be found on the Internet. 
-
-\begin{algorithm}[H]
-\begin{algorithmic}[1]
-    \Function{Minimax}{chessboard, depth}
-    \State $SearchSet = genSet(chessboard)$
-    \State $ Max \gets \infty$
-    \State $ Solutions \gets \emptyset$
-    \ForAll {$pos \in SearchSet$}
-    \State $subBoard \gets chessboard.setStone(pos)$
-    \State $score \gets minPlayer(subBoard,depth - 1)$
-    \If{$score = Max$}
-    \State $Solutions.add(pos)$
-    \ElsIf{$score > Max$}
-    \State $Max \gets score$
-    \State $Solutions.clear()$
-    \EndIf
-    \EndFor
-    \EndFunction
-
-    \Function{minPlayer}{chessboard,depth}
-    \State $score = getGlobalScore(chessboard)$
-    \If {$depth = 0 \;or\; score \geq winningScore$}
-    \State $SearchSet = genSet(chessboard)$
-    
-    \State $ Min \gets -\infty$
-    \ForAll {$pos \in SearchSet$}
-    \State $subBoard \gets chessboard.setStone(pos)$
-    \State $Min \gets min(Min,maxPlayer(subBoard,depth - 1))$
-    \EndFor
-    \EndIf
-
-    \Return Min
-    \EndFunction
-
-    \Function{maxPlayer}{chessboard,depth}
-    \State $score = getGlobalScore(chessboard)$
-    \If {$depth = 0 \;or\; score \geq winningScore$}
-    \State $SearchSet = genSet(chessboard)$
-    
-    \State $ Max \gets \infty$
-    \ForAll {$pos \in SearchSet$}
-    \State $subBoard \gets chessboard.setStone(pos)$
-    \State $Max \gets max(Max,minPlayer(subBoard,depth - 1))$
-    \EndFor
-    \EndIf
-
-    \Return Max
-    \EndFunction
-
-\end{algorithmic}
-\caption{Minimax Search Algorithm}
-\end{algorithm}
-
-
 
 \subsection{$\alpha$-$\beta$ Pruning}
 In order to increase the depth of the search tree in Minimax algorithm, we must limit the size of search space in each level. $\alpha$-$\beta$ pruning works by skipping obviously un-optimal points while searching. Since Max Player will choose the step with score greater than current max ($\alpha$), steps with score less than current max can be skipped when the Min Player plays(Next level is Max Player's turn). Therefore the step is no longer expanded. Same thing happens to when the Max Player plays.
