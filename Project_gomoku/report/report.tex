@@ -95,16 +95,23 @@ This function scans the chessboard in four directions , do pattern-matching and 
 \end{enumerate}
 
 \begin{algorithm}
-    \caption{algo1}
-\begin{algorithmic}
-    \If {$i\geq maxval$}
-        \State $i\gets 0$
-    \Else
-        \If {$i+k\leq maxval$}
-            \State $i\gets i+k$
+    \caption{Global Evaluation}
+\begin{algorithmic}[1]
+    \State $AC \gets new\; ACautomata()$
+    \State $AC.loadKeys(GlobalScoreBoard.keys$
+    \State $slices \gets genStr(chessboard)$
+    \ForAll{ $x \in slices$}
+        \State $patternCount.add(AC.match(x))$
+    \EndFor
+    \ForAll{ $x \in patternCount.keys$}
+        \If{$ x \in PlayerPattern$}
+        \State $playerScore \gets playerScore + GlobalScoreBoard*patternCount.get(x)$
+        \Else
+        \State $opponentScore \gets opponentScore + Global ScoreBoard*patternCount.get(x)$
         \EndIf
-    \EndIf
-    \end{algorithmic}
+    \EndFor
+    \State $Score \gets playerScore - opponentScore$
+\end{algorithmic}
 \end{algorithm}
 \subsection{Evaluation Function for Single Position}
 Similarly, we develop a score board for patterns that may appear when an empty position is assigned a stone of a color. The score is the sum of \emph{score} it may get when inserting a stone in the player's color and the \emph{danger} it may cause when inserting a stone in the opponent's color.
@@ -145,7 +152,7 @@ The score of a single point is used to sort the points in search set in \emph{pr
 	\end{table}
 	
 
-	\begin{table}[htb]
+	\begin{table}[h]
 	\caption{danger value for single position}
 	\centering
     \begin{tabular}{cccc}
@@ -160,7 +167,28 @@ The score of a single point is used to sort the points in search set in \emph{pr
 	\end{table}
 	
 \end{enumerate}
+For a single position $pos$ get the string
+\begin{algorithm}
+    \caption{Global Evaluation}
+\begin{algorithmic}[1]
+    \State $AC \gets new\; ACautomata()$
+    \State $AC.loadKeys(SingleScoreBoard.keys$
+    \State $playerSlices \gets getStr(chessboard, pos, color)$
+    \State $opponentSlices \gets getStr(chessboard, pos, opponentColor)$
+    \ForAll{ $x \in playerSlices \bigcup opponentSlices $}
+        \State $patternCount.add(AC.match(x))$
+    \EndFor
 
+    \ForAll{ $x \in patternCount.keys$}
+        \If{$ x \in PlayerPattern$}
+        \State $playerScore \gets playerScore + SingleScoreBoard*patternCount.get(x)$
+        \Else
+        \State $opponentScore \gets opponentScore + ingleDangerBoard*patternCount.get(x)$
+        \EndIf
+    \EndFor
+    \State $Score \gets playerScore - opponentScore$
+\end{algorithmic}
+\end{algorithm}
 \subsection{The Minimax Search Algorithm}
 Minimax Algorithm is used in this project as a main search algorithm. The idea is based on adversary search. Since the global evaluation function shows the extent to which the situation is good for the AI player, the AI player will try to maximize the evaluation score. On the contrary, the opponent will try to minimize the score. Minimax algorithm works by simulating this process. It ueses strate of the Max Player (the AI) and the Min Player (the opponent) alternatel on each level of search and finally obtain an optimal solution.
 
