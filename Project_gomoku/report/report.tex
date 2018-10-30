@@ -1,7 +1,13 @@
 \documentclass[conference]{IEEEtran}
 
   \usepackage{booktabs}
-
+  \usepackage{listing}
+  \usepackage{amsmath}
+  \usepackage{algorithm}
+  \usepackage{array}
+  \usepackage{url}
+\usepackage{algpseudocode}
+% \usepackage{algorithm}
   \ifCLASSINFOpdf
   
   \else
@@ -87,6 +93,19 @@ This function scans the chessboard in four directions , do pattern-matching and 
 	\label{table:1}
 	\end{table}
 \end{enumerate}
+
+\begin{algorithm}
+    \caption{algo1}
+\begin{algorithmic}
+    \If {$i\geq maxval$}
+        \State $i\gets 0$
+    \Else
+        \If {$i+k\leq maxval$}
+            \State $i\gets i+k$
+        \EndIf
+    \EndIf
+    \end{algorithmic}
+\end{algorithm}
 \subsection{Evaluation Function for Single Position}
 Similarly, we develop a score board for patterns that may appear when an empty position is assigned a stone of a color. The score is the sum of \emph{score} it may get when inserting a stone in the player's color and the \emph{danger} it may cause when inserting a stone in the opponent's color.
 
@@ -105,9 +124,21 @@ The score of a single point is used to sort the points in search set in \emph{pr
     \midrule
 	aaaaa&1000000000000\\
 	caaaac&3000000000\\
-	caaaab&1000000\\
-	baaaac&1000000\\
-	caaac&1000000\\
+	caaaab&410000000\\
+    baaaac&410000000\\
+    acaaaa&410000000\\
+    aacaa&410000000\\
+    aaaca&410000000\\
+    caaacc&1000000\\
+    ccaaac&1000000\\
+    acaca&1000000\\
+    caacac&1000000\\
+    cacaac&1000000\\
+    ccaacc&1500\\
+    cacacc&1000\\
+    ccacac&1000\\
+    cccacc&10\\
+    ccaccc&10\\    
 	\bottomrule
 	\end{tabular}
 	\label{table:1}
@@ -121,11 +152,8 @@ The score of a single point is used to sort the points in search set in \emph{pr
     \toprule
     Pattern&Score\\
     \midrule
-	aaaaa&1000000000000\\
-	caaaac&3000000000\\
-	caaaab&1000000\\
-	baaaac&1000000\\
-	caaac&1000000\\
+	bbbbb&900000000000\\
+	cbbbbc&2100000000\\
 	\bottomrule
 	\end{tabular}
 	\label{table:1}
@@ -134,7 +162,13 @@ The score of a single point is used to sort the points in search set in \emph{pr
 \end{enumerate}
 
 \subsection{The Minimax Search Algorithm}
+Minimax Algorithm is used in this project as a main search algorithm. The idea is based on adversary search. Since the global evaluation function shows the extent to which the situation is good for the AI player, the AI player will try to maximize the evaluation score. On the contrary, the opponent will try to minimize the score. Minimax algorithm works by simulating this process. It ueses strate of the Max Player (the AI) and the Min Player (the opponent) alternatel on each level of search and finally obtain an optimal solution.
+
+More details of this algorithm can be found on the Internet. 
+
 \subsection{$\alpha$-$\beta$ Pruning}
+In order to increase the depth of the search tree in Minimax algorithm, we must limit the size of search space in each level. $\alpha$-$\beta$ pruning works by skipping obviously unoptimal points while searching. Since Max Player will choose the step with score greater than current max ($\alpha$), steps with score less than current max can be skipped when the Min Player plays(Next level is Max Player's turn). Therefore the step is no longer expanded. Same thing happens to when the Max Player plays.
+
 \subsection{Proper Path Selection}
 
 \section{Validation}

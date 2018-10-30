@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.28)  30 OCT 2018 00:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.28)  30 OCT 2018 00:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**bare_conf.tex
-(./bare_conf.tex
+**report.tex
+(./report.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 26 language(s) loaded.
 (./IEEEtran.cls
@@ -133,27 +133,68 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@lastruleclass=\count97
 \@thisrulewidth=\dimen138
 )
-(./algpseudocode.sty
-Package: algpseudocode 
- (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
-(./algorithmicx.sty
-Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+(/usr/share/texlive/texmf-dist/tex/latex/listing/listing.sty
+Package: listing 1999/05/25
 
-Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count98
-\c@ALG@rem=\count99
-\c@ALG@nested=\count100
-\ALG@tlm=\skip44
-\ALG@thistlm=\skip45
-\c@ALG@Lnr=\count101
-\c@ALG@blocknr=\count102
-\c@ALG@storecount=\count103
-\c@ALG@tmpcounter=\count104
-\ALG@tmplength=\skip46
+Package `listing', V1.2, <1999/05/25>
+\c@listing=\count98
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip44
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen139
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen140
 )
-Document Style - pseudocode environments for use with the `algorithmicx' style
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count99
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count100
+\leftroot@=\count101
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count102
+\DOTSCASE@=\count103
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen141
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count104
+\c@MaxMatrixCols=\count105
+\dotsspace@=\muskip10
+\c@parentequation=\count106
+\dspbrk@lvl=\count107
+\tag@help=\toks16
+\row@=\count108
+\column@=\count109
+\maxfields@=\count110
+\andhelp@=\toks17
+\eqnshift@=\dimen142
+\alignsep@=\dimen143
+\tagshift@=\dimen144
+\tagwidth@=\dimen145
+\totwidth@=\dimen146
+\lineht@=\dimen147
+\@envbody=\toks18
+\multlinegap=\skip45
+\multlinetaggap=\skip46
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
 )
 
 ! LaTeX Error: File `algorithm.sty' not found.
@@ -162,20 +203,90 @@ Type X to quit or <RETURN> to proceed,
 or enter new name. (Default extension: sty)
 
 Enter file name: 
+! Interruption.
+<to be read again> 
+                   }
+l.7   \usepackage
+                 {array}^^M
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen148
+\extrarowheight=\dimen149
+\NC@list=\toks20
+\extratabsurround=\skip47
+\backup@length=\skip48
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+) (./algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) (./algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count111
+\c@ALG@rem=\count112
+\c@ALG@nested=\count113
+\ALG@tlm=\skip49
+\ALG@thistlm=\skip50
+\c@ALG@Lnr=\count114
+\c@ALG@blocknr=\count115
+\c@ALG@storecount=\count116
+\c@ALG@tmpcounter=\count117
+\ALG@tmplength=\skip51
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (./report.aux)
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+
+-- Lines per column: 56 (exact).
+
+LaTeX Warning: Reference `table:1' on page 1 undefined on input line 77.
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 \begin{algorithm}
+                      
+? 
 ! Emergency stop.
-<read *> 
-         
-l.6   \ifCLASSINFOpdf
-                     ^^M
-End of file on the terminal!
+ ...                                              
+                                                  
+l.97 \begin{algorithm}
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
  
 Here is how much of TeX's memory you used:
- 1586 strings out of 494406
- 26574 string characters out of 6169674
- 77954 words of memory out of 5000000
- 5126 multiletter control sequences out of 15000+600000
- 24710 words of font info for 54 fonts, out of 8000000 for 9000
- 264 hyphenation exceptions out of 8191
- 27i,1n,19p,277b,102s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 2378 strings out of 494406
+ 35875 string characters out of 6169674
+ 99393 words of memory out of 5000000
+ 5872 multiletter control sequences out of 15000+600000
+ 29866 words of font info for 70 fonts, out of 8000000 for 9000
+ 267 hyphenation exceptions out of 8191
+ 27i,8n,20p,577b,271s stack positions out of 5000i,500n,10000p,200000b,80000s
 !  ==> Fatal error occurred, no output PDF file produced!
