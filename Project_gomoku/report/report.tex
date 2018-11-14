@@ -6,6 +6,7 @@
   \usepackage{algorithm}
   \usepackage{array}
   \usepackage{url}
+  \usepackage{cite}
 \usepackage{algpseudocode}
 % \usepackage{algorithm}
   \ifCLASSINFOpdf
@@ -70,8 +71,9 @@ However, Minimax algorithms explores a search tree whose size expands exponentia
 \subsection{Evaluation Function for the Whole Board}
 This function scans the chessboard in four directions , do pattern-matching and assign scores for both colors according to the patterns. 
 \begin{enumerate}
-	\item Final score 
-	$$ Score = Score_{player} - Score_{opponent}$$
+	\item Pattern Matching
+        The evaluation involves multiple pattern matching. I use \emph{AC automata}\cite{ac} in this project to match multiple patterns efficiently.
+	
 	\item Pattern and Scores
 	
 	Scores of more \emph{dangerous} patterns must \emph{dominates} scores of less \emph{dangerous} ones. Table \ref{table:1} shows a score board for patterns in black('a').
@@ -94,7 +96,7 @@ This function scans the chessboard in four directions , do pattern-matching and 
 	\end{table}
 \end{enumerate}
 
-\begin{algorithm}
+\begin{algorithm}[H]
     \caption{Global Evaluation}
 \begin{algorithmic}[1]
     \State $AC \gets new\; ACautomata()$
@@ -165,7 +167,7 @@ The score of a single point is used to sort the points in search set in \emph{pr
 	\end{tabular}
 	\label{table:1}
 	\end{table}
-	
+	 
 % \end{enumerate}
 For a single position $pos$, get the strings that contains $pos$ in four directions. Then apply pattern matching to decide its score and danger value. Final score is the sum of score and danger value.
 \begin{algorithm}
@@ -190,24 +192,48 @@ For a single position $pos$, get the strings that contains $pos$ in four directi
     \State $Score \gets score + danger$
 \end{algorithmic}
 \end{algorithm}
-\subsection{The Minimax Search Algorithm}
-Minimax Algorithm is used in this project as a main search algorithm. The idea is based on adversary search. Since the global evaluation function shows the extent to which the situation is good for the AI player, the AI player will try to maximize the evaluation score. On the contrary, the opponent will try to minimize the score. Minimax algorithm works by simulating this process. It uses strategy of the Max Player (the AI) and the Min Player (the opponent) alternatively on each level of search and finally obtain an optimal solution.
 
-\begin{itemize}
-    \item $genSet(chessboard)$ returns all the points whose neighboring position is not empty.
-    \item $chessboard.setStone(pos)$ sets $pos$ as color of AI player in $maxPlayer$, vice versa.
-\end{itemize}
-More details of this algorithm can be found on the Internet. 
+\subsection{Proper Path Selection}
+This step will generate a $SearchSet$ for each non-leaf node of the search tree. The $SearchSet$ contains positions with at least 1 non-empty neighbor.
+
+To limit the size of $SearchSet$, the program will sort the positions according to their single-point evaluation and pick 5 positions. This path-selection increases depth of search tree from 2 to 4 within time limit of 5s.
+\begin{algorithm}
+    \begin{algorithmic}
+    \Function{genSet}{chessboard}
+    \State $SearchSet \gets \emptyset$
+    \State $set \gets \emptyset$
+    \ForAll {$empty \;pos \in chessboard$}
+    \If{$pos$ has non-empty neighbor}
+    \State $set.add(pos)$
+    \EndIf
+    \EndFor
+    \State $set.sort(SinglePositionEvaluation())$
+    \State $SearchSet \gets set[0:5]$
+    \Return SearchSet
+    \EndFunction
+    \end{algorithmic}
+    \caption{Proper Path Selection}
+\end{algorithm}
+
+\subsection{$\alpha$-$\beta$ Pruning}
+In order to increase the depth of the search tree in Minimax algorithm, we must limit the size of search space in each level. $\alpha$-$\beta$ pruning works by skipping obviously un-optimal points while searching. Since Max Player will choose the step with score greater than current max ($\alpha$), steps with score less than current max can be skipped when the Min Player plays(Next level is Max Player's turn). Therefore the step is no longer expanded. Same thing happens to when the Max Player plays.
+
+
+
+
+\subsection{The Minimax Search Algorithm}
 
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
     \Function{Minimax}{chessboard, depth}
+    \State $\alpha \gets \infty$
+    \State $\beta \gets -\infty$
     \State $SearchSet = genSet(chessboard)$
     \State $ Max \gets \infty$
     \State $ Solutions \gets \emptyset$
     \ForAll {$pos \in SearchSet$}
     \State $subBoard \gets chessboard.setStone(pos)$
-    \State $score \gets minPlayer(subBoard,depth - 1)$
+    \State $score \gets minPlayer(subBoard,depth - 1,\alpha,\beta)$
     \If{$score = Max$}
     \State $Solutions.add(pos)$
     \ElsIf{$score > Max$}
@@ -217,66 +243,101 @@ More details of this algorithm can be found on the Internet.
     \EndFor
     \EndFunction
 
-    \Function{minPlayer}{chessboard,depth}
+    \Function{minPlayer}{$chessboard,depth,\alpha,\beta$}
     \State $score = getGlobalScore(chessboard)$
     \If {$depth = 0 \;or\; score \geq winningScore$}
+
+    \Return $score$
+    \EndIf
     \State $SearchSet = genSet(chessboard)$
     
-    \State $ Min \gets -\infty$
+    \State $ value \gets \infty$
     \ForAll {$pos \in SearchSet$}
     \State $subBoard \gets chessboard.setStone(pos)$
-    \State $Min \gets min(Min,maxPlayer(subBoard,depth - 1))$
-    \EndFor
-    \EndIf
+    \State $value \gets min(value,maxPlayer(subBoard,$\\$depth-1,\alpha,\beta))$
+    \State $\beta \gets min(\beta,value)$
+    \If{$\alpha \geq \beta$}
 
-    \Return Min
+    \State $break$
+    \EndIf
+    \EndFor
+
+    \Return $value$
     \EndFunction
 
-    \Function{maxPlayer}{chessboard,depth}
+    \Function{maxPlayer}{$chessboard,depth,\alpha,\beta$}
     \State $score = getGlobalScore(chessboard)$
     \If {$depth = 0 \;or\; score \geq winningScore$}
+    
+    \Return $score$
+    \EndIf
     \State $SearchSet = genSet(chessboard)$
     
-    \State $ Max \gets \infty$
+    \State $ value \gets \infty$
     \ForAll {$pos \in SearchSet$}
     \State $subBoard \gets chessboard.setStone(pos)$
-    \State $Max \gets max(Max,minPlayer(subBoard,depth - 1))$
-    \EndFor
+    \State $value \gets max(Max,minPlayer(subBoard,$\\$ depth-1))$
+    \State $\alpha \gets max(\alpha, value)$
+    \If{$\alpha \geq \beta$}
+    \State $break$
     \EndIf
+    \EndFor
+    
 
-    \Return Max
+    \Return $value$
     \EndFunction
 
 \end{algorithmic}
-\caption{Minimax Search Algorithm}
+\caption{Minimax Search Algorithm (with $\alpha-\beta pruning$)}
 \end{algorithm}
+\begin{itemize}
+    \item The pseudocode below has included $\alpha-\beta pruning$ 
+    \item $chessboard.setStone(pos)$ sets $pos$ as color of AI player in $maxPlayer$, vice versa.
+\end{itemize}
 
+Minimax Algorithm is used in this project as a main search algorithm. The idea is based on adversary search. Since the global evaluation function shows the extent to which the situation is good for the AI player, the AI player will try to maximize the evaluation score. On the contrary, the opponent will try to minimize the score. Minimax algorithm works by simulating this process. It uses strategy of the Max Player (the AI) and the Min Player (the opponent) alternatively on each level of search and finally obtain an optimal solution.\cite{wiki1}
 
-
-\subsection{$\alpha$-$\beta$ Pruning}
-In order to increase the depth of the search tree in Minimax algorithm, we must limit the size of search space in each level. $\alpha$-$\beta$ pruning works by skipping obviously un-optimal points while searching. Since Max Player will choose the step with score greater than current max ($\alpha$), steps with score less than current max can be skipped when the Min Player plays(Next level is Max Player's turn). Therefore the step is no longer expanded. Same thing happens to when the Max Player plays.
-
-\subsection{Proper Path Selection}
+More details of this algorithm can be found on the Internet. 
 
 \section{Validation}
 	The player is tested with test cases provided by CS303 Artificial Intelligence course as well as some scenarios encountered during games with other AIs and human players. 
+\section{Discussion}
+This project can be improved in several aspects.
+\begin{itemize}
+\item Evaluation Function V.S. Search Depth
+    
+In practice, due to time limit, programs with better evaluation functions may outperform programs with simpler evaluation functions but deeper search trees.
+
+A \emph{better} evaluation function takes into account dangerous situations and is able to construct traps for the opponent.
+
+However, such ability can be achieved with a search tree with depth of more than 8(i.e. 4 steps ahead). It's quite challenging to implement an AI that explores a 8-level search tree within 5 seconds.
+
+\item SearchSet Generation
+
+This step is designed to limit size of SearchSet. Currently it just includes empty positions with non-empty neighbors. 
+
+Also, the order of subBoards has great impact on the efficiency of $\alpha-\beta \;pruning$
+Improvement can be made in 2 ways: 
+\begin{enumerate}
+    \item consider a broader range of empty positions.
+    \item Improve single position evaluation function, so that optimal position is included.
+\end{enumerate}
+\item Improve Single Position Evaluation
+
+Due to the limited time and complexity of single position evaluation, I didn't employ AC automata in it. Otherwise the performance should be noticeably improved. Also, more dangerous situations can be considered and constructed.
+\end{itemize}
 
   \section{Conclusion}
-  The conclusion goes here.
+  In project, I implemented an AI player of Gomoku. Minimax algorithm as well as $\alpha-\beta \;pruning$ is used. The design process gave me a deeper understanding of Gomoku and showed me the magic of artificial intelligence.
 
   \section*{Acknowledgment}
 
-  The authors would like to thank...
+  The authors would like to thank the TAs for their hint in Lab and maintaining a online Gomoku platform.
   
-  \begin{thebibliography}{1}
-  
-  \bibitem{IEEEhowto:kopka}
-  H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-    0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-  
-  \end{thebibliography}
-  
-  
+
+    \bibliographystyle{ieeetr}
+    \bibliography{ref}
+
   
   
   % that's all folks
