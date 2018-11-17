@@ -6,8 +6,10 @@ class ulusoySpliter:
     dist = []
     Capacity = 0
     depot = 0
-    def __init__(self,  dist, depot, capacity):
+    tasks = []
+    def __init__(self,  dist, depot, capacity, tasks):
         self.dist = dist
+        self.tasks = tasks
         self.depot = depot
         self.Capacity = capacity
     def toDirectedGraph(self, taskList, depot,dist):
@@ -53,8 +55,8 @@ class ulusoySpliter:
             outgoing[x][len(outgoing[x]) - 1]=[x,2*j+2,cost]
         return DG, incoming, outgoing
     def getPath(self, DG, incoming, outgoing):
-        print("call getPath")
-        print(len(DG))
+        # print("call getPath")
+        # print(len(DG))
         nodeCost=[0]*(len(DG)+1)
         bestPath = [[]]*(len(DG)+1)
         bestPath[1] = []

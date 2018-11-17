@@ -5,6 +5,11 @@ from itertools import product
 import ulusoy
 import random
 import sys
+import copy
+rvsProb = 0.6
+sfProb = 0.7
+pSize = 20
+nSF = 2
 file1 = "./data/egl-e1-A.dat"
 file2 = "./data/egl-s1-A.dat"
 file3 = "./data/gdb1.dat"
@@ -68,13 +73,95 @@ class carp_solver:
             if(values[3] != 0):
                 self.tasks.append([values[0],values[1],values[3],values[2]])
             x = f.readline()
+    
+    def reverseTask(self, tasks, prab):
+        taskList = copy.deepcopy(tasks)
+        # stop = random.randint(0,len(taskList))
+        i = 0
+        # for task in taskList:
+        length = len(taskList)
+        i = random.randint(i, length)
+        while(i < length):
+            # if(random.random() < prab):
+            task = taskList[i]
+            t = task[0]
+            task[0] = task[1]
+            task[1] = t
+            i = random.randint(i+1, length)
+        return taskList
+    def shuffle(self, tasks, sfNumber):
+        size = len(tasks)
+        for i in range(sfNumber):
+            idx1 = random.randint(0,size-1)
+            idx2 = random.randint(0,size-1)
+            task = tasks[idx1]
+            tasks[idx1] = tasks[idx2]
+            tasks[idx2] = task
+        return tasks
+
+    def initPopulation(self, size, sfProb):
+        length = len(self.tasks)
+        population = []
+        for i in range(size):
+            newTask = self.reverseTask(self.tasks, rvsProb)
+            if(random.random()<sfProb):
+                newTask = self.shuffle(newTask, int(length/nSF))
+            population.append(list(newTask))
+        return population
+    def genOffspring(self, population):
+        pool = copy.deepcopy(population)
+        random.shuffle(pool)
+        size = len(population)
+        length = len(population[0])
+        offspring = []
+        for i in range(int(size/2)):
+            newTask = self.reverseTask(pool[i], rvsProb)
+            if(random.random()<sfProb):
+                newTask = self.shuffle(newTask, int(length/nSF))
+            offspring.append(list(newTask))
+        return offspring
+        # pass
     def solve(self):
         self.readData()
         self.dist = self.floyd_warshall(self.V,self.edges)
         spliter = ulusoy.ulusoySpliter(self.dist, self.depot,self.Capacity)
+        # while(True):
+        random.shuffle(self.task)
+        taskList = self.tasks
+        minVal = inf
+        
+        population = (self.initPopulation(pSize,sfProb))
+        population.append(self.tasks)
         path, score = spliter.split(self.tasks)
-        print(self.genSolution(path,self.tasks)) 
-        print(score)
+        print("initial score:", score)
+        print("initial population:")
+        records = []
+        # results = []
+        for i in range(1000):
+            # records = []
+            offspring = self.genOffspring(population)
+            population += offspring
+            # for p in population:
+                # path, score = spliter.split(p)
+                # minVal = min(score, minVal)
+                # records.append((p,score))
+            # print("generation ", i,' : ')
+            # sorted(records, key = lambda record:record[1])
+            # print(records)
+            population.sort(key = lambda x:spliter.split(x)[1])
+            population = population[:pSize]
+            # records.sort(key = lambda x:x[1])
+            # for r in records:
+                # print(r[1])
+            minVal = spliter.split(population[0])[1]
+            print("gen ",i,": ", minVal)
+            records.append(minVal)
+            # print(self.genSolution(path,taskList)) 
+            # print(score)
+            self.reverseTask(taskList, rvsProb)
+            # random.shuffle(taskList)
+
+        print(minVal)
     def genSolution(self,path, taskList):
         solution = 's '
         for x in path:
