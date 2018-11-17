@@ -26,4 +26,9 @@ def floyd_warshall(n, edge):
                      ' → '.join(str(p + 1) for p in path)))
  
 if __name__ == '__main__':
-    floyd_warshall(4, [[1, 3, -2], [2, 1, 4], [2, 3, 3], [3, 4, 2], [4, 2, -1]])
+    # floyd_warshall(4, [[1, 3, -2], [2, 1, 4], [2, 3, 3], [3, 4, 2], [4, 2, -1]])
+    x = [[2,3],[2,32]]
+    y = [2,3]
+    i = x.index(y)
+    x[i][1]=321
+    print(x)
