@@ -6,14 +6,15 @@ from itertools import product
 import random
 import sys
 import copy
-# import matplotlib.pyplot as pt
+# import matplotlib as pt
+import matplotlib.pyplot as pt
 rvsProb = 0.9
 sfProb = 0.6
-pSize = 500
+pSize = 1000
 nSF = 2
 backProb = 0
-N = 1000
-timeout = 200
+N = 10000
+timeout = 1000
 file1 = "./data/egl-e1-A.dat"
 file2 = "./data/egl-s1-A.dat"
 file3 = "./data/gdb1.dat"
@@ -123,7 +124,7 @@ class carp_solver:
     edges = []
     tasks = []
     dist = []
-    file = file1
+    file = file2
     spliter =0
     searched = set()
     def floyd_warshall(self,n, edge):
@@ -316,7 +317,7 @@ class carp_solver:
         records = []
         for i in range(pSize):
             sol = self.scan()
-            
+            random.shuffle(sol)
             self.spliter = ulusoySpliter(self.dist, self.depot,self.Capacity,self.tasks)
             path, score = self.spliter.split(sol)
             records.append(score)
@@ -324,28 +325,30 @@ class carp_solver:
         population.sort(key = lambda x:x[2])
         population = population[:pSize]
         records = []
-        
+        mrecords = []
         for i in range(N):
-            
-
-            
             minVal = population[0][2]
             maxVal = population[len(population)-1][2]
-            print(time.time()-time0,"  gen ",i,": ", minVal,"----------",maxVal)#, " --- ", path, " with ",population[0])
+            print(time.time()-time0,"  gen ",i,": ", minVal,"----------",maxVal)
             
             offspring = self.genOffspring(population)
             population += offspring
             population.sort(key = lambda x:x[2])
             population1 = population[:int(pSize)]
-            # population1 += population[int(0.8*pSize):int(1.1*pSize)]
             population = population1
             
-            
+            mrecords.append(maxVal)
             records.append(minVal)
             if(time.time()-time0 > timeout-15):
                 break
         print(self.genSolution(population[0][1],population[0][0]))
         print('q ',minVal)
+        l = len(records)
+        xs = range(1,l+1,1)
+        pt.plot(xs,records,label = "min")
+        pt.plot(xs,mrecords,label = "max")
+        pt.title(self.file)
+        pt.show()
     def genSolution(self,path, taskList):
         solution = 's '
         for x in path:

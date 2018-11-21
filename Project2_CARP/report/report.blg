@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: report.aux
+The style file: ieeetr.bst
+Database file #1: ref.bib
+Warning--can't use both author and editor fields in Wohlk2008
+You've used 1 entry,
+            1876 wiz_defined-function locations,
+            487 strings with 3675 characters,
+and the built_in function-call counts, 318 in all, are:
+= -- 33
+> -- 4
+< -- 0
++ -- 2
+- -- 1
+* -- 19
+:= -- 46
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 2
+duplicate$ -- 16
+empty$ -- 34
+format.name$ -- 1
+if$ -- 78
+int.to.chr$ -- 0
+int.to.str$ -- 1
+missing$ -- 2
+newline$ -- 7
+num.names$ -- 1
+pop$ -- 5
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 11
+stack$ -- 0
+substring$ -- 24
+swap$ -- 8
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 4
+width$ -- 2
+write$ -- 12
+(There was 1 warning)
