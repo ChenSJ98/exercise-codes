@@ -84,7 +84,10 @@ class ulusoySpliter:
                 edge[2] += nodeCost[i]
                 incoming[edge[1]][index] = edge
         return bestPath[len(DG)-1], nodeCost[len(DG)-1]
-    def split(self,tasks):
+    def split(self,p):
+        tasks = []
+        for x in p:
+            tasks.append(self.tasks[x])
         DG, incoming, outgoing = self.toDirectedGraph(tasks,self.depot,self.dist)
         path, score = self.getPath(DG,incoming, outgoing)
         return path, score

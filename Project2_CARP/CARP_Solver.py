@@ -2,14 +2,18 @@ import numpy as np
 import time
 from math import inf
 from itertools import product
-import ulusoy
+# import ulusoy
 import random
 import sys
 import copy
-rvsProb = 0.6
-sfProb = 0.7
-pSize = 20
+# import matplotlib.pyplot as pt
+rvsProb = 0.9
+sfProb = 0.6
+pSize = 500
 nSF = 2
+backProb = 0
+N = 1000
+timeout = 200
 file1 = "./data/egl-e1-A.dat"
 file2 = "./data/egl-s1-A.dat"
 file3 = "./data/gdb1.dat"
@@ -18,6 +22,96 @@ file5 = "./data/val1A.dat"
 file6 = "./data/val4A.dat"
 file7 = "./data/val7A.dat"
 file8 = "./data/test.dat"
+time0 = time.time()
+class ulusoySpliter:
+    dist = []
+    Capacity = 0
+    depot = 0
+    tasks = []
+    def __init__(self,  dist, depot, capacity, tasks):
+        self.dist = dist
+        self.tasks = tasks
+        self.depot = depot
+        self.Capacity = capacity
+    def toDirectedGraph(self, taskList, depot,dist):
+        length = len(taskList)
+        DG = np.full((2*length+1,2*length+1),inf)
+        incoming = []
+        outgoing = []
+        for i in range (2*length+1):
+            incoming.append([])
+            outgoing.append([])
+        for i in range(length):
+            load = 0
+            x = 2*i+1
+            task = taskList[i]
+            cost = dist[self.depot][task[0]] + task[3] + dist[task[1]][self.depot]
+            DG[x][x+1] = cost
+            incoming[x+1].append([x,x+1,cost])
+            outgoing[x].append([x,x+1,cost])
+            if(x > 1):
+                incoming[x].append([x-1,x,0])
+                outgoing[x-1].append([x-1,x,0])
+            load = task[2]
+            cost = dist[self.depot][task[0]] + task[3]
+            j = i + 1
+            while(True):
+                if(j == length):
+                    j -= 1
+                    break
+                if(load + taskList[j][2] <= self.Capacity):
+                    load += taskList[j][2]
+                    cost += dist[taskList[j-1][1]][taskList[j][0]] + taskList[j][3]
+                    DG[x][2*j+2] = cost+dist[taskList[j][1]][self.depot]
+                    incoming[2*j+2].append([x,2*j+2,DG[x][2*j+2]])
+                    outgoing[x].append([x,2*j+2,DG[x][2*j+2]])
+                    j += 1
+                    
+                else:
+                    j -= 1
+                    break
+            cost += dist[taskList[j][1]][depot]
+            DG[x][2*j+2] = cost
+            incoming[2*j+2][len(incoming[2*j+2]) - 1 ] = [x,2*j+2,cost]
+            outgoing[x][len(outgoing[x]) - 1]=[x,2*j+2,cost]
+        return DG, incoming, outgoing
+    def getPath(self, DG, incoming, outgoing):
+        # print("call getPath")
+        # print(len(DG))
+        nodeCost=[0]*(len(DG)+1)
+        bestPath = [[]]*(len(DG)+1)
+        bestPath[1] = []
+        for i in range(1,len(DG)):
+            minCost = inf
+            bestEdge =[]
+            # find incoming edge with min cost
+            if(i > 1):
+                for edge in incoming[i]:
+                    if(edge[2] < minCost):
+                        minCost = edge[2]
+                        bestEdge = edge
+                if(i%2 == 0):
+                    preBestPath = list(bestPath[bestEdge[0]])
+                    preBestPath.append([bestEdge[0],bestEdge[1]])
+                    bestPath[i] = preBestPath
+                else:
+                    bestPath[i] = bestPath[i-1]
+            else:
+                minCost = 0
+            nodeCost[i] += minCost
+            # release node, update outgoing edge
+            for edge in outgoing[i]:
+                index = incoming[edge[1]].index(edge)
+                edge[2] += nodeCost[i]
+                incoming[edge[1]][index] = edge
+        return bestPath[len(DG)-1], nodeCost[len(DG)-1]
+    def split(self,p):
+        tasks = []
+        for x in p:
+            tasks.append(self.tasks[x])
+        DG, incoming, outgoing = self.toDirectedGraph(tasks,self.depot,self.dist)
+        path, score = self.getPath(DG,incoming, outgoing)
+        return path, score
 class carp_solver:
     V = 0
     depot = 0
@@ -29,7 +123,9 @@ class carp_solver:
     edges = []
     tasks = []
     dist = []
-    file = file2
+    file = file1
+    spliter =0
+    searched = set()
     def floyd_warshall(self,n, edge):
         rn = range(n+1)
         dist = [[inf] * (n+1) for i in rn]
@@ -46,6 +142,7 @@ class carp_solver:
                 nxt[i][j]  = nxt[i][k]
         return dist
     def readData(self):
+
         f = open(self.file)
         f.readline()
         self.V = int(f.readline().split(' : ')[1])
@@ -72,102 +169,189 @@ class carp_solver:
             self.edges.append([values[1],values[0],values[2]])
             if(values[3] != 0):
                 self.tasks.append([values[0],values[1],values[3],values[2]])
-            x = f.readline()
-    
+                self.tasks.append([values[1],values[0],values[3],values[2]])
+            x = f.readline()        
+    def getTask(self, current, undone):
+
+        minDist = inf
+        ans = []
+        for x in undone:
+            task = self.tasks[x]
+            distance = self.dist[current][task[0]]
+            if(distance < minDist):
+                ans.clear()
+                ans.append(x)
+                minDist = distance
+            elif(distance == minDist):
+                ans.append(x)
+        
+        index = random.randint(0,len(ans)-1)
+        return ans[index]
+    # path scanning
+    def scan(self):
+        length = len(self.tasks)
+        undone = list(range(0, length))
+        solution = []
+        nextT = 0
+        load = 0
+        depot = self.depot
+        while(len(undone)>0):
+            # if(i in backPos):
+            #     depot = self.depot
+            # else:
+            
+            # i += 1
+            nextT = self.getTask(depot, undone)
+            # newTask = self.tasks[nextT]
+            # if(load + newTask[2] < self.Capacity):
+            #     load += newTask[2]
+            # else:
+            #     # if(random.random() < backProb):
+            #     depot = self.depot
+            #     load = 0
+            #     continue
+            solution.append(nextT)
+            # load += self.tasks[nextT][3]
+            if(nextT % 2 == 0):
+                x1 = nextT
+                x2 = nextT + 1
+                undone.remove(x1)
+                undone.remove(x2)
+            else:
+                x1 = nextT
+                x2 = nextT - 1
+                undone.remove(x1)
+                undone.remove(x2)
+            depot = self.tasks[solution[len(solution)-1]][1]
+        return solution
     def reverseTask(self, tasks, prab):
-        taskList = copy.deepcopy(tasks)
-        # stop = random.randint(0,len(taskList))
+        p = copy.deepcopy(tasks)
         i = 0
-        # for task in taskList:
-        length = len(taskList)
-        i = random.randint(i, length)
-        while(i < length):
-            # if(random.random() < prab):
-            task = taskList[i]
-            t = task[0]
-            task[0] = task[1]
-            task[1] = t
-            i = random.randint(i+1, length)
-        return taskList
-    def shuffle(self, tasks, sfNumber):
-        size = len(tasks)
+        length = len(p)
+        i = random.randint(i, length - 1)
+        if(random.random()<0.2):
+            while(i < length):
+                if(p[i]%2 == 0):
+                    p[i] += 1
+                else:
+                    p[i] -= 1
+                i = random.randint(i+1, length)
+        else:
+            if(p[i]%2 == 0):
+                    p[i] += 1
+            else:
+                p[i] -= 1
+        return p
+    def shuffle(self, tasks, path):
+        size = len(path)
+        sfNumber = random.randint(0,size)
         for i in range(sfNumber):
+            # switch routes for sfNumber times
             idx1 = random.randint(0,size-1)
             idx2 = random.randint(0,size-1)
-            task = tasks[idx1]
-            tasks[idx1] = tasks[idx2]
-            tasks[idx2] = task
-        return tasks
-
-    def initPopulation(self, size, sfProb):
-        length = len(self.tasks)
-        population = []
-        for i in range(size):
-            newTask = self.reverseTask(self.tasks, rvsProb)
-            if(random.random()<sfProb):
-                newTask = self.shuffle(newTask, int(length/nSF))
-            population.append(list(newTask))
-        return population
+            pathT = path[idx1]
+            path[idx1] = path[idx2]
+            path[idx2] = pathT
+        newSeq = self.toSeq(path, tasks)
+        return newSeq
+    def shuffleByInsert(self,_tasks,path):
+        if(random.random()<0.3):
+            index = random.randint(0,len(path)-1)
+            index2 = random.randint(0,len(path)-1)
+            task = path[index]
+            path.remove(task)
+            path.insert(index2, task)
+            return self.toSeq(path,_tasks)
+        else:
+            tasks = copy.deepcopy(_tasks)
+            index = random.randint(0,len(tasks)-1)
+            index2 = random.randint(0,len(tasks)-1)
+            task = tasks[index]
+            tasks.remove(task)
+            tasks.insert(index2, task)
+            return tasks
+    def toSeq(self,path, tasks):
+        seq = []
+        for x in path:
+            for i in range(int((x[0]-1)/2),int(x[1]/2)):
+                seq.append(tasks[i])
+        return seq
+    
     def genOffspring(self, population):
-        pool = copy.deepcopy(population)
-        random.shuffle(pool)
-        size = len(population)
-        length = len(population[0])
+        # pool = copy.deepcopy(population[:int(len(population)/2)])
+        
+        # random.shuffle(pool)
+        size = int(len(population)/2)
+        
         offspring = []
-        for i in range(int(size/2)):
-            newTask = self.reverseTask(pool[i], rvsProb)
+        for i in range(size):
+            index = random.randint(0, len(population)-1)
+            child = copy.deepcopy(population[index]) 
+            newTask = child[0]
+            path = child[1]
             if(random.random()<sfProb):
-                newTask = self.shuffle(newTask, int(length/nSF))
-            offspring.append(list(newTask))
+                if(random.random()<0.6):
+                    if(random.random()<0.2):
+                        newTask = self.shuffle(newTask, path)
+                    else:
+                        newTask = self.shuffleByInsert(newTask,path)
+                else:
+                    index = random.randint(0,len(newTask)-1)
+                    t = newTask[index]
+                    newTask.remove(t)
+                    index1 = random.randint(0,len(newTask)-1)
+                    newTask.insert(index1,t)
+
+            else:
+                newTask = self.reverseTask(newTask,rvsProb)
+            tpath, tscore = self.spliter.split(newTask)
+            offspring.append([list(newTask),tpath, tscore])
         return offspring
         # pass
+    
     def solve(self):
         self.readData()
         self.dist = self.floyd_warshall(self.V,self.edges)
-        spliter = ulusoy.ulusoySpliter(self.dist, self.depot,self.Capacity)
-        # while(True):
-        random.shuffle(self.task)
-        taskList = self.tasks
-        minVal = inf
-        
-        population = (self.initPopulation(pSize,sfProb))
-        population.append(self.tasks)
-        path, score = spliter.split(self.tasks)
-        print("initial score:", score)
-        print("initial population:")
+        population = []
         records = []
-        # results = []
-        for i in range(1000):
-            # records = []
+        for i in range(pSize):
+            sol = self.scan()
+            
+            self.spliter = ulusoySpliter(self.dist, self.depot,self.Capacity,self.tasks)
+            path, score = self.spliter.split(sol)
+            records.append(score)
+            population.append([sol, path, score])
+        population.sort(key = lambda x:x[2])
+        population = population[:pSize]
+        records = []
+        
+        for i in range(N):
+            
+
+            
+            minVal = population[0][2]
+            maxVal = population[len(population)-1][2]
+            print(time.time()-time0,"  gen ",i,": ", minVal,"----------",maxVal)#, " --- ", path, " with ",population[0])
+            
             offspring = self.genOffspring(population)
             population += offspring
-            # for p in population:
-                # path, score = spliter.split(p)
-                # minVal = min(score, minVal)
-                # records.append((p,score))
-            # print("generation ", i,' : ')
-            # sorted(records, key = lambda record:record[1])
-            # print(records)
-            population.sort(key = lambda x:spliter.split(x)[1])
-            population = population[:pSize]
-            # records.sort(key = lambda x:x[1])
-            # for r in records:
-                # print(r[1])
-            minVal = spliter.split(population[0])[1]
-            print("gen ",i,": ", minVal)
+            population.sort(key = lambda x:x[2])
+            population1 = population[:int(pSize)]
+            # population1 += population[int(0.8*pSize):int(1.1*pSize)]
+            population = population1
+            
+            
             records.append(minVal)
-            # print(self.genSolution(path,taskList)) 
-            # print(score)
-            self.reverseTask(taskList, rvsProb)
-            # random.shuffle(taskList)
-
-        print(minVal)
+            if(time.time()-time0 > timeout-15):
+                break
+        print(self.genSolution(population[0][1],population[0][0]))
+        print('q ',minVal)
     def genSolution(self,path, taskList):
         solution = 's '
         for x in path:
             solution += '0,'
             for i in range(int((x[0]+1)/2),int(x[1]/2)+1):
-                solution = solution + '(' + str(taskList[i-1][0]) + ','+str(taskList[i-1][1])+'),'
+                solution = solution + '(' + str(self.tasks[taskList[i-1]][0]) + ','+str(self.tasks[taskList[i-1]][1])+'),'
             solution += '0,'
         return solution[:len(solution)-1]
     def printPath(self,path, taskList):
@@ -182,6 +366,8 @@ if __name__ == "__main__":
         file_name = sys.argv[1]
         solver.file = file_name
         time_limit = int(sys.argv[3])
+        timeout = time_limit
         seed = int(sys.argv[5])
+        random.seed(seed)
     time0 = time.time()
     solver.solve()
