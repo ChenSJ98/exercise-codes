@@ -309,7 +309,6 @@ class carp_solver:
             self.spliter = ulusoySpliter(self.dist, self.depot,self.Capacity,self.tasks)
             path, score = self.spliter.split(sol)
             # print("scan score: ", score, " compute score: ", self.genSolution(path,sol )[1])
-            records.append(score)
             population.append([sol, path, score])
         records = []
         
