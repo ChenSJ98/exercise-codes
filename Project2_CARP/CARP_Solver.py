@@ -8,13 +8,13 @@ import sys
 import copy
 # import matplotlib as pt
 import matplotlib.pyplot as pt
-rvsProb = 0.9
-sfProb = 0.6
-pSize = 1000
-nSF = 2
+rvsProb = 0.2
+sfProb = 1
+pSize = 800
+nSF = 7
 backProb = 0
-N = 10000
-timeout = 1000
+N = 1000000
+timeout = 600
 file1 = "./data/egl-e1-A.dat"
 file2 = "./data/egl-s1-A.dat"
 file3 = "./data/gdb1.dat"
@@ -246,13 +246,13 @@ class carp_solver:
     def shuffle(self, tasks, path):
         size = len(path)
         sfNumber = random.randint(0,size)
-        for i in range(sfNumber):
+        #for i in range(sfNumber):
             # switch routes for sfNumber times
-            idx1 = random.randint(0,size-1)
-            idx2 = random.randint(0,size-1)
-            pathT = path[idx1]
-            path[idx1] = path[idx2]
-            path[idx2] = pathT
+        idx1 = random.randint(0,size-1)
+        idx2 = random.randint(0,size-1)
+        pathT = path[idx1]
+        path[idx1] = path[idx2]
+        path[idx2] = pathT
         newSeq = self.toSeq(path, tasks)
         return newSeq
     def shuffleByInsert(self,_tasks,path):
@@ -291,8 +291,8 @@ class carp_solver:
             newTask = child[0]
             path = child[1]
             if(random.random()<sfProb):
-                if(random.random()<0.6):
-                    if(random.random()<0.2):
+                if(random.random()<0.5):
+                    if(random.random()<0.5v c):
                         newTask = self.shuffle(newTask, path)
                     else:
                         newTask = self.shuffleByInsert(newTask,path)
@@ -311,16 +311,16 @@ class carp_solver:
         # pass
     
     def solve(self):
-        self.readData()
-        self.dist = self.floyd_warshall(self.V,self.edges)
+        print("solve, ",pSize)
+        time0 = time.time()
+
         population = []
         records = []
         for i in range(pSize):
             sol = self.scan()
-            random.shuffle(sol)
+            #random.shuffle(sol)
             self.spliter = ulusoySpliter(self.dist, self.depot,self.Capacity,self.tasks)
             path, score = self.spliter.split(sol)
-            records.append(score)
             population.append([sol, path, score])
         population.sort(key = lambda x:x[2])
         population = population[:pSize]
@@ -343,12 +343,8 @@ class carp_solver:
                 break
         print(self.genSolution(population[0][1],population[0][0]))
         print('q ',minVal)
-        l = len(records)
-        xs = range(1,l+1,1)
-        pt.plot(xs,records,label = "min")
-        pt.plot(xs,mrecords,label = "max")
-        pt.title(self.file)
-        pt.show()
+
+        return minVal
     def genSolution(self,path, taskList):
         solution = 's '
         for x in path:
@@ -364,13 +360,90 @@ class carp_solver:
             else:
                 path[i] = taskList[int((path[i]+1)/2)-1][0]
 if __name__ == "__main__":
-    solver = carp_solver()
+
     if len(sys.argv) == 6:
         file_name = sys.argv[1]
+        solver = carp_solver()
         solver.file = file_name
         time_limit = int(sys.argv[3])
         timeout = time_limit
         seed = int(sys.argv[5])
         random.seed(seed)
-    time0 = time.time()
+    xs =[]
+    records = []
+    carp_solver.readData(carp_solver)
+    carp_solver.dist = carp_solver.floyd_warshall(carp_solver,carp_solver.V,carp_solver.edges)
+    solver = carp_solver()
     solver.solve()
+
+'''
+    for pSize1 in range(100,1001,100):
+        pSize = pSize1
+        print(pSize)
+        solver = carp_solver()
+        value = solver.solve()
+        records.append(value)
+        xs.append(pSize)
+    l = len(records)
+
+    pt.plot(xs, records, label="cost")
+    pt.title("population-cost  dataset:" + carp_solver.file.split('/')[-1])
+    pt.xlabel("population")
+    pt.ylabel("cost")
+    pt.savefig("./report/figures/pop-cost.png")
+    pt.close()
+    pSize = 500
+    print("done")
+    records = []
+    xs = []
+    for rvsProb1 in range(0,11,1):
+        solver = carp_solver()
+        rvsProb = rvsProb1/10.0
+        value = solver.solve()
+        records.append(value)
+        xs.append(rvsProb)
+    l = len(records)
+
+    pt.plot(xs, records, label="cost")
+    pt.title("rvsProb-cost  dataset:" + carp_solver.file.split('/')[-1])
+    pt.xlabel("rvsProb")
+    pt.ylabel("cost")
+    pt.savefig("./report/figures/rvsProb-cost.png")
+    pt.close()
+    rvsProb = 0.9
+    print("done")
+    xs = []
+    records = []
+    for sfProb1 in range(0,11,1):
+        solver = carp_solver()
+        sfProb = sfProb1/10.0
+        value = solver.solve()
+        records.append(value)
+        xs.append(sfProb)
+    l = len(records)
+
+    pt.plot(xs, records, label="cost")
+    pt.title("sfProb-cost  dataset:" + carp_solver.file.split('/')[-1])
+    pt.xlabel("sfProb")
+    pt.ylabel("cost")
+    pt.savefig("./report/figures/sfProb-cost.png")
+    pt.close()
+    sfProb = 0.6
+    print("done")
+    xs = []
+    records = []
+    for nSF in range(0,11,1):
+        solver = carp_solver()
+        value = solver.solve()
+        records.append(value)
+        xs.append(nSF)
+    l = len(records)
+
+    pt.plot(xs, records, label="cost")
+    pt.title("nSF-cost  dataset:" + carp_solver.file.split('/')[-1])
+    pt.xlabel("nSF")
+    pt.ylabel("cost")
+    pt.savefig("./report/figures/nSF-cost.png")
+    pt.close()
+    print("done")
+    '''
