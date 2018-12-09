@@ -8,13 +8,13 @@ import sys
 import copy
 # import matplotlib as pt
 import matplotlib.pyplot as pt
-rvsProb = 0.2
-sfProb = 1
+rvsProb = 0.5
+sfProb = 0.6
 pSize = 800
 nSF = 7
 backProb = 0
-N = 1000000
-timeout = 600
+N = 300000
+timeout = 130
 file1 = "./data/egl-e1-A.dat"
 file2 = "./data/egl-s1-A.dat"
 file3 = "./data/gdb1.dat"
@@ -23,7 +23,6 @@ file5 = "./data/val1A.dat"
 file6 = "./data/val4A.dat"
 file7 = "./data/val7A.dat"
 file8 = "./data/test.dat"
-time0 = time.time()
 class ulusoySpliter:
     dist = []
     Capacity = 0
@@ -127,6 +126,9 @@ class carp_solver:
     file = file2
     spliter =0
     searched = set()
+    def __init__(self,path):
+        self.file = path
+        
     def floyd_warshall(self,n, edge):
         rn = range(n+1)
         dist = [[inf] * (n+1) for i in rn]
@@ -143,12 +145,22 @@ class carp_solver:
                 nxt[i][j]  = nxt[i][k]
         return dist
     def readData(self):
-
+        self.V = 0
+        self.depot = 0
+        self.reqE = 0
+        self.nReqE = 0
+        self.Capacity = 0
+        self.cost = 0
+        self.demand = 0
+        self.edges = []
+        self.tasks = []
+        self.dist = []
         f = open(self.file)
         f.readline()
         self.V = int(f.readline().split(' : ')[1])
         self.depot = int(f.readline().split(' : ')[1])
         self.reqE = int(f.readline().split(' : ')[1])
+        
         self.nReqE = int(f.readline().split(' : ')[1])
         f.readline()
         self.Capacity = int(f.readline().split(' : ')[1])
@@ -197,20 +209,7 @@ class carp_solver:
         load = 0
         depot = self.depot
         while(len(undone)>0):
-            # if(i in backPos):
-            #     depot = self.depot
-            # else:
-            
-            # i += 1
             nextT = self.getTask(depot, undone)
-            # newTask = self.tasks[nextT]
-            # if(load + newTask[2] < self.Capacity):
-            #     load += newTask[2]
-            # else:
-            #     # if(random.random() < backProb):
-            #     depot = self.depot
-            #     load = 0
-            #     continue
             solution.append(nextT)
             # load += self.tasks[nextT][3]
             if(nextT % 2 == 0):
@@ -292,7 +291,7 @@ class carp_solver:
             path = child[1]
             if(random.random()<sfProb):
                 if(random.random()<0.5):
-                    if(random.random()<0.5v c):
+                    if(random.random()<0.5):
                         newTask = self.shuffle(newTask, path)
                     else:
                         newTask = self.shuffleByInsert(newTask,path)
@@ -311,8 +310,12 @@ class carp_solver:
         # pass
     
     def solve(self):
-        print("solve, ",pSize)
         time0 = time.time()
+        self.readData()
+        self.dist = self.floyd_warshall(self.V,self.edges)
+        pSize = self.reqE*10
+        # print("solve, ",pSize)
+        
 
         population = []
         records = []
@@ -321,11 +324,14 @@ class carp_solver:
             #random.shuffle(sol)
             self.spliter = ulusoySpliter(self.dist, self.depot,self.Capacity,self.tasks)
             path, score = self.spliter.split(sol)
-            population.append([sol, path, score])
+            population.append([copy.deepcopy(sol), path, score])
         population.sort(key = lambda x:x[2])
         population = population[:pSize]
         records = []
         mrecords = []
+        minVal = population[0][2]
+        maxVal = population[len(population)-1][2]
+        print(self.file.split()[-1],'  size:', pSize)
         for i in range(N):
             minVal = population[0][2]
             maxVal = population[len(population)-1][2]
@@ -341,8 +347,9 @@ class carp_solver:
             records.append(minVal)
             if(time.time()-time0 > timeout-15):
                 break
-        print(self.genSolution(population[0][1],population[0][0]))
-        print('q ',minVal)
+        # print(self.genSolution(population[0][1],population[0][0]))
+        # print('q ',minVal)
+        print("time:",time.time()-time0)
 
         return minVal
     def genSolution(self,path, taskList):
@@ -361,20 +368,34 @@ class carp_solver:
                 path[i] = taskList[int((path[i]+1)/2)-1][0]
 if __name__ == "__main__":
 
-    if len(sys.argv) == 6:
-        file_name = sys.argv[1]
-        solver = carp_solver()
-        solver.file = file_name
-        time_limit = int(sys.argv[3])
-        timeout = time_limit
-        seed = int(sys.argv[5])
-        random.seed(seed)
-    xs =[]
-    records = []
-    carp_solver.readData(carp_solver)
-    carp_solver.dist = carp_solver.floyd_warshall(carp_solver,carp_solver.V,carp_solver.edges)
-    solver = carp_solver()
-    solver.solve()
+    # if len(sys.argv) == 6:
+    #     file_name = sys.argv[1]
+    #     solver = carp_solver()
+    #     solver.file = file_name
+    #     time_limit = int(sys.argv[3])
+    #     timeout = time_limit
+    #     seed = int(sys.argv[5])
+    #     random.seed(seed)
+    # xs =[]
+    # records = []
+    # carp_solver.readData(carp_solver)
+    # carp_solver.dist = carp_solver.floyd_warshall(carp_solver,carp_solver.V,carp_solver.edges)
+    # solver = carp_solver()
+    # solver.solve()
+    filenames = ["./data/dataset/val10C.dat"]
+    
+    for filename in filenames:
+        minv = inf
+        maxv = -inf
+        
+        # solver.file = filename
+        for i in range(1):
+            solver = carp_solver(filename)
+            x = solver.solve()
+            print(i,": ",x)
+            minv = min(x,minv)
+            maxv = max(x,maxv)
+        print(filename.split('/')[-1], "min: ",minv," max: ",maxv)
 
 '''
     for pSize1 in range(100,1001,100):
