@@ -9,6 +9,7 @@
   \usepackage{cite}
   \usepackage{complexity}
 \usepackage{algpseudocode}
+\usepackage{graphicx}
 % \usepackage{algorithm}
   \ifCLASSINFOpdf
   
@@ -33,7 +34,7 @@
   \maketitle
   
   \begin{abstract}
-  The Influence Maximization Probl em (IMP) has many real-world applications and is a NP-hard problem. In this project, I first developed a influence propagation model based on Linear Threshold (LT) and Independent Cascade (IC). Then, the IMM algorithm is used to solve the IMP problem. Computational experiments have shown that IMM can solve IMP problems very efficiently.
+  The Influence Maximization Problem (IMP) has many real-world applications and is a NP-hard problem. In this project, I first developed a influence propagation model based on Linear Threshold (LT) and Independent Cascade (IC). Then, the IMM algorithm is used to solve the IMP problem. Computational experiments have shown that IMM can solve IMP problems very efficiently.
   \end{abstract}
   \IEEEpeerreviewmaketitle
   
@@ -51,7 +52,7 @@
         Set of edges&$E$\\
         Set of nodes&$V$\\
         Influence weight of node i to node j&$w_{ij}$\\
-        Reversed rechable set&RR\\
+        Reversed reachable set&RR\\
         A node in the social network&$node$\\
         Incoming edges for a node&$incoming[]$\\
         Outgoing edges for a node&$outgoing[]$\\
@@ -85,9 +86,9 @@
 
     \subsection{Influence Spread Estimate (ISE)}
 
-    As is described above, ISE is implementated by applying diffusion models on a social network $G$ with a given initial seed set $S$. 
+    As is described above, ISE is implemented by applying diffusion models on a social network $G$ with a given initial seed set $S$. 
 
-    Note that we just need to look at neighbors of newly activated nodes to find inactive nodes that may be activated in the next iteration. In this way, we can reduce redundent computation.
+    Note that we just need to look at neighbors of newly activated nodes to find inactive nodes that may be activated in the next iteration. In this way, we can reduce redundant computation.
 
     Since influence spread is a stochastic process, we take the average of 10,000 runs as the final result.
 
@@ -161,11 +162,11 @@
 
     \begin{itemize}
         \item \textbf{Sampling}
-        This step generates random reversed rechable sets and put them together as a set $\mathcal{R}$ until a stopping creteria is met.
+        This step generates random reversed reachable sets and put them together as a set $\mathcal{R}$ until a stopping criteria is met.
 
         
         
-        To generate a RR set, we start from a randomly chosen node v, apply influence spread in a reversed direction and retrn the activated nodes. Which is to say, active nodes will try to activate inactive neighbors in $incoming[node]$ according to IC or LT model. The process is almost the identical to ISE, so details are omitted in this report.
+        To generate a RR set, we start from a randomly chosen node v, apply influence spread in a reversed direction and return the activated nodes. Which is to say, active nodes will try to activate inactive neighbors in $incoming[node]$ according to IC or LT model. The process is almost the identical to ISE, so details are omitted in this report.
         \begin{algorithm}[H]
             \begin{algorithmic}[1]
             \Function{genRR}{$v$}
@@ -215,14 +216,14 @@
         \item \textbf{Node Selection}
         This step selects $k$ solutions from $\mathcal{R}$ to form a size-$k$ solution set $S_{k}^*$ that covers the most RR sets. $S_{k}^*$ is returned as the final result. $F_{\mathcal{R}}(S)$ returns the number of RR sets in $\mathcal{R}$ that overlaps S. 
         
-        $$F_{\mathcal{R}}(S) = \vert \{ RR|RR \cap S \neq \emptyset, RR \in \mathcal{R}\} \vert $$.
-        
+        $$F_{\mathcal{R}}(S) = \vert \{ RR|RR \cap S \neq \emptyset, RR \in \mathcal{R}\} \vert $$
+        This step can be optimized to reduce computation of $F_{\mathcal{R}}(S)$. We can keep track of the number of sets a node $v$ can activate if it is added to $S_k^*$ with a list $hit[]$. Each time we take the $v$ with the largest $hit[v]$, insert $v$ to $S_k^*$ and update $hit[]$.
         \begin{algorithm}[H]
             \begin{algorithmic}[1]
             \Function{NodeSelection}{$\mathcal{R},k$}
             \State $S_k^{*} \gets \emptyset$
             \For {$i \gets 1\;to\; k$}
-                \State $v \gets \underset{x}{\mathrm{argmax}} \{F_{\mathcal{R}}(S_k^* \cup v)-F_{\mathcal{R}}(S_k^*)\}$
+                \State $v \gets \underset{v}{\mathrm{argmax}} \{F_{\mathcal{R}}(S_k^* \cup v)-F_{\mathcal{R}}(S_k^*)\}$
                 \State $S_k^* \gets S_k^* \cup v$
             \EndFor
             
@@ -270,7 +271,7 @@ IMM is designed to finish in $O((k+l)(n+m)\log n/\varepsilon^2)$ time and return
 
 $\varepsilon \in (0,1)$ is a parameter that can be set by the user to control accuracy. A lower $\varepsilon$ value will increase accuracy but will increase computation time dramatically. I used $\varepsilon = 0.1 $ to balance accuracy and computation time.
 
-\section {Parallel Implementated}
+\section {Parallel Implementation}
 In this project, I used parallel programming in ISE and Sampling phase of IMM.
 
 In ISE, the process of computing average score is conducted in parallel.
@@ -289,7 +290,7 @@ Unfortunately, experiments show that most of the computation time in IMM is used
 \end{itemize}
 The parallel part of the program uses 8 processes.
 \subsection{ISE}
-ISE is run 10000 times on the $network$ dataset with two seed sets and the result is the average value.
+ISE is run 10000 times on the $network$ data set with two seed sets and the result is the average value.
 \begin{table}[H]
     \caption{representation}
     \centering
@@ -307,7 +308,7 @@ ISE is run 10000 times on the $network$ dataset with two seed sets and the resul
     \end{table}
 
 \subsection{IMP}
-IMP is run on the $network$ and $NetHeap$ datasets.
+IMP is run on the $network$ and $NetHeap$ data sets.
 
 \begin{table}[H]
     \caption{representation}
@@ -316,19 +317,37 @@ IMP is run on the $network$ and $NetHeap$ datasets.
     \toprule
     Benchmark&Diffusion Model&$k$&Time(s)&Result\\
     \midrule
-    network-seeds&IC&5&5.037&\\
-    network-seeds&LT&5&5.053&\\
-    network-seeds2&IC&5&30.423&\\
-    network-seeds2&LT&5&37.145&\\
+    network&IC&5&0.387&30.636\\
+    network&LT&5&0.229&37.653\\
+    NetHeap&IC&5&6.954&323.585\\
+    NetHeap&LT&5&6.312&392.521\\
+    NetHeap&IC&50&9.766&1296.445\\
+    NetHeap&LT&50&8.915&1698.013\\
+    
     \bottomrule
     \end{tabular}
     \label{table:1}
     \end{table}
+
     \section{Discussion}
 
+    Computational experiments show that my implementation of ISE can estimate influence spread process quite accurately and my implementation of IMP can obtain good result in an acceptable time.
+
+    While my IMP implementation perform well under LT model, performance is not so good under IC model compared to others' algorithms. 
+
+    Moreover, experiments also show that most of the computation time of my implementation of IMP is consumed by node selection, as is shown in 
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{time.png}
+    \caption{Running time of IMM under NetHeap, $k$ = 50, IC}
+    \label{fig1}
+    \end{figure}
+    
+    A better implementation of node selection may be used and hopefully it can make use of parallelism.
 
 \section{Conclusion}
 
+In this project, I implemented ISE with IC and LT model and IMP using IMM algorithm. The performance is generally good. Some improvement can be made to improve the efficiency of implementation.
 \section*{Acknowledgment}
 
 The authors would like to thank the TAs for their hint in the Lab and maintaining a online runtime platform. 

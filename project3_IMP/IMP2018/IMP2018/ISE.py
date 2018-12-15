@@ -1,4 +1,4 @@
-import numpy,sys,getopt,copy,random,time
+import sys,getopt,copy,random,time
 from multiprocessing import Pool, Process, Queue
 
 def readData():

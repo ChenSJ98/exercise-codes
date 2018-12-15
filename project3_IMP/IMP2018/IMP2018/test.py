@@ -18,8 +18,8 @@ print("IMP finish in %fs"%(time.time()-time0))
 for a in ans:
     print(a)
 
-# if (DiffusionModel == "IC"):
-    # print(ISE.run_IC_Batch(len(fromX),fromX,ans,2000))
-# else:
-    # print(ISE.run_LT_Batch(len(fromX),fromX,toX,ans,2000))
+if (DiffusionModel == "IC"):
+    print(ISE.run_IC_Batch(len(fromX),fromX,ans,2000))
+else:
+    print(ISE.run_LT_Batch(len(fromX),fromX,toX,ans,2000))
 

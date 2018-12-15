@@ -1,4 +1,4 @@
-import numpy,sys,getopt,copy,random,time,math
+import sys,getopt,copy,random,time,math
 import ISE
 from multiprocessing import Pool, Process, Queue
 def readData(NetworkFile):
@@ -62,7 +62,7 @@ def NodeSelection(R,k,size):
                 for x in R[iRR]:
                     hitnum[x] -= 1
                     RRofNode[x].remove(iRR)
-    # print("node Selection finish in %f s"%(time.time()-time0))
+    print("node Selection finish in %f s"%(time.time()-time0))
     # print()
     return S
 
@@ -86,6 +86,8 @@ def genRR_IC(toX,v):
 def genRR_LT(toX,v):
     # RR = 0
     # # print("call LT")
+    time0 = time.time()
+
     activatedSet = set()
     activatedSet.add(v)
     # threshold=[]
@@ -114,6 +116,7 @@ def genRR_LT(toX,v):
                 continue
         activity = newActivity
     # # print("LT: ",count)
+    
     return activatedSet
     
 def FR(R,S:set):
@@ -125,6 +128,7 @@ def FR(R,S:set):
     # # print("FR takes %fs"%(time.time()-time0))
     return count/len(R)
 def Sampling(toX,fromX,n,k,e,l,DiffusionModel):
+
     # # print("start sampling", len(toX))
     R = []
     LB = 1
@@ -174,7 +178,7 @@ def Sampling(toX,fromX,n,k,e,l,DiffusionModel):
         
     return R
 def sample(toX,n,theta,DiffusionModel):
-    # # print("start sample")
+    # print("start sample")
     time0 = time.time()
     R = []
     for i in range(int(theta)):
@@ -184,7 +188,7 @@ def sample(toX,n,theta,DiffusionModel):
         else:
             RR = genRR_LT(toX,x)
         R.append(tuple(RR))
-    # # print("sample takes %fs"%(time.time()-time0))
+    # print("sample takes %fs"%(time.time()-time0))
     return R
 
 def IMM(toX,fromX,n,k,e,l,DiffusionModel):
@@ -192,9 +196,10 @@ def IMM(toX,fromX,n,k,e,l,DiffusionModel):
     # print("model:",DiffusionModel)
     l = l*(1+math.log(2)/math.log(n))
     R = Sampling(toX,fromX,n,k,e,l,DiffusionModel)
-    # print("sampling finished in %fs"%(time.time()-time0))
+    print("sampling finished in %fs"%(time.time()-time0))
+    time1 = time.time()
     AnsSk = NodeSelection(R,k,n)
-    # print("Node selection finished in %fs"%(time.time()-time0))
+    print("Node selection finished in %fs"%(time.time()-time1))
     return AnsSk
 DiffusionModel = ''
 if __name__ == "__main__":
