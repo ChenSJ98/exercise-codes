@@ -1,0 +1,140 @@
+\documentclass[conference]{IEEEtran}
+
+  \usepackage{booktabs}
+  \usepackage{listing}
+  \usepackage{amsmath}
+  \usepackage{algorithm}
+  \usepackage{array}
+  \usepackage{url}
+  \usepackage{cite}
+  \usepackage{complexity}
+\usepackage{algpseudocode}
+% \usepackage{algorithm}
+  \ifCLASSINFOpdf
+  
+  \else
+  
+  \fi
+  
+  \hyphenation{op-tical net-works semi-conduc-tor}
+  
+  
+  \begin{document}
+  
+  \title{CS303 Project3: Solving Influence Maximization Problem Using the IMM Algorithm}
+  
+  \author{\IEEEauthorblockN{Shijie Chen}
+  \IEEEauthorblockA{Department of Computer Science and Engineering\\
+  Southern University of Science and Technology\\
+  Shenzhen, Guangdong, China\\
+  Email: 11612028@mail.sustc.edu.cn}
+  }
+  
+  \maketitle
+  
+  \begin{abstract}
+  The Influence Maximization Problem (IMP) has many real-world applications and is a NP-hard problem. In this project, I first developed a influence propagation model based on Linear Threshold (LT) and Independent Cascade (IC). Then, IMM algorithm is used to solve the IMP problem. Computational experiments have shown that IMM can solve IMP problems very efficiently.
+  \end{abstract}
+  \IEEEpeerreviewmaketitle
+  
+  \section{Preliminaries}
+
+  
+\section{Methodology}
+
+\subsection{Notation}
+The notations used in this report is shown in the table below.
+    \begin{table}[H]
+	\caption{representation}
+	\centering
+    \begin{tabular}{cccc}
+    \toprule
+    Name&Variable\\
+    \midrule
+    All tasks&tasks\\
+    Tasks remain&undone\\
+	\bottomrule
+	\end{tabular}
+	\label{table:1}
+	\end{table}
+\subsection{Genetic Algorithm}
+    \subsubsection{Framework}
+    \begin{algorithm}[H]
+        \begin{algorithmic}[1]
+            \State $population \gets initPopulation()$
+            \State $size \gets len(population)$
+            \While{ end condition not met}
+                \State $offSpring \gets genOffspring(population)$
+                \State $population \gets population + offSpring$
+                \State $population.sort(key = cost)$
+                \State $population \gets population[0:size]$
+            \EndWhile
+            
+            \Return $population[0]$
+
+        
+        \end{algorithmic}
+        \caption{Genetic Algorithm Framework}
+    \end{algorithm}
+    \subsubsection{Initial Population}
+    
+    
+        \begin{itemize}
+            \item Ulusoy split
+
+            \begin{algorithm}[H]
+            \begin{algorithmic}[1]
+                \Function{UlusoySplit}{tasks, depot, shortestPath, load}
+                \State $DAG, incoming, outgoing \gets toDAG(tasks)$
+                \For {$node \in DAG$}
+                \State $minCost \gets inf$
+                \State $bestEdge \gets minCost(incoming[node])$
+                \State $node.bestPath \gets bestEdge.bestPath.append(node)$
+                \State $node.cost \gets bestEdge.cost$
+                \For{$edge \in outgoing[node]$}
+                    \State $edge.cost \gets edge.cost+node.cost$
+                    \State $edge.bestPath \gets node.bestPath$
+                \EndFor
+                \EndFor
+                \State $x \gets 1$
+                
+                \Return $node[-1].cost, node[-1].bestPath$
+                \EndFunction
+
+                \Function {ToDAG}{tasks, depot, shortestPath, load}
+                \State $construct\; the\; DAG$
+                
+                \Return DAG
+                \EndFunction
+            \end{algorithmic}
+            \caption{Ulusoy Split}
+            \end{algorithm}
+            \item Generalized Path Scanning
+            
+            
+        \end{itemize}
+
+    \subsubsection{Genetic Operators}
+
+\section{Validation}
+	 
+\section{Discussion}
+
+
+\section{Conclusion}
+
+\section*{Acknowledgment}
+
+The authors would like to thank the TAs for their hint in the Lab and maintaining a online runtime platform. 
+
+
+% \bibliographystyle{ieeetr}
+% \bibliography{ref}
+
+
+
+% that's all folks
+\end{document}
+
+
+  
