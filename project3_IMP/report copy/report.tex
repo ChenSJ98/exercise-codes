@@ -21,7 +21,7 @@
   
   \begin{document}
   
-  \title{CS303 Profdsject3: Solving Influence Maximization Problem Using the IMM Algorithm}
+  \title{CS303 Project3: Solving Influence Maximization Problem Using the IMM Algorithm}
   
   \author{\IEEEauthorblockN{Shijie Chen}
   \IEEEauthorblockA{Department of Computer Science and Engineering\\
@@ -38,88 +38,293 @@
   \IEEEpeerreviewmaketitle
   
   \section{Preliminaries}
-
-  
-\section{Methodology}
-IMM \cite{Tang:2015:IMN:2723372.2723734}
-dsfsdf
-\subsection{Notation}
-The notations used in this report is shown in the table below.
+    \subsection{Notation}
+    The following notations are used in this report:
     \begin{table}[H]
-	\caption{representation}
-	\centering
-    \begin{tabular}{cccc}
-    \toprule
-    Name&Variable\\
-    \midrule
-    All tasks&tasks\\
-    Tasks remain&undone\\
-	\bottomrule
-	\end{tabular}
-	\label{table:1}
-	\end{table}
-\subsection{Genetic Algorithm}
-    \subsubsection{Framework}
+        \caption{representation}
+        \centering
+        \begin{tabular}{cccc}
+        \toprule
+        Name&Variable\\
+        \midrule
+        The social network&$G=(V,E)$\\
+        Set of edges&$E$\\
+        Set of nodes&$V$\\
+        Influence weight of node i to node j&$w_{ij}$\\
+        Reversed rechable set&RR\\
+        A node in the social network&$node$\\
+        Incoming edges for a node&$incoming[]$\\
+        Outgoing edges for a node&$outgoing[]$\\
+    
+        \bottomrule
+        \end{tabular}
+        \label{table:1}
+        \end{table}
+    \subsection{The Influence Maximization Problem}
+    The influence maximization problem examines the process of the spread of influence is a social network $G$. The influence spread process is as follows:
+    \begin{itemize}
+        \item Initially, activate some nodes (seeds)
+        \item Each node that is activated in last iteration (active nodes) stop try to activate its inactive neighbors according to a certain diffusion model.
+        \item Repeat until no node is activated in an iteration.
+    \end{itemize}
+    Performance is given by the total number of nodes that is activated during the process.
+    \subsection{Diffusion Model}
+    Diffusion Model defines how influence spread in a social network. More specifically, it determines how an inactive node is activate by its active neighbors.
+
+    \subsubsection{Linear Threshold}
+    In the LT model, each node has a threshold that is assigned randomly. A node $j$ is activated if the sum of influence weight of its active neighbors $\sum\limits_{i}{w_{ij}}$ exceeds its threshold.
+
+	\subsubsection{Independent Cascade}
+    In the IC model, the process of each activated node trying to active its inactive neighbors are independent. An active node $i$ actives its inactive neighbor $j$ by probability $w_{ij}$
+
+    \section{Methodology}
+    \subsection{Data Structure}
+    Data structures used in this project are $list$ and $set$.
+
+    The social network is stored as adjacency lists in both directions to support large scale problems. Set is used to perform set operations like intersection.
+
+    \subsection{Influence Spread Estimate (ISE)}
+
+    As is described above, ISE is implementated by applying diffusion models on a social network $G$ with a given initial seed set $S$. 
+
+    Note that we just need to look at neighbors of newly activated nodes to find inactive nodes that may be activated in the next iteration. In this way, we can reduce redundent computation.
+
+    Since influence spread is a stochastic process, we take the average of 10,000 runs as the final result.
+
     \begin{algorithm}[H]
         \begin{algorithmic}[1]
-            \State $population \gets initPopulation()$
-            \State $size \gets len(population)$
-            \While{ end condition not met}
-                \State $offSpring \gets genOffspring(population)$
-                \State $population \gets population + offSpring$
-                \State $population.sort(key = cost)$
-                \State $population \gets population[0:size]$
+            \Function{IC}{outgoing,seedSet}
+            \State $activatedNodes \gets seedSet$
+            \State $activity \gets seedSet$
+            \While {$activity \neq \emptyset$}
+                \State $newSet \gets \emptyset$
+                \For {$i\in activity$}
+                    \For{$j \in outgoing[node]$}
+                        \If {$j \; is \; not \; activated$}
+                            \State $prob \gets random(0,1)$
+                            \If{$prob \leq w_{ij}$}
+                                \State $activatedNodes.add(j)$
+                                \State $newSet.add(j)$
+                            \EndIf
+                        \EndIf
+                    \EndFor
+                \EndFor
+                \State $activity \gets newSet$
             \EndWhile
-            
-            \Return $population[0]$
+
+
+            \Return $len(activatedNodes)$
+            \EndFunction
+        \end{algorithmic}
+        \caption{ISE IC}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+        \begin{algorithmic}[1]
+        \Function{LT}{incoming, outgoing,seedSet}
+        \State $activatedNodes \gets seedSet$
+        \State $activity \gets seedSet$
+        \State $randomly\; assign\; threshold\; to\; each\; node$
+        \While {$activity \neq \emptyset$}
+            \State $newSet \gets \emptyset$
+            \For {$node\in activity$}
+                \For{$ j\in outgoing[node]$}
+                    
+                    \If {$neighbor \; is \; not \; activated$}
+                        \State $influence \gets 0$
+                        \For {$ i \in incoming[j])$}
+                            \If {$i \; is\;activated$}
+                            \State $influence \gets influence + w_{ij}$
+                            \EndIf
+                        \EndFor
+
+                        \If{$influence \leq j.threshold$}
+                            \State $activatedNodes.add(j)$
+                            \State $newSet.add(j)$
+                        \EndIf
+                    \EndIf
+                \EndFor
+            \EndFor
+            \State $activity \gets newSet$
+        \EndWhile
+
+
+        \Return $len(activatedNodes)$
+        \EndFunction
+        \end{algorithmic}
+        \caption{ISE LT}
+    \end{algorithm}
+
+    \subsection{Influence Maximization Problem (IMP)}
+    There are many algorithms that can solve IMP. In this project, I implemented an algorithm that is based on IMM \cite{Tang:2015:IMN:2723372.2723734} and introduced parallelism to accelerate the algorithm. The IMM algorithm provides a $(1-1/e-\varepsilon)$-approximate solution to IMP and performs well in large scale problems.
+    The algorithm is composed of two phases:
+
+    \begin{itemize}
+        \item \textbf{Sampling}
+        This step generates random reversed rechable sets and put them together as a set $\mathcal{R}$ until a stopping creteria is met.
 
         
-        \end{algorithmic}
-        \caption{Genetic Algorithm Framework}
-    \end{algorithm}
-    \subsubsection{Initial Population}
-    
-    
-        \begin{itemize}
-            \item Ulusoy split
-
-            \begin{algorithm}[H]
+        
+        To generate a RR set, we start from a randomly chosen node v, apply influence spread in a reversed direction and retrn the activated nodes. Which is to say, active nodes will try to activate inactive neighbors in $incoming[node]$ according to IC or LT model. The process is almost the identical to ISE, so details are omitted in this report.
+        \begin{algorithm}[H]
             \begin{algorithmic}[1]
-                \Function{UlusoySplit}{tasks, depot, shortestPath, load}
-                \State $DAG, incoming, outgoing \gets toDAG(tasks)$
-                \For {$node \in DAG$}
-                \State $minCost \gets inf$
-                \State $bestEdge \gets minCost(incoming[node])$
-                \State $node.bestPath \gets bestEdge.bestPath.append(node)$
-                \State $node.cost \gets bestEdge.cost$
-                \For{$edge \in outgoing[node]$}
-                    \State $edge.cost \gets edge.cost+node.cost$
-                    \State $edge.bestPath \gets node.bestPath$
-                \EndFor
-                \EndFor
-                \State $x \gets 1$
-                
-                \Return $node[-1].cost, node[-1].bestPath$
-                \EndFunction
+            \Function{genRR}{$v$}
+            \State $RR \gets reversedISE(v)$
 
-                \Function {ToDAG}{tasks, depot, shortestPath, load}
-                \State $construct\; the\; DAG$
-                
-                \Return DAG
-                \EndFunction
+            \Return $RR$
+            \EndFunction
             \end{algorithmic}
-            \caption{Ulusoy Split}
-            \end{algorithm}
-            \item Generalized Path Scanning
-            
-            
-        \end{itemize}
+            \caption{genRR}
+        \end{algorithm}
 
-    \subsubsection{Genetic Operators}
+        
+        \begin{algorithm}[H]
+            \begin{algorithmic}[1]
+            \Function{LT}{$G,k,\varepsilon,l$}
+            \State $\mathcal{R} \gets \emptyset$
+            \State $LB = 1$
+            \State $\varepsilon^{\prime} \gets \sqrt{2} \cdot \varepsilon$
+            \For {$i \gets 1 \; to \; \log_{2} n - 1$}
+                \State $x \gets n/2^i$
+                \State $\theta_{i} \gets \lambda^{\prime}$
+                \While {$len(\mathcal{R}) \leq \theta_i$}
+                \State $ randomly\;select\;a\;node\;v\;from\;G$
+                \State $RR \gets \Call{genRR}{$v$}$
+                \State $\mathcal{R}.append(RR)$
+                \EndWhile
+                \State $S_i \gets \Call{nodeSelection}{\mathcal{R}}$
+                \If {$n \cdot F_{\mathcal{R}}\geq (S_i)/(1+\varepsilon^{\prime})$}
+                    \State $LB \gets n\cdot F_{\mathcal{R}}(S_i)/(1+\varepsilon^{\prime})$
+                    \State \textbf{break}
+                \EndIf
+            \EndFor
+            \State $\theta \gets \lambda^{*}/LB$
+            \While {$len(\mathcal{R}) \leq \theta$}
+            \State $ randomly\;select\;a\;node\;v\;from\;G$
+            \State $RR \gets \Call{genRR}{$v$}$
+            \State $\mathcal{R}.append(RR)$
+            \EndWhile 
+
+
+            \Return $\mathcal{R}$
+            \EndFunction
+            \end{algorithmic}
+            \caption{Sampling}
+        \end{algorithm}
+
+        \item \textbf{Node Selection}
+        This step selects $k$ solutions from $\mathcal{R}$ to form a size-$k$ solution set $S_{k}^*$ that covers the most RR sets. $S_{k}^*$ is returned as the final result. $F_{\mathcal{R}}(S)$ returns the number of RR sets in $\mathcal{R}$ that overlaps S. 
+        
+        $$F_{\mathcal{R}}(S) = \vert \{ RR|RR \cap S \neq \emptyset, RR \in \mathcal{R}\} \vert $$.
+        
+        \begin{algorithm}[H]
+            \begin{algorithmic}[1]
+            \Function{NodeSelection}{$\mathcal{R},k$}
+            \State $S_k^{*} \gets \emptyset$
+            \For {$i \gets 1\;to\; k$}
+                \State $v \gets \underset{x}{\mathrm{argmax}} \{F_{\mathcal{R}}(S_k^* \cup v)-F_{\mathcal{R}}(S_k^*)\}$
+                \State $S_k^* \gets S_k^* \cup v$
+            \EndFor
+            
+
+
+            \Return $S_k^*$
+            \EndFunction
+            \end{algorithmic}
+            \caption{NodeSelection}
+        \end{algorithm}
+    \end{itemize}
+
+    The IMM algorithm put together the above two phases.
+
+    \begin{algorithm}[H]
+        \begin{algorithmic}[1]
+        \Function{IMM}{$G,k,\varepsilon,l$}
+        \State $l \gets l \cdot (1+\log_n 2)$
+        \State $\mathcal{R} \gets \Call{Sampling}{G,k,\varepsilon,l}$
+        \State $S_k^* \gets \Call{NodeSelection}{\mathcal{R},k}$
+
+        \Return $S_k^*$
+        \EndFunction
+        \end{algorithmic}
+        \caption{IMM}
+    \end{algorithm}
+\subsection{Parameters}
+There are many parameters in the IMM algorithms. The values are chosen so as to guarantee a $(1-1/e-\varepsilon)$-approximate result. $l$ and $\varepsilon$ are two external parameters. For IMM in this report, I used $l = 1$ and $\varepsilon = 0.1$.
+
+Parameters are computed as follows:
+\begin{equation}
+\alpha = \sqrt{l \log n+\log 2} 
+\end{equation}
+\begin{equation}
+\beta = \sqrt{(1-1/e)\cdot (\log {n\choose k}+l\log n + \log 2)}
+\end{equation}
+\begin{equation}
+\lambda^* = 2n((1-1/e)\cdot \alpha + \beta)^2\cdot\varepsilon^{-2}
+\end{equation}    
+\begin{equation}
+\lambda = (8+2\varepsilon)n\cdot(l\log n+\log{n\choose k}+\log2)
+\end{equation}
+
+IMM is designed to finish in $O((k+l)(n+m)\log n/\varepsilon^2)$ time and returns a $(1-1/e-\varepsilon)$-approximate solution with at least $1-1/n^l$ probability under triggering model(In this report, IC and LT)\cite{Kempe:2003:MSI:956750.956769}. For IMM, we set $l = 1$.
+
+$\varepsilon \in (0,1)$ is a parameter that can be set by the user to control accuracy. A lower $\varepsilon$ value will increase accuracy but will increase computation time dramatically. I used $\varepsilon = 0.1 $ to balance accuracy and computation time.
+
+\section {Parallel Implementated}
+In this project, I used parallel programming in ISE and Sampling phase of IMM.
+
+In ISE, the process of computing average score is conducted in parallel.
+
+In IMM, the process of generating RR sets is conducted in parallel.
+
+Unfortunately, experiments show that most of the computation time in IMM is used by $nodeSelection$ method.
 
 \section{Validation}
-	 
-\section{Discussion}
+\subsection{Environment}     
+\begin{itemize}
+    \item OS: windows 10
+    \item RAM: 16G
+    \item CPU: Intel Core i7 8700k @ 3.7GHz
+    \item Python: 3.7.1
+\end{itemize}
+The parallel part of the program uses 8 processes.
+\subsection{ISE}
+ISE is run 10000 times on the $network$ dataset with two seed sets and the result is the average value.
+\begin{table}[H]
+    \caption{representation}
+    \centering
+    \begin{tabular}{cccc}
+    \toprule
+    Benchmark&Diffusion Model&Time(s)&Result\\
+    \midrule
+    network-seeds&IC&1.108&5.037\\
+    network-seeds&LT&1.101&5.053\\
+    network-seeds2&IC&1.110&30.423\\
+    network-seeds2&LT&1.239&37.145\\
+    \bottomrule
+    \end{tabular}
+    \label{table:1}
+    \end{table}
+
+\subsection{IMP}
+IMP is run on the $network$ and $NetHeap$ datasets.
+
+\begin{table}[H]
+    \caption{representation}
+    \centering
+    \begin{tabular}{ccccc}
+    \toprule
+    Benchmark&Diffusion Model&$k$&Time(s)&Result\\
+    \midrule
+    network-seeds&IC&5&5.037&\\
+    network-seeds&LT&5&5.053&\\
+    network-seeds2&IC&5&30.423&\\
+    network-seeds2&LT&5&37.145&\\
+    \bottomrule
+    \end{tabular}
+    \label{table:1}
+    \end{table}
+    \section{Discussion}
 
 
 \section{Conclusion}

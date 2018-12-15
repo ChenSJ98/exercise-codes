@@ -48,7 +48,7 @@ def LT(size,fromX,toX,seedSet):
     activated=[]
     threshold=[]
     activity = copy.deepcopy(seedSet)
-    for i in range(size):
+    for i in range(size+1):
         # activated.append(0)
         threshold.append(random.random())
         if(threshold[-1] == 0.0):
@@ -103,7 +103,7 @@ def run_LT_Batch(size,fromX,toX,seedSet,Num):
         ans += LT(size,fromX,toX,seedSet)/Num
     return ans
 if __name__ == "__main__":
-    N = 1000
+    N = 10000
     nProcesses = 8
     time0 = time.time()
 
@@ -126,8 +126,11 @@ if __name__ == "__main__":
     pool.join()
 
     answer = 0
+
     for v in ans:
         answer += v.get()/nProcesses
+    print(time.time()-time2)
     print(answer)
+    
     # '''
             

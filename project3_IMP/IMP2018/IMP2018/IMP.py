@@ -1,5 +1,5 @@
 import numpy,sys,getopt,copy,random,time,math
-# import ISE
+import ISE
 from multiprocessing import Pool, Process, Queue
 def readData(NetworkFile):
     f = open(NetworkFile)
@@ -32,32 +32,6 @@ def readArgs():
         if(op == '-t'):
             TimeBudget = value
     return NetworkFile, int(SeedAmount), DiffusionModel, TimeBudget
-def NodeSelection1(R,k,size):
-    # print()
-    # print("NS")
-    # print(len(R))
-    time0 = time.time()
-    V = set(range(1,size))
-    S = set()
-    for i in range(k):
-        hitnum = [0 for i in range(size+1)]
-        for r in R:
-            if len(set(r).intersection(S))==0:
-                for x in r:
-                    hitnum[x]+=1
-        maxScore = 0
-        pick = 0
-        for v in V:
-            x = hitnum[v]
-            if(x > maxScore):
-                maxScore = x
-                pick = v
-        if pick > 0:
-            S.add(pick)
-            V.remove(pick)
-    # # print("node Selection finish in %f s"%(time.time()-time0))
-    # print()
-    return S
 def NodeSelection(R,k,size):
     # # print()
     # # print("NS")
@@ -237,3 +211,7 @@ if __name__ == "__main__":
     ans = IMM(toX,fromX,size,SeedAmount,e,l,DiffusionModel)
     for a in ans:
         print(a)
+    # if DiffusionModel == "IC":
+    #     print(ISE.run_IC_Batch(len(fromX),fromX,ans,2000))
+    # else:
+    #     print(ISE.run_LT_Batch(len(fromX),fromX,toX,ans,2000))

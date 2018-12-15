@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{Tang:2015:IMN:2723372.2723734}
+Y.~Tang, Y.~Shi, and X.~Xiao, ``Influence maximization in near-linear time: A
+  martingale approach,'' in {\em Proceedings of the 2015 ACM SIGMOD
+  International Conference on Management of Data}, SIGMOD '15, (New York, NY,
+  USA), pp.~1539--1554, ACM, 2015.
+
+\bibitem{Kempe:2003:MSI:956750.956769}
+D.~Kempe, J.~Kleinberg, and E.~Tardos, ``Maximizing the spread of influence
+  through a social network,'' in {\em Proceedings of the Ninth ACM SIGKDD
+  International Conference on Knowledge Discovery and Data Mining}, KDD '03,
+  (New York, NY, USA), pp.~137--146, ACM, 2003.
+
+\end{thebibliography}
