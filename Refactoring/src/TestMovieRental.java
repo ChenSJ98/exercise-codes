@@ -1,9 +1,7 @@
-import org.junit.Before;
-import org.junit.Test;
 
+import org.junit.*;
+import static org.junit.Assert.*;
 import java.util.Date;
-
-import static org.junit.Assert.assertTrue;
 
 public class TestMovieRental {
     Customer C1;
@@ -11,9 +9,14 @@ public class TestMovieRental {
     Customer C3;
     Customer C4;
 
-    Movie M1;
-    Movie M2;
-    Movie M3;
+    String M1_Title;
+    int M1_PriceCode;
+
+    String M2_Title;
+    int M2_PriceCode;
+
+    String M3_Title;
+    int M3_PriceCode;
 
     @Before
     public void setUp() {
@@ -21,11 +24,14 @@ public class TestMovieRental {
         C2 = new Customer("Mary");
         C3 = new Customer("Manny");
 
-        M1 = new Movie("Oz The Great and Powerful",Movie.NEW_RELEASE);
+        M1_Title = "Oz The Great and Powerful";
+        M1_PriceCode = Rental.NEW_RELEASE;
 
-        M2 = new Movie("The Dark Knight", Movie.REGULAR);
+        M2_Title = "The Dark Knight";
+        M2_PriceCode = Rental.REGULAR;
 
-        M3 = new Movie("Wreck-it Ralph",Movie.CHILDRENS);
+        M3_Title = "Wreck-it Ralph";
+        M3_PriceCode = Rental.CHILDRENS;
     }
     private String getAnswer1() {
         StringBuilder ans = new StringBuilder("Rental Record for John\n");
@@ -52,29 +58,29 @@ public class TestMovieRental {
         ans.append("You earned 2 frequent renter points");
         return ans.toString();
     }
-    @Test 
+    @Test
     public void test1() {
         Date start = new Date(2013, 7, 1);
         Date end1 = new Date(2013, 7, 6);
         Date end2 = new Date(2013, 7, 4);
         Date end3 = new Date(2013, 7, 5);
 
-        C1.addRental(new Rental(new Rental (, new Rental.DateRange(M1, null)));
-        C1.addRental(new Rental(new Rental(, new Rental.DateRange(M2, null)));
-        C1.addRental(new Rental(new Rental(, new Rental.DateRange(M3, null)));
+        C1.addRental(new Rental(M1_Title, M1_PriceCode, start, end1));
+        C1.addRental(new Rental(M2_Title, M2_PriceCode, start, end2));
+        C1.addRental(new Rental(M3_Title, M3_PriceCode, start, end3));
         String ans = getAnswer1();
-        assertTrue(ans.equals(C1.statement())); 
+        assertTrue(ans.equals(C1.statement()));
     }
 
-    @Test 
+    @Test
     public void test2() {
         Date start = new Date(2013, 7, 11);
         Date end1 = new Date(2013, 7, 12);
         Date end2 = new Date(2013, 7, 19);
-        C2.addRental(new Rental(new Rental(, new Rental.DateRange(M1, null)));
-        C2.addRental(new Rental(new Rental(, new Rental.DateRange(M3, null)));
+        C2.addRental(new Rental(M1_Title, M1_PriceCode, start, end1));
+        C2.addRental(new Rental(M3_Title, M3_PriceCode, start, end2));
         String ans = getAnswer2();
-        assertTrue(ans.equals(C2.statement())); 
+        assertTrue(ans.equals(C2.statement()));
     }
 
     @Test
@@ -82,9 +88,9 @@ public class TestMovieRental {
         Date start = new Date(2013, 6, 1);
         Date end1 = new Date(2013, 6, 3);
         Date end2 = new Date(2013, 6, 2);
-        C3.addRental(new Rental(, new Rental.DateRange(start, null)));
-        C3.addRental(new Rental(, new Rental.DateRange(start, null)));
+        C3.addRental(new Rental(M2_Title, M2_PriceCode, start, end1));
+        C3.addRental(new Rental(M3_Title, M3_PriceCode, start, end2));
         String ans = getAnswer3();
-        assertTrue(ans.equals(C3.statement())); 
+        assertTrue(ans.equals(C3.statement()));
     }
 }

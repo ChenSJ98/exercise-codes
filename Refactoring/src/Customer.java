@@ -23,29 +23,29 @@ class Customer {
 
         for (Rental each : _rentals) {
             double thisAmount = 0;
-            
+
             //determine amounts for each line
             switch (each.getPriceCode()) {
-            case Movie.REGULAR:
-                thisAmount += 2;
-                if (each.getDaysRented() > 2) {
-                    thisAmount += (each.getDaysRented() - 2) * 1.5;
-                }
-                break;
-            case Movie.NEW_RELEASE:
-                thisAmount += each.getDaysRented() * 3;
-                break;
-            case Movie.CHILDRENS:
-                thisAmount += 1.5;
-                if (each.getDaysRented() > 3) {
-                    thisAmount += (each.getDaysRented() - 3) * 1.5;
-                }
-                break;
+                case Rental.REGULAR:
+                    thisAmount += 2;
+                    if (each.getDaysRented() > 2) {
+                        thisAmount += (each.getDaysRented() - 2) * 1.5;
+                    }
+                    break;
+                case Rental.NEW_RELEASE:
+                    thisAmount += each.getDaysRented() * 3;
+                    break;
+                case Rental.CHILDRENS:
+                    thisAmount += 1.5;
+                    if (each.getDaysRented() > 3) {
+                        thisAmount += (each.getDaysRented() - 3) * 1.5;
+                    }
+                    break;
             }
             // add frequent renter points
             frequentRenterPoints ++;
             // add bonus for a two day new release rental
-            if ((each.getPriceCode() == Movie.NEW_RELEASE)
+            if ((each.getPriceCode() == Rental.NEW_RELEASE)
                     && each.getDaysRented() > 1) frequentRenterPoints++;
 
             //show figures for this rental
@@ -53,7 +53,7 @@ class Customer {
             result.append("\t").append(String.valueOf(thisAmount));
             result.append("\n");
 
-            totalAmount += thisAmount;				
+            totalAmount += thisAmount;
         }
 
         //add footer lines

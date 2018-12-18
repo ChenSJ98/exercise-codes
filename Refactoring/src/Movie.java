@@ -5,20 +5,21 @@ public class Movie {
     protected String _title;
     protected int _priceCode;
 
-    public Movie(String title,int priceCode) {
-        _priceCode = priceCode;
+    public Movie(String title, int priceCode) {
         _title = title;
+        _priceCode = priceCode;
     }
+
     public String getTitle() {
         return _title;
     }
-    public void setTitle(String title) {
-        _title = title;
+    public void setTitle(String t){
+        _title = t;
+    }
+    public void setPriceCode(int p){
+        _priceCode = p;
     }
     public int getPriceCode() {
         return _priceCode;
-    }
-    public void setPriceCode(int pc) {
-        _priceCode = pc;
     }
 }
