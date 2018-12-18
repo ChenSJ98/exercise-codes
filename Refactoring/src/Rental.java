@@ -17,8 +17,12 @@ class Rental {
         return _movie.getTitle();
     }
     public double getCharge(){
-        return _movie.getCharge(_daysRented);
+        return _movie._priceCode.getCharge(_daysRented);
     }
+    public int getFrequentRenterPoints(){
+        return _movie.getFrequentRenterPoints(_daysRented);
+    }
+
     static class DateRange {
         private final Date start;
         private final Date end;
