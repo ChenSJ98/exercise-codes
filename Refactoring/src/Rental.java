@@ -1,7 +1,7 @@
 import java.util.Date;
 
 class Rental {
-    private Movie _movie;
+    Movie _movie;
     private int _daysRented;
     public Rental(Movie movie, DateRange dateRange) {
         _movie = movie;
@@ -16,7 +16,9 @@ class Rental {
     public String getTitle(){
         return _movie.getTitle();
     }
-
+    public double getCharge(){
+        return _movie.getCharge(_daysRented);
+    }
     static class DateRange {
         private final Date start;
         private final Date end;
