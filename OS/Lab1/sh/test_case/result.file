@@ -1,0 +1,10 @@
+[test_directory/]
+test_directory//? @ # $&()\|; ‘’“”<>
+a b
+d_1
+d_2
+\n\t\0
+\n\t%^&*\0\9$1
+
+[Directories Count]:0
+[Files Count]:1
