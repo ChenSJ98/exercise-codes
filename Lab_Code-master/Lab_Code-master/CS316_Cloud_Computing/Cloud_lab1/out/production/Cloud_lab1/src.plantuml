@@ -1,0 +1,57 @@
+@startuml
+
+title __Lab1's Class Diagram__\n
+
+  package  {
+    class main.java.dao.UserDao {
+        {static} - DRIVER_NAME : String
+        {static} - URL : String
+        {static} - USER_NAME : String
+        {static} - PASSWORD : String
+        + main.java.dao.UserDao()
+        + login_authenticate()
+        + register_user()
+        {static} + main()
+    }
+  }
+  
+
+  package  {
+    class main.java.RMIClient {
+        {static} - stub : main.java.RmiUtility.ServerAction
+        + main.java.RMIClient()
+        {static} + main()
+        {static} - register()
+    }
+  }
+  
+
+  package  {
+    class main.java.RMIServer {
+        + main.java.RMIServer()
+        {static} + main()
+    }
+  }
+  
+
+  package  {
+    interface main.java.RmiUtility.ServerAction {
+        {abstract} + login()
+        {abstract} + register()
+    }
+  }
+  
+
+  package  {
+    class main.java.RmiUtility.ServerImpl {
+        + main.java.RmiUtility.ServerImpl()
+        + login()
+        + register()
+    }
+  }
+  
+
+  main.java.RmiUtility.ServerImpl -up-|> main.java.RmiUtility.ServerAction
+  main.java.RmiUtility.ServerImpl -up-|> UnicastRemoteObject
+
+@enduml
