@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1573b585-d539-45e2-858d-700254c20a79" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Assignment 2/src/RORInvocationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/LocateSimpleRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/LocateSimpleRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/RORtbl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/RORtbl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/RemoteObjectRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/RemoteObjectRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/SimpleRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/SimpleRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/SimpleRegistryServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/SimpleRegistryServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/testLookup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/testLookup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/testRebind.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/testRebind.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,7 +68,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="7" selection-end-column="75" />
+              <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -141,10 +149,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="width" value="1440" />
-    <option name="height" value="877" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -214,7 +221,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552298932002" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553443573020" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -295,12 +302,12 @@
       <workItem from="1552275893175" duration="773000" />
       <workItem from="1552276835858" duration="4019000" />
       <workItem from="1552296405896" duration="2293000" />
-      <workItem from="1553050171798" duration="573000" />
+      <workItem from="1553050171798" duration="1482000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16533000" />
+    <option name="totallyTimeSpent" value="17442000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -401,7 +408,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="7" selection-end-column="75" />
+          <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="75" />
         </state>
       </provider>
     </entry>
