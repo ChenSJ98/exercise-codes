@@ -21,7 +21,7 @@ public class ServiceStub implements InvocationHandler {
         Message message = new Message(this.serviceName, method.getName(), method.getParameterTypes(), args);
 
         CM cm = new CM();
-        System.out.println("message built");
+        System.out.println("message built, serviceName:"+ message.getServiceName());
         cm.connect(host, port);
         System.out.println("cm conneted");
         cm.send(message);
@@ -29,7 +29,7 @@ public class ServiceStub implements InvocationHandler {
         Message result = cm.recv();
         System.out.println(result.getResult());
         cm.close();
-        return true;
+        return result.getResult();
 
         //return message.getResult();
 

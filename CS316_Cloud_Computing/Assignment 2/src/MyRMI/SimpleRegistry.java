@@ -80,7 +80,7 @@ public class SimpleRegistry {
 
 	// rebind a ROR. ROR can be null. again no check, on this or whatever.
 	// I hate this but have no time.
-	public void rebind(String serviceName, Object Impl, String ip, int port) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+	public void rebind(String serviceName, Object Impl, String ip, int port) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		// open socket. same as before.
 		Socket soc = new Socket(Host, Port);
 
@@ -94,7 +94,7 @@ public class SimpleRegistry {
 		out.println(ip);
 		out.println(port);
 		out.println(12);
-		out.println(Impl.getClass().getInterfaces()[0]);
+		out.println(Impl.getClass().getInterfaces()[0].getName().split("\\s")[0]);
 		ServiceSkeleton skeleton = new ServiceSkeleton();
 		skeleton.run(port);
 		// it also gets an ack, but this is not used.
