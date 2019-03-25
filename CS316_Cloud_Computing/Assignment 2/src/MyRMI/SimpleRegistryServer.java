@@ -1,3 +1,5 @@
+package MyRMI;
+
 import java.util.*;
 import java.net.*;
 import java.io.*;
@@ -10,7 +12,7 @@ import java.io.*;
 //   (1) lookup  --> returns ROR.
 //   (2) rebind --> binds ROR.
 //   (3) whoareyou --> I am simple registry etc.
-// it is used through SimpleRegistry and LocateSimpleRegistry.
+// it is used through MyRMI.SimpleRegistry and MyRMI.LocateSimpleRegistry.
 
 public class SimpleRegistryServer {
 

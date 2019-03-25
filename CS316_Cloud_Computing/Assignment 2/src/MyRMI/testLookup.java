@@ -1,3 +1,5 @@
+package MyRMI;
+
 import java.io.*;
 
 // we test simple registry by looking up a service.

@@ -1,4 +1,5 @@
-import java.util.*;
+package MyRMI;
+
 import java.net.*;
 import java.io.*;
 
