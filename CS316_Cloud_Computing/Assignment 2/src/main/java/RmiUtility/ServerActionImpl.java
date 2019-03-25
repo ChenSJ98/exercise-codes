@@ -5,8 +5,8 @@ import main.java.dao.UserDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class ServerImpl extends UnicastRemoteObject implements ServerAction {
-    public ServerImpl() throws RemoteException{
+public class ServerActionImpl extends UnicastRemoteObject implements ServerAction {
+    public ServerActionImpl() throws RemoteException{
         super();
     };
     public boolean login (String username, String password) throws RemoteException{

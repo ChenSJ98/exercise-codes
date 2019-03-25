@@ -21,7 +21,7 @@ public class SimpleRegistryServer {
 		// which is a port name for the registry
 		// at the host in which it is running.
 //		 int port = Integer.parseInt(args[0]);
-		int port = 1099;
+		int port = 2099;
 		// create a socket.
 		ServerSocket serverSoc = new ServerSocket(port);
 		System.out.println("server socket created.\n");

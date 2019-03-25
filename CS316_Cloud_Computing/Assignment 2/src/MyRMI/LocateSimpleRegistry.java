@@ -24,9 +24,11 @@ public class LocateSimpleRegistry {
 
 			// gets answer.
 			if ((in.readLine()).equals("I am a simple registry.")) {
+				soc.close();
 				return new SimpleRegistry(host, port);
 			} else {
 				System.out.println("somebody is there but not a  registry!");
+				soc.close();
 				return null;
 			}
 		} catch (Exception e) {
@@ -35,4 +37,5 @@ public class LocateSimpleRegistry {
 			return null;
 		}
 	}
+
 }

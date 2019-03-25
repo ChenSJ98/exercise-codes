@@ -35,7 +35,7 @@ public class testRebind {
 
 		if (sr != null) {
 			// bind.
-			sr.rebind(ServiceName, ror);
+			//sr.rebind(ServiceName, ror);
 
 			// test the binding by looking up.
 			RemoteObjectRef ror2 = sr.lookup(ServiceName);

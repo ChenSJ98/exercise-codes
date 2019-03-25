@@ -8,7 +8,7 @@ public class UserDao {
     public UserDao(){}
     private static final String URL = "jdbc:mysql://155.138.128.229:3306/cs316";
     private static final String USER_NAME = "user1";
-    private static final String PASSWORD = "user123456";
+    private static final String PASSWORD = "12345@Cs";
 
     /**
      * This method checks if the credential provided by the user is valid.
