@@ -23,8 +23,6 @@ public class RMIClient {
             RemoteObjectRef ror = sr.lookup("Server");
 
             myStub = (ServerAction) ror.localise();
-            //stub = (ServerAction) reg.lookup("noobServer");
-            //a simple command-line interface
             System.out.println("Welcome");
             int quit = 0;
             while(true){
