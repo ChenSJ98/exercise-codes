@@ -1,4 +1,8 @@
-import java.util.*;
+package MyRMI;
+
+import main.java.RmiUtility.ServiceSkeleton;
+
+import java.lang.reflect.InvocationTargetException;
 import java.net.*;
 import java.io.*;
 
@@ -76,7 +80,7 @@ public class SimpleRegistry {
 
 	// rebind a ROR. ROR can be null. again no check, on this or whatever.
 	// I hate this but have no time.
-	public void rebind(String serviceName, RemoteObjectRef ror) throws IOException {
+	public void rebind(String serviceName, Object Impl, String ip, int port) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		// open socket. same as before.
 		Socket soc = new Socket(Host, Port);
 
@@ -87,11 +91,12 @@ public class SimpleRegistry {
 		// it is a rebind request, with a service name and ROR.
 		out.println("rebind");
 		out.println(serviceName);
-		out.println(ror.IP_adr);
-		out.println(ror.Port);
-		out.println(ror.Obj_Key);
-		out.println(ror.Remote_Interface_Name);
-
+		out.println(ip);
+		out.println(port);
+		out.println(12);
+		out.println(Impl.getClass().getInterfaces()[0].getName().split("\\s")[0]);
+		ServiceSkeleton skeleton = new ServiceSkeleton();
+		skeleton.run(port);
 		// it also gets an ack, but this is not used.
 		String ack = in.readLine();
 

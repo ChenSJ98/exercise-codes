@@ -1,3 +1,5 @@
+package MyRMI;
+
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -12,7 +14,7 @@ public class RORtbl {
     int   counter;
 	// make a new table.
 	public RORtbl() {
-//		table   = new Hashtable<RemoteObjectRef, Object>();
+//		table   = new Hashtable<MyRMI.RemoteObjectRef, Object>();
 		counter = 0;
 	}
 

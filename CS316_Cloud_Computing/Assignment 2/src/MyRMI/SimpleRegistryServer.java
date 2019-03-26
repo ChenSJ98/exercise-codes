@@ -1,3 +1,5 @@
+package MyRMI;
+
 import java.util.*;
 import java.net.*;
 import java.io.*;
@@ -10,7 +12,7 @@ import java.io.*;
 //   (1) lookup  --> returns ROR.
 //   (2) rebind --> binds ROR.
 //   (3) whoareyou --> I am simple registry etc.
-// it is used through SimpleRegistry and LocateSimpleRegistry.
+// it is used through MyRMI.SimpleRegistry and MyRMI.LocateSimpleRegistry.
 
 public class SimpleRegistryServer {
 
@@ -19,7 +21,7 @@ public class SimpleRegistryServer {
 		// which is a port name for the registry
 		// at the host in which it is running.
 //		 int port = Integer.parseInt(args[0]);
-		int port = 1099;
+		int port = 2099;
 		// create a socket.
 		ServerSocket serverSoc = new ServerSocket(port);
 		System.out.println("server socket created.\n");
