@@ -5,8 +5,8 @@
 #include <pthread.h>
 #include <math.h>
 int N;
-int maxT = 8;
-int tNum = 1;
+const int maxT = 8;
+int tNum = 0;
 typedef struct arg {
     int* a;
     int left;
@@ -58,10 +58,8 @@ void mergeSort(arg *args) {
 
 
 
-int run( int n, int c) {
+int main() {
   // generate N random numbers from in range of [0, RAND_MAX]
-  N = n;
-  maxT = c;
   N = 200000000;
   int *a = (int*)malloc(sizeof(int)*N);
   srand(time(NULL));
@@ -124,11 +122,4 @@ int run( int n, int c) {
   printf("merge time cost:%f\n",timecost);
   
   free(a);
-}
-int main() {
-  run(100000000, 0);
-  for(int i = 2; i < 33; i*=2) {
-    run(100000000, i);
-  }
-
 }
