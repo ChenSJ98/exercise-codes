@@ -5,8 +5,8 @@
 #include <pthread.h>
 #include <math.h>
 int N;
-const int maxT = 8;
-int tNum = 0;
+int maxT = 8;
+int tNum = 1;
 typedef struct arg {
     int* a;
     int left;
@@ -14,20 +14,13 @@ typedef struct arg {
     int right;
 } arg; 
 
-void printA(int *a) {
-  for(int i = 0; i < N; i++) {
-    printf("%d ", a[i]);
-  }
-  printf("\n");
-}
-
 void merge(arg *args) {
   int *a = args->a;
   int left = args->left;
   int mid = args->mid;
   int right = args->right;
-  //printf("merge %d %d %d\n", left, mid, right);
-  //printA(a);
+
+  // put temp array in the heap to prevent stack overflow
   int *b = (int*)malloc(sizeof(int)*(right-left+1));
   int i = left, j = mid+1, idx = 0;
   while(i <= mid || j <= right) {
@@ -41,7 +34,7 @@ void merge(arg *args) {
     }
   }
   memcpy(a+left, b,(right-left+1)*sizeof(int));
-  //printA(a);
+
   free(b);
 }
 
@@ -65,48 +58,50 @@ void mergeSort(arg *args) {
 
 
 
-int main() {
+int run( int n, int c) {
+  // generate N random numbers from in range of [0, RAND_MAX]
+  N = n;
+  maxT = c;
   N = 200000000;
   int *a = (int*)malloc(sizeof(int)*N);
   srand(time(NULL));
   for(int i = 0; i < N; i++) {
     a[i] = rand();
   }
+
   struct timespec t1, t2;
   clock_gettime(CLOCK_MONOTONIC, &t1);
   
+  // divide the input array into N parts and create a thread for each part
   int depth = (int)log2(maxT);
   depth += maxT > pow(2, depth) ? 1:0;
   int interval = N / maxT;
   pthread_t threads[maxT];
-  //printA(a);
-  // create and join subthreads
+
+  // store arguments in an array to prevent synchronization issues of parameter passing in different threads
   arg ag[maxT];
   for(int i = 0; i < maxT - 1; i++) {
     ag[i].a = a;
     ag[i].left = i*interval;
     ag[i].right = (i+1)*interval-1;
     ag[i].mid = 0;
-    //{a, i*interval, 0, (i+1)*interval-1};
-    //printf("thread created\n");
-    //printf("%d-%d\n", ag[i].left, ag[i].right);
+
     pthread_create(&threads[i], NULL, (void*) mergeSort, &ag[i]);
   }
+
+  
   int i = maxT - 1;
   ag[i].a = a;
   ag[i].left = i*interval;
+  // the last interval goes to index N-1
   ag[i].right = N - 1;
   ag[i].mid = 0;
-  //arg args = {a, i*interval, 0, N - 1};
-  //printf("thread created\n");
-  //printf("%d-%d\n", ag[i].left, ag[i].right);
+
   pthread_create(&threads[i], NULL, (void*) mergeSort, &ag[i]);
   for(int i = 0; i < maxT; i++) {
     pthread_join(threads[i], NULL);
   }
-//printA(a);
-//printf("\n");
-  //merge result of each thread
+  // merge results from different threads
   for(int i = depth - 1; i >=0; i--) {
     int step = maxT / pow(2, i);
     for(int j = 0; j < pow(2, i); j++) {
@@ -115,22 +110,13 @@ int main() {
       ag[j].left = j*step*interval;
       ag[j].right = right;
       ag[j].mid = (j == pow(2,i) - 1)? j*step*interval + step/2*interval -1:(j*step*interval + right) >> 1;
-      
-      
-      //printf("thread merge created\n");
-      //printf("%d,%d  %d-%d-%d\n",i, j, ag[j].left, ag[j].mid, ag[j].right);
       pthread_create(&threads[j], NULL, (void*) merge, &ag[j]);
     }
     for(int j = 0; j < pow(2,i); j++) {
       pthread_join(threads[j], NULL);
-      //printA(a);
     }
-    //printf("\n");
   }
-  
-  //mergeSort(&args);
-  //printA(a);
-  
+  // calculate time cost and print result
   clock_gettime(CLOCK_MONOTONIC, &t2);
   float timecost = (t2.tv_sec - t1.tv_sec) + (t2.tv_nsec - t1.tv_nsec)*1.0/1000000000;
   printf("%d Numbers\n", N);
@@ -138,4 +124,11 @@ int main() {
   printf("merge time cost:%f\n",timecost);
   
   free(a);
+}
+int main() {
+  run(100000000, 0);
+  for(int i = 2; i < 33; i*=2) {
+    run(100000000, i);
+  }
+
 }
