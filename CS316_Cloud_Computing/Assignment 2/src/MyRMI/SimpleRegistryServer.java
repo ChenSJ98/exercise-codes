@@ -3,6 +3,10 @@ package MyRMI;
 import java.util.*;
 import java.net.*;
 import java.io.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 // This is a simple registry server.
 // The system does not do any error checking or bound checking.
@@ -15,7 +19,8 @@ import java.io.*;
 // it is used through MyRMI.SimpleRegistry and MyRMI.LocateSimpleRegistry.
 
 public class SimpleRegistryServer {
-
+	// a table of keys (service names) and ROR.
+	static Hashtable<String, RemoteObjectRef> table = new Hashtable<String, RemoteObjectRef>();
 	public static void main(String args[]) throws IOException {
 		// I do no checking. A user supplies one argument,
 		// which is a port name for the registry
@@ -23,109 +28,123 @@ public class SimpleRegistryServer {
 //		 int port = Integer.parseInt(args[0]);
 		int port = 2099;
 		// create a socket.
-		ServerSocket serverSoc = new ServerSocket(port);
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(6,12, 200, TimeUnit.MICROSECONDS, new LinkedBlockingDeque<>());
 		System.out.println("server socket created.\n");
-
-		// create a table of keys (service names) and ROR.
-		Hashtable<String, RemoteObjectRef> table = new Hashtable<String, RemoteObjectRef>();
-
-		// loop: accept, receive request, reply, close.
-		// again no error checking: this is not robust at all.
-		// it does not reuse connection.
-		// moreover there is no concurrency: this is a bad
-		// server programming.
-		// in any way.
-
+        ServerSocket serverSoc = new ServerSocket(port, 10000);
+		// loop: accept request and create new thread to handle each connection
 		while (true) {
 			// create new connections.
+
 			Socket newsoc = serverSoc.accept();
 
 			System.out.println("accepted the request.");
-
+			executor.execute(new SimpleRegistryServerThread(newsoc));
+			//t.start();
 			// input/output streams (remember, TCP is bidirectional).
-			BufferedReader in = new BufferedReader(new InputStreamReader(newsoc.getInputStream()));
-			PrintWriter out = new PrintWriter(newsoc.getOutputStream(), true);
 
-			// get a line. this should be a command:
-			// (1) lookup servicename --> ["found", ROR data] or ["not found"]
-			// (2) rebound servicename ROR --> ["bound"]
-			// (3) who are you? --> I am a simple registry.
+		}
+	}
+	static class SimpleRegistryServerThread implements Runnable {
+		Socket soc;
+		SimpleRegistryServerThread(Socket s) {
+			this.soc = s;
+		}
+		@Override
+		public void run() {
+			// process received request, reply, close.
+			// again no error checking: this is not robust at all.
+			// it does not reuse connection.
+			// moreover there is no concurrency: this is a bad
+			// server programming.
+			// in any way.
+			try {
+				BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+				PrintWriter out = new PrintWriter(soc.getOutputStream(), true);
 
-			String command = in.readLine();
-			// branch: commands are either lookup or rebind.
-			if (command.equals("lookup")) {
-				System.out.println("it is lookup request.");
+				// get a line. this should be a command:
+				// (1) lookup servicename --> ["found", ROR data] or ["not found"]
+				// (2) rebound servicename ROR --> ["bound"]
+				// (3) who are you? --> I am a simple registry.
 
-				String serviceName = in.readLine();
+				String command = in.readLine();
+				// branch: commands are either lookup or rebind.
+				if (command.equals("lookup")) {
+					System.out.println("it is lookup request.");
 
-				System.out.println("The service name is " + serviceName + ".");
+					String serviceName = in.readLine();
 
-				// tests if it is in the table.
-				// if it is gets it.
-				if (table.containsKey(serviceName)) {
-					System.out.println("the service found.");
+					//System.out.println("The service name is " + serviceName + ".");
 
-					RemoteObjectRef ror = (RemoteObjectRef) table.get(serviceName);
+					// tests if it is in the table.
+					// if it is gets it.
+					if (SimpleRegistryServer.table.containsKey(serviceName)) {
+						//System.out.println("the service found.");
 
-					System.out.println("ROR is " + ror.IP_adr + "," + ror.Port + "," + ror.Obj_Key + ","
-							+ ror.Remote_Interface_Name + ".");
+						RemoteObjectRef ror = (RemoteObjectRef) table.get(serviceName);
 
-					out.println("found");
-					out.println(ror.IP_adr);
-					out.println(Integer.toString(ror.Port));
-					out.println(Integer.toString(ror.Obj_Key));
-					out.println(ror.Remote_Interface_Name);
+						//System.out.println("ROR is " + ror.IP_adr + "," + ror.Port + "," + ror.Obj_Key + ","
+						//+ ror.Remote_Interface_Name + ".");
 
-					System.out.println("ROR was sent.\n");
+						out.println("found");
+						out.println(ror.IP_adr);
+						out.println(Integer.toString(ror.Port));
+						out.println(Integer.toString(ror.Obj_Key));
+						out.println(ror.Remote_Interface_Name);
+
+						//System.out.println("ROR was sent.\n");
+					} else {
+						System.out.println("the service not found.\n");
+
+						out.println("not found");
+					}
+				} else if (command.equals("rebind")) {
+					System.out.println("it is rebind request.");
+
+					// again no error check.
+					String serviceName = in.readLine();
+
+					System.out.println("the service name is " + serviceName + ".");
+
+					// get ROR data.
+					// I do not serialise.
+					// Go elementary, that is my slogan.
+
+					System.out.println("I got the following ror:");
+
+					String IP_adr = in.readLine();
+					int Port = Integer.parseInt(in.readLine());
+					int Obj_Key = Integer.parseInt(in.readLine());
+					String Remote_Interface_Name = in.readLine();
+
+					System.out.println("IP address: " + IP_adr);
+					System.out.println("port num:" + Port);
+					System.out.println("object key:" + Obj_Key);
+					System.out.println("Interface Name:" + Remote_Interface_Name);
+
+					// make ROR.
+					RemoteObjectRef ror = new RemoteObjectRef(IP_adr, Port, Obj_Key, Remote_Interface_Name);
+
+					// put it in the table.
+					table.remove(serviceName);
+					Object res = table.put(serviceName, ror);
+
+					System.out.println("ROR is put in the table.\n");
+
+					// ack.
+					out.println("bound");
+				} else if (command.equals("who are you?")) {
+					out.println("I am a simple registry.");
+					System.out.println("I was asked who I am, so I answered.\n");
 				} else {
-					System.out.println("the service not found.\n");
-
-					out.println("not found");
+					System.out.println("I got an incomprehensive message.\n");
 				}
-			} else if (command.equals("rebind")) {
-				System.out.println("it is rebind request.");
 
-				// again no error check.
-				String serviceName = in.readLine();
-
-				System.out.println("the service name is " + serviceName + ".");
-
-				// get ROR data.
-				// I do not serialise.
-				// Go elementary, that is my slogan.
-
-				System.out.println("I got the following ror:");
-
-				String IP_adr = in.readLine();
-				int Port = Integer.parseInt(in.readLine());
-				int Obj_Key = Integer.parseInt(in.readLine());
-				String Remote_Interface_Name = in.readLine();
-
-				System.out.println("IP address: " + IP_adr);
-				System.out.println("port num:" + Port);
-				System.out.println("object key:" + Obj_Key);
-				System.out.println("Interface Name:" + Remote_Interface_Name);
-
-				// make ROR.
-				RemoteObjectRef ror = new RemoteObjectRef(IP_adr, Port, Obj_Key, Remote_Interface_Name);
-
-				// put it in the table.
-				table.remove(serviceName);
-				Object res = table.put(serviceName, ror);
-
-				System.out.println("ROR is put in the table.\n");
-
-				// ack.
-				out.println("bound");
-			} else if (command.equals("who are you?")) {
-				out.println("I am a simple registry.");
-				System.out.println("I was asked who I am, so I answered.\n");
-			} else {
-				System.out.println("I got an imcomprehensive message.\n");
+				// close the socket.
+                out.write(0);
+				soc.close();
+			} catch (Exception e) {
+				System.out.println(e.toString());
 			}
-
-			// close the socket.
-			newsoc.close();
 		}
 	}
 }

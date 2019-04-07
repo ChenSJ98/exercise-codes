@@ -27,8 +27,6 @@ public class UserDao {
             PreparedStatement prst = connection.prepareStatement(sql);
             ResultSet rs = prst.executeQuery();
             if(rs.next()) {
-                System.out.println("get password:" + rs.getString("password"));
-                //check credentials
                 if (BCrypt.checkpw(password, rs.getString("password"))) {
                     rs.close();
                     prst.close();

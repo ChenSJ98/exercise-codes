@@ -2,26 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1573b585-d539-45e2-858d-700254c20a79" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Assignment 2/.idea/libraries/mysql_connector_java_8_0_15.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment 2/lib/mysql-connector-java-8.0.15.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/CM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/ServiceSkeleton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/ServiceStub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment 2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment 2/Assignment 2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/Assignment 2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Assignment 2/src/main/java/BulkRegister.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/BulkRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/CM.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/CM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/LocateSimpleRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/LocateSimpleRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/RORInvocationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/RORInvocationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/RemoteObjectRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/RemoteObjectRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/ServiceStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/ServiceStub.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/SimpleRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/SimpleRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/SimpleRegistryServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/MyRMI/SimpleRegistryServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment 2/src/main/java/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/main/java/RMIClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/main/java/RMIServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/main/java/RMIServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/main/java/RmiUtility/ServerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/main/java/RmiUtility/ServerActionImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/main/java/RmiUtility/ServerActionImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/main/java/RmiUtility/ServerActionImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment 2/src/main/java/RmiUtility/ServiceSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/main/java/RmiUtility/ServiceSkeleton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment 2/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment 2/src/main/java/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cloud_lab1/resources/resources.plantuml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RMIClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OS/Lab1/sh/test_case/test_directory/n/t/0" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,20 +48,64 @@
     <session id="-1202193564">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.1" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="class" value="4" />
+          <entry key="java" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="4" />
+          <entry key="JAVA" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="89" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="89" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RMIServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="161">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RMIClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/BulkRegister.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="845">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,13 +114,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/RMIClient.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="69">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -89,8 +125,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="75" />
+            <state relative-caret-position="299">
+              <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="577">
+              <caret line="96" column="11" selection-start-line="96" selection-start-column="11" selection-end-line="96" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -128,9 +173,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Dao.java" />
         <option value="$PROJECT_DIR$/src/main/java/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/RmiUtility/ServerImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dao/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/resources/BCrypt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dao/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/RMIClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BulkRegister.java" />
       </list>
     </option>
   </component>
@@ -140,10 +186,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="12" />
-    <option name="width" value="2550" />
-    <option name="height" value="1407" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="2574" />
+    <option name="height" value="1414" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -153,7 +200,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -203,6 +249,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -210,7 +257,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553531284810" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554628667764" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -222,6 +269,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="main.java" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="C:\Users\Shijie Chen\Documents\GitHub\Lab_Code\CS316_Cloud_Computing\Cloud_lab1\src" />
@@ -239,7 +289,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RMIServer">
+  <component name="RunManager" selected="Application.BulkRegister">
+    <configuration name="BulkRegister" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.BulkRegister" />
+      <module name="Cloud_lab1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RMIClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.java.RMIClient" />
       <module name="Cloud_lab1" />
@@ -265,11 +328,13 @@
       <item itemvalue="Application.UserDao" />
       <item itemvalue="Application.RMIClient" />
       <item itemvalue="Application.RMIServer" />
+      <item itemvalue="Application.BulkRegister" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RMIClient" />
+        <item itemvalue="Application.BulkRegister" />
         <item itemvalue="Application.RMIServer" />
+        <item itemvalue="Application.RMIClient" />
         <item itemvalue="Application.UserDao" />
       </list>
     </recent_temporary>
@@ -294,16 +359,17 @@
       <workItem from="1553050171798" duration="1482000" />
       <workItem from="1553505110055" duration="2450000" />
       <workItem from="1553512326807" duration="3086000" />
+      <workItem from="1554620186576" duration="4825000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22978000" />
+    <option name="totallyTimeSpent" value="27803000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="12" y="0" width="2550" height="1407" extended-state="0" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.0939759" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17965023" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -312,7 +378,7 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29300866" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.43837753" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -321,7 +387,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3295063" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32885906" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3283582" />
       <window_info anchor="bottom" id="Database Changes" order="12" weight="0.3295063" />
       <window_info anchor="bottom" id="Version Control" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="EvoSuite" order="14" />
@@ -351,20 +417,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/resources/resources.plantuml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/dcc2afae-058a-4de2-9d4c-e0d0293ee933/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -395,17 +447,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
-          <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="75" />
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RMIClient.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="33" />
+        <state relative-caret-position="299">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="96" column="11" selection-start-line="96" selection-start-column="11" selection-end-line="96" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/jre/lib/rt.jar!/sun/rmi/transport/tcp/TCPEndpoint.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="371" selection-start-line="371" selection-end-line="371" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/jre/lib/rt.jar!/sun/rmi/registry/RegistryImpl_Stub.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/jre/lib/rt.jar!/sun/rmi/server/UnicastRef.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="191" selection-start-line="191" selection-end-line="191" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/jre/lib/rt.jar!/sun/rmi/transport/tcp/TCPChannel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2208">
+          <caret line="101" column="30" lean-forward="true" selection-start-line="101" selection-start-column="30" selection-end-line="101" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -414,11 +501,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RMIServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="161">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BulkRegister.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="845">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RMIClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
         </state>
       </provider>
     </entry>

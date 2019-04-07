@@ -77,15 +77,15 @@ public class RMIClient {
             //stub = (ServerAction) reg.lookup("noobServer");
             String username = "";
             String password = "";
-            System.out.print("Username: ");
+            //System.out.print("Username: ");
             username = scanner.next();
-            System.out.print("Password: ");
+            //System.out.print("Password: ");
             password = scanner.next();
-            System.out.println("Processing...");
+            //System.out.println("Processing...");
             if(myStub.register(username, password)){
-             System.out.println("Congratulations, you have successfully signed up as a user!");
+                //System.out.println("Congratulations, you have successfully signed up as a user!");
             } else {
-                System.out.println("Error! It seems the username exists");
+                //System.out.println("Error! It seems the username exists");
             }
             //myStub.register(username,password);
         } catch(Exception e) {

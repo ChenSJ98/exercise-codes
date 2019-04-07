@@ -24,15 +24,17 @@ public class LocateSimpleRegistry {
 
 			// gets answer.
 			if ((in.readLine()).equals("I am a simple registry.")) {
-				soc.close();
+                out.write(0);
+			    soc.close();
 				return new SimpleRegistry(host, port);
 			} else {
 				System.out.println("somebody is there but not a  registry!");
+                out.write(0);
 				soc.close();
 				return null;
 			}
 		} catch (Exception e) {
-			System.out.println("nobody is there!" + e.toString());
+			System.out.println(Thread.currentThread().getId() + "nobody is there!" + e.toString());
 			e.printStackTrace();
 			return null;
 		}

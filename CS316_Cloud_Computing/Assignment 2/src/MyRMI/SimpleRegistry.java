@@ -24,19 +24,19 @@ public class SimpleRegistry {
 		// you should usually do try-catch here (and later).
 		Socket soc = new Socket(Host, Port);
 
-		System.out.println("socket made.");
+		//System.out.println("socket made.");
 
 		// get TCP streams and wrap them.
 		BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
 		PrintWriter out = new PrintWriter(soc.getOutputStream(), true);
 
-		System.out.println("stream made.");
+		//System.out.println("stream made.");
 
 		// it is locate request, with a service name.
 		out.println("lookup");
 		out.println(serviceName);
 
-		System.out.println("command and service name sent.");
+		//System.out.println("command and service name sent.");
 
 		// branch according to the answer.
 		String res = in.readLine();
@@ -44,29 +44,29 @@ public class SimpleRegistry {
 
 		if (res.equals("found")) {
 
-			System.out.println("it is found!.");
+			//System.out.println("it is found!.");
 
 			// receive ROR data, witout check.
 			String ro_IPAdr = in.readLine();
 
-			System.out.println(ro_IPAdr);
+			//System.out.println(ro_IPAdr);
 
 			int ro_PortNum = Integer.parseInt(in.readLine());
 
-			System.out.println(ro_PortNum);
+			//System.out.println(ro_PortNum);
 
 			int ro_ObjKey = Integer.parseInt(in.readLine());
 
-			System.out.println(ro_ObjKey);
+			//System.out.println(ro_ObjKey);
 
 			String ro_InterfaceName = in.readLine();
 
-			System.out.println(ro_InterfaceName);
+			//System.out.println(ro_InterfaceName);
 
 			// make ROR.
 			ror = new RemoteObjectRef(ro_IPAdr, ro_PortNum, ro_ObjKey, ro_InterfaceName);
 		} else {
-			System.out.println("it is not found!.");
+			//System.out.println("it is not found!.");
 
 			ror = null;
 		}

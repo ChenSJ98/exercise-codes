@@ -11,12 +11,13 @@ public class CM {
 
     public CM() {}
 
-    public void connect(String host, int port) throws UnknownHostException, IOException {
+    public void connect(String host, int port) throws IOException {
         socket = new Socket(host, port);
         oOut = new ObjectOutputStream(socket.getOutputStream());
         oIn = new ObjectInputStream(socket.getInputStream());
     }
     public void close() throws IOException {
+        socket.getOutputStream().write(0);
         socket.close();
         oIn.close();
         oOut.close();

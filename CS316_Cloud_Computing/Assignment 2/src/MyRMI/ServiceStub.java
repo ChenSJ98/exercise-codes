@@ -16,20 +16,26 @@ public class ServiceStub implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("stub recv call");
-        System.out.println("Service name:"+ this.serviceName);
+        //System.out.println("stub recv call");
+        //System.out.println("Service name:"+ this.serviceName);
         Message message = new Message(this.serviceName, method.getName(), method.getParameterTypes(), args);
+        try{
+            CM cm = new CM();
+            //System.out.println("message built, serviceName:"+ message.getServiceName());
+            cm.connect(host, port);
+            // System.out.println("cm conneted");
+            cm.send(message);
+            //System.out.println("stub message sent");
+            Message result = cm.recv();
+            //System.out.println(result.getResult());
+            cm.close();
+            return result.getResult();
+        } catch (Exception e) {
+            System.out.println("connect fail");
+            System.out.println(e.toString());
+        }
+        return false;
 
-        CM cm = new CM();
-        System.out.println("message built, serviceName:"+ message.getServiceName());
-        cm.connect(host, port);
-        System.out.println("cm conneted");
-        cm.send(message);
-        System.out.println("stub message sent");
-        Message result = cm.recv();
-        System.out.println(result.getResult());
-        cm.close();
-        return result.getResult();
 
         //return message.getResult();
 

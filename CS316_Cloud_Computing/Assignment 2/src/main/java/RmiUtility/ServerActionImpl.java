@@ -10,11 +10,14 @@ public class ServerActionImpl extends UnicastRemoteObject implements ServerActio
         super();
     };
     public boolean login (String username, String password) throws RemoteException{
+        System.out.println("Incoming login request");
         UserDao userDao = new UserDao();
         return userDao.login_authenticate(username, password);
     }
     public boolean register(String username, String password) throws RemoteException{
+        System.out.println("Incoming register request");
         UserDao userDao = new UserDao();
-        return userDao.register_user(username, password);
+        //return userDao.register_user(username, password);
+        return true;
     }
 }

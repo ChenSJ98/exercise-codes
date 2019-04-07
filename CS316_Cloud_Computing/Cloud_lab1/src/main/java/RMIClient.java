@@ -74,7 +74,7 @@ public class RMIClient {
             password = scanner.next();
             System.out.println("Processing...");
             if(stub.register(username, password)){
-             System.out.println("Congratulations, you have successfully signed up as a user!");
+                //System.out.println("Congratulations, you have successfully signed up as a user!");
             } else {
                 System.out.println("Error! It seems the username exists");
             }

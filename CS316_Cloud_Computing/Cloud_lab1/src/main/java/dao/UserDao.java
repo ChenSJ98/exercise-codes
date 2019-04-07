@@ -16,6 +16,7 @@ public class UserDao {
      * @return Return true if the operation is successful.
      */
     public boolean login_authenticate(String username, String password) {
+        /*
         Connection connection = null;
         try {
             //get connection to database
@@ -50,8 +51,10 @@ public class UserDao {
                     e.printStackTrace();
                 }
             }
-        }
-        return false;
+        }*/
+
+        //return false;
+        return true;
     }
 
     /**
@@ -61,7 +64,7 @@ public class UserDao {
      * @return Return true if the operation is successful.
      */
     public boolean register_user(String username, String password){
-        Connection connection = null;
+        /*Connection connection = null;
         Statement stmt = null;
         try {
             //get connection to database
@@ -91,7 +94,7 @@ public class UserDao {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
         return true;
     }
 }
