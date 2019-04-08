@@ -3,10 +3,7 @@ package MyRMI;
 import java.util.*;
 import java.net.*;
 import java.io.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 // This is a simple registry server.
 // The system does not do any error checking or bound checking.
@@ -28,7 +25,7 @@ public class SimpleRegistryServer {
 //		 int port = Integer.parseInt(args[0]);
 		int port = 2099;
 		// create a socket.
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(6,12, 200, TimeUnit.MICROSECONDS, new LinkedBlockingDeque<>());
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(6,12, 200, TimeUnit.MICROSECONDS, new LinkedBlockingQueue<>());
 		System.out.println("server socket created.\n");
         ServerSocket serverSoc = new ServerSocket(port, 10000);
 		// loop: accept request and create new thread to handle each connection

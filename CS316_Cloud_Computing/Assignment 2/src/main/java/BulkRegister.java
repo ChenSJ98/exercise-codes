@@ -3,48 +3,50 @@ import MyRMI.LocateSimpleRegistry;
 import MyRMI.RemoteObjectRef;
 import MyRMI.SimpleRegistry;
 import main.java.RmiUtility.ServerAction;
-import java.util.Vector;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.UUID;
 
 public class BulkRegister implements Runnable{
     private static AtomicInteger RMIcounter = new AtomicInteger();
     private static AtomicInteger appCounter = new AtomicInteger();
+    static CountDownLatch latch;
+    static CountDownLatch done;
     public static void main(String[] args) {
-        int N = 60000;
-        Vector<Thread> threads = new Vector<>();
+        int N = 30000;
+        ExecutorService service = Executors.newCachedThreadPool();
+        latch  = new CountDownLatch(1);
+        done = new CountDownLatch(N);
         RMIcounter.set(0);
         appCounter.set(0);
         for(int i = 0; i < N; i++) {
-            Thread t = new Thread(new BulkRegister());
-            threads.add(t);
-            t.start();
+            service.execute(new BulkRegister());
         }
-        for(Thread t : threads) {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        latch.countDown();
+        try {
+            done.await();
+            service.shutdown();
+            System.out.println("successful RMI connections:"+ RMIcounter.get() +"/" + N);
+            System.out.println("successful APP connections:"+ appCounter.get() +"/" + N);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println("successful RMI connections:"+ RMIcounter.get() +"/" + N);
-        System.out.println("successful APP connections:"+ appCounter.get() +"/" + N);
+
 
     }
 
     @Override
     public void run() {
-        UUID uuid = UUID.randomUUID();
+
+        // use uuid as an unique random string
         String username = String.valueOf(UUID.randomUUID());
         String password = String.valueOf(UUID.randomUUID());
-        //System.out.println(username);
-        //System.out.println(password);
 
         try {
-            //Registry reg = LocateRegistry.getRegistry("localhost",1099);
+            latch.await();
             SimpleRegistry sr = LocateSimpleRegistry.getRegistry("localhost",2099);
-            //int t = (new Random()).nextInt(2000);
-            //sleep(t);
             if(sr == null) {
                 System.out.println("sr null!");
                 return;
@@ -59,7 +61,7 @@ public class BulkRegister implements Runnable{
 
             boolean result = myStub.register(username, password);
             if(result){
-                //System.out.println(Thread.currentThread().getId() + "Congratulations, you have successfully signed up as a user!");
+                System.out.println(Thread.currentThread().getId() + "Congratulations, you have successfully signed up as a user!");
                 appCounter.getAndIncrement();
             } else {
                 System.out.println(Thread.currentThread().getId() + "Error! It seems the username exists");
@@ -68,6 +70,8 @@ public class BulkRegister implements Runnable{
         } catch (Exception e) {
             System.out.println("BR error:" + e.toString());
             e.printStackTrace();
+        } finally{
+            done.countDown();
         }
 
     }
