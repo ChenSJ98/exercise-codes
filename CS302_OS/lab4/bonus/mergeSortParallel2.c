@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include <math.h>
 int N;
-const int maxT = 8;
+int maxT = 8;
 int tNum = 0;
 typedef struct arg {
     int* a;
@@ -60,7 +60,8 @@ void mergeSort(arg *args) {
 
 int main() {
   // generate N random numbers from in range of [0, RAND_MAX]
-  N = 200000000;
+  N = 100000000;
+  maxT = 1;
   int *a = (int*)malloc(sizeof(int)*N);
   srand(time(NULL));
   for(int i = 0; i < N; i++) {

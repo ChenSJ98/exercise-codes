@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include <unistd.h>
 int N;// = 100000000;
-const int maxT = 30;
+const int maxT = 4;
 int tNum = 0;
 void merge(int a[], int left,int mid, int right) {
   int *b = (int*)malloc(sizeof(int)*(right-left+1));
@@ -59,7 +59,7 @@ void mergeSort(arg *args) {
 }
 
 int main() {
-  N = 200000000;
+  N = 1000;
   int *a = (int*)malloc(sizeof(int)*N);
   srand(time(NULL));
   for(int i = 0; i < N; i++) {
