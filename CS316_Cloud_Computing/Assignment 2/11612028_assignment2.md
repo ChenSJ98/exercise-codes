@@ -31,7 +31,7 @@ The Bulk Register Simulator is implemented in src/main/java/BulkRegister.java.
           for(int i = 0; i < N; i++) {
               service.execute(new BulkRegister());
           }
-          latch.countDown();
+          latch.countDown(); // signal the start for every thread
           try {
               done.await(); // wait for all threads to finish
               service.shutdown(); // close thread poll
@@ -54,7 +54,7 @@ The Bulk Register Simulator is implemented in src/main/java/BulkRegister.java.
               System.out.println("BR error:" + e.toString());
               e.printStackTrace();
           } finally{
-              done.countDown();
+              done.countDown(); // decrease done on exit
           }
   
       }
@@ -63,7 +63,7 @@ The Bulk Register Simulator is implemented in src/main/java/BulkRegister.java.
 
   One drawback of this design is that it takes a lot of memory. My computer (with 16GB RAM) can’t support simulation of 100000 requests.
 
-  Still, this simulation cannot reflect the real situation when the number of threads are too large. But it gives a better simulation and creating and start threads in a for loop.
+  Still, this simulation cannot reflect the real situation when the number of threads are too large. But it gives a better approximation than creating and start threads in a for loop.
 
 ### Multi-threaded RMI Implementation
 
@@ -140,7 +140,14 @@ Here, I compare the performance of java.rmi, MyRMI, and Multi-threaded MyRMI.
 
     Therefore, the concurrency of “1000000” may be lower than “100000” since the switch cost is much higher.
 
-  * The experiment is to test the concurrency performance of RMI implementations, so I let the `UserDao` , which manage access to the database, return `true` directly without accessing the remote database.  Communications still happens between the CM of client and server. In this way, I can eliminate the bottleneck of database concurrency.
+  * **The experiments doesn’t access DBMS.** I let the `ServerActionImpl` , which acts as the server app, return `true` directly when `register()` is invoked without trying to insert a user to the remote database. 
+
+    There are three reasons for that:
+
+    * The experiment is to test the concurrency performance of RMI implementations. DBMS is obviously not part of RMI and should be taken care of by the server application developer.
+    * Communications still happens between the CM of client and server. In this way, I can eliminate the bottleneck of database concurrency.
+
+    * Actually, a single database server is not designed for high concurrency. Cache and distributed databases are used in real life to improve throughput. 
 
 In this way, I run the simulator with code for Lab1 (java.rmi) and Lab2 (MyRMI). Results (successful invocation/ successful lookups) are shown in the following table (simulating 100000 concurrency causes memory shortage):
 

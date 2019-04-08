@@ -15,7 +15,7 @@ public class BulkRegister implements Runnable{
     static CountDownLatch latch;
     static CountDownLatch done;
     public static void main(String[] args) {
-        int N = 30000;
+        int N = 100;
         ExecutorService service = Executors.newCachedThreadPool();
         latch  = new CountDownLatch(1);
         done = new CountDownLatch(N);
