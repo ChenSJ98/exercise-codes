@@ -142,6 +142,6 @@ int thread_get_load_avg (void);
 
 void check_blocked_threads(struct thread *t, void *aux);
 void thread_set_ticks_to_block(int);
-int thread_priority_cmp(struct list_elem *t1, struct list_elem *t2, void *aux );
+bool thread_priority_cmp(struct list_elem *t1, struct list_elem *t2, void *aux );
 
 #endif /* threads/thread.h */
