@@ -200,7 +200,11 @@ thread_create (const char *name, int priority,
 
   /* Add to run queue. */
   thread_unblock (t);
-
+  /* If the new thread has a higher priority, current thread is yield. */
+  if(thread_current()->priority < priority)
+  {
+    thread_yield();
+  }
   return tid;
 }
 
@@ -336,6 +340,8 @@ void
 thread_set_priority (int new_priority) 
 {
   thread_current ()->priority = new_priority;
+  /* Yield the current thread on priority change. It may be scheduled immediately.*/
+  thread_yield();
 }
 
 /* Returns the current thread's priority. */
@@ -349,7 +355,8 @@ thread_get_priority (void)
 void
 thread_set_nice (int nice UNUSED) 
 {
-  /* Not yet implemented. */
+  thread_current()->nice = nice;
+
 }
 
 /* Returns the current thread's nice value. */
@@ -357,7 +364,7 @@ int
 thread_get_nice (void) 
 {
   /* Not yet implemented. */
-  return 0;
+  return thread_current()->nice;
 }
 
 /* Returns 100 times the system load average. */
