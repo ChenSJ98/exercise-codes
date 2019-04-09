@@ -109,6 +109,8 @@ struct thread
     int base_priority; /* Base priority. */
     int nice; /* Nice value.*/
     fixed_t recent_cpu; /* Recent_cpu value*/
+    struct list locks; /* The locks that the thread holds. */
+    struct lock *lock_waiting_for; /* The lock current thread is waiting for. */
   };
 
 /* If false (default), use round-robin scheduler.
@@ -147,10 +149,16 @@ void thread_set_nice (int);
 int thread_get_recent_cpu (void);
 int thread_get_load_avg (void);
 
-void check_blocked_threads (struct thread *t, void *aux);
+void check_blocked_threads (struct thread *, void *);
 void thread_set_ticks_to_block (int);
-bool thread_priority_cmp (struct list_elem *t1, struct list_elem *t2, void *aux );
-void update_recent_cpu (struct thread *t, void *aux UNUSED);
-void update_mlfqs_priority (struct thread *t, void *aux UNUSED);
+bool thread_priority_cmp (struct list_elem *, struct list_elem *, void *);
+void thread_donate_priority(struct thread *);
+void thread_update_priority (struct thread *);
+
+void update_recent_cpu (struct thread *, void *);
+void update_mlfqs_priority (struct thread *, void *);
 void compute_load_avg (void);
+
+
+
 #endif /* threads/thread.h */

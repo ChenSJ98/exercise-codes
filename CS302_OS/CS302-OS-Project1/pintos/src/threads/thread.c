@@ -141,9 +141,7 @@ thread_tick (void)
     kernel_ticks++;
     if (thread_mlfqs)
     {  
-      //printf("before increament: %d\n", t->recent_cpu);
       t->recent_cpu = FP_ADD_MIX (t->recent_cpu, 1);
-      //printf("after increament: %d\n", t->recent_cpu);
     }
   }
     
@@ -212,6 +210,7 @@ thread_create (const char *name, int priority,
   sf->eip = switch_entry;
   sf->ebp = 0;
   t->nice = 0;
+  t->lock_waiting_for = NULL;
   /* Add to run queue. */
   thread_unblock (t);
   /* If the new thread has a higher priority, current thread is yield. */
@@ -353,9 +352,24 @@ thread_foreach (thread_action_func *func, void *aux)
 void
 thread_set_priority (int new_priority) 
 {
-  thread_current ()->priority = new_priority;
+  enum intr_level old_level = intr_disable ();
+  struct thread *current = thread_current ();
+  current->base_priority = new_priority;
+  if(!thread_mlfqs)
+  {
+    if (list_empty(&current->locks) || new_priority > current->priority)
+    {
+      current->priority = new_priority;
+    }
+  }
+  else
+  {
+    current->priority = new_priority;
+  }
+  
   /* Yield the current thread on priority change. It may be scheduled immediately.*/
   thread_yield();
+  intr_set_level(old_level);
 }
 
 /* Returns the current thread's priority. */
@@ -482,8 +496,9 @@ init_thread (struct thread *t, const char *name, int priority)
   strlcpy (t->name, name, sizeof t->name);
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
+  t->base_priority = priority;
   t->magic = THREAD_MAGIC;
-
+  list_init (&(t->locks));
   old_level = intr_disable ();
   list_insert_ordered(&all_list, &t->allelem, (list_less_func*) &thread_priority_cmp, NULL);
   intr_set_level (old_level);
@@ -512,7 +527,7 @@ next_thread_to_run (void)
 {
   if (list_empty (&ready_list))
     return idle_thread;
-  else
+  else 
     return list_entry (list_pop_front (&ready_list), struct thread, elem);
 }
 
@@ -575,11 +590,10 @@ schedule (void)
   struct thread *cur = running_thread ();
   struct thread *next = next_thread_to_run ();
   struct thread *prev = NULL;
-
+  
   ASSERT (intr_get_level () == INTR_OFF);
   ASSERT (cur->status != THREAD_RUNNING);
   ASSERT (is_thread (next));
-
   if (cur != next)
     prev = switch_threads (cur, next);
   thread_schedule_tail (prev);
@@ -664,6 +678,47 @@ update_mlfqs_priority (struct thread *t, void *aux UNUSED)
   {
     t->priority = PRI_MIN;
   }
+}
+
+/* Donate the priority of current thread to thread t. */
+void
+thread_donate_priority (struct thread *t)
+{
+  enum intr_level old_level = intr_disable ();
+  thread_update_priority (t);
+  if(t->status == THREAD_READY)
+  {
+    list_sort(&ready_list, (list_less_func*) thread_priority_cmp, NULL);
+  }
+  intr_set_level (old_level);
+}
+void 
+thread_update_priority (struct thread *t) 
+{
+  int max_lock_priority;
+  if (!list_empty(&t->locks))
+  { 
+    list_sort(&t->locks, (list_less_func*) lock_priority_cmp, NULL);
+    max_lock_priority = list_entry(list_front(&(t->locks)), struct lock, elem)->max_priority_of_waiters;
+  }
+  else
+  {
+    max_lock_priority = PRI_MIN;
+  }
+  
+  if(t->base_priority > max_lock_priority)
+  {
+    t->priority = t->base_priority;
+    //printf("Thread Prio updated to %d\n", t->priority);
+  } 
+  else
+  {
+    t->priority = max_lock_priority;
+    //printf("Thread Prio updated to %d\n", t->priority);
+  }
+  
+  //thread_yield();
+  
 }
 /* Offset of `stack' member within `struct thread'.
    Used by switch.S, which can't figure it out on its own. */

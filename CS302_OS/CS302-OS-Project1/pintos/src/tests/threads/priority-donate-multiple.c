@@ -28,7 +28,6 @@ test_priority_donate_multiple (void)
 
   /* Make sure our priority is the default. */
   ASSERT (thread_get_priority () == PRI_DEFAULT);
-
   lock_init (&a);
   lock_init (&b);
 
