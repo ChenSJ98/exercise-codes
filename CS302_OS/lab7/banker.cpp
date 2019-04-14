@@ -1,13 +1,20 @@
-#include<vector>
-#include<iostream>
+/**
+ * This is a simple implementation of banker's algorithm in C++. Tested on Linux and MacOS.
+ * Author: Shijie Chen
+ * ID: 11612028
+ * Last updated: 2019/04/14
+ **/
+
 #include<stdio.h>
+#include<vector>
 #include<map>
 #include<string.h>
+
 using namespace std;
 
 int resourcesNum;
 int processNum;
-vector<int> finished;
+
 vector<int> available;
 vector<int*> allocated;
 vector<int*> maxRequest;
@@ -16,19 +23,21 @@ vector<int*> want;
 bool newProcess(int totalResources[]) {
     int ok = 1;
     int x[resourcesNum];
+
     for(int i = 0; i < resourcesNum; i++) {
         scanf("%d", &x[i]);
         if(x[i] > totalResources[i]) {
             ok = 0;
         }
     }
-    scanf("\n");
-    if(!ok)
+    if(!ok) {
         return false;
-    finished.push_back(0);
+    }
+
     allocated.push_back(new int(resourcesNum));
     maxRequest.push_back(new int(resourcesNum));
     want.push_back(new int(resourcesNum));
+
     for(int i = 0; i < resourcesNum; i++) {
         maxRequest[processNum][i] = x[i];
         allocated[processNum][i] = 0;
@@ -41,9 +50,10 @@ bool checkSafety() {
     for(int i = 0; i < resourcesNum; i++) {
         checked[i] = 0;
     }
+
     int allGet = 0;
-    for(int k = 0; k < allocated.size(); k++) {
-        for(int i = 0; i < allocated.size(); i++) {
+    for(int k = 0; k < processNum; k++) {
+        for(int i = 0; i < processNum; i++) {
             if(!checked[i]) {
                 allGet = 1;
                 for(int j = 0; j < resourcesNum; j++) {
@@ -58,7 +68,8 @@ bool checkSafety() {
             }
         }
     }
-    for(int i = 0; i < allocated.size(); i++) {
+
+    for(int i = 0; i < processNum; i++) {
         if(!checked[i])
             return false;
     }
@@ -76,6 +87,7 @@ bool requestResource(int i, int request[]) {
         available[j] -= request[j];
         want[i][j] -= request[j];
     }
+
     if(!checkSafety()) {
         for(int j = 0; j < resourcesNum; j++) {
             allocated[i][j] -= request[j];
@@ -84,6 +96,7 @@ bool requestResource(int i, int request[]) {
         }
         return false;
     }
+
     return true;
 }
 
@@ -108,12 +121,12 @@ int main() {
     int pid;
     char opt[10];
     while(scanf("%d %s ", &pid, opt) != EOF) {
-        bool add = false;
+        bool add = false; // if processNum increases
+
         if(!strcmp(opt,"new")) {
             if(pidToIndex[pid] == 0) {
                 pidToIndex[pid] = processNum;
                 add = true;
-                
             }
             if(newProcess(totalResources)) {
                 processNum++;
@@ -121,9 +134,8 @@ int main() {
             } else {
                 printf("NOT OK\n");
             }
-            
-            
         }
+
         if(!strcmp(opt, "request")) {
             int requested[resourcesNum];
             for(int i = 0; i < resourcesNum; i++) {
@@ -135,13 +147,12 @@ int main() {
                 printf("NOT OK\n");
             }
         }
+
         if(!strcmp(opt, "terminate")) {
             terminateProcess(pidToIndex[pid]);
-            finished[pidToIndex[pid]] = 1;
             printf("OK\n");
         }
 
     }
 
 }
-
