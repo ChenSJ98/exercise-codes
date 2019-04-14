@@ -42,23 +42,16 @@ bool checkSafety() {
 }
 
 bool requestResource(int i, int request[]) {
-    //printf("start allocation attempt\n");
-    
     for(int j = 0; j < resourcesNum; j++) {
-        // exceed max request or resources not enough, return false
         if(allocated[i][j] + request[j] > maxRequest[i][j] || request[j] > available[j])
             return false;
     }
-    
-    //printf("pre-allocate\n");
-    // pre-allocate
+
     for(int j = 0; j < resourcesNum; j++) {
         allocated[i][j] += request[j];
         available[j] -= request[j];
         want[i][j] -= request[j];
     }
-    //printf("safety check\n");
-    // check safety of allocation; restore if unsafe
     if(!checkSafety()) {
         for(int j = 0; j < resourcesNum; j++) {
             allocated[i][j] -= request[j];
@@ -67,7 +60,6 @@ bool requestResource(int i, int request[]) {
         }
         return false;
     }
-    
     return true;
 }
 int main() {
@@ -83,10 +75,7 @@ int main() {
     int pid;
     char* opt;
     while(scanf("%d %s", &pid, opt) != EOF) {
-        //printf("%d %s\n", pid, opt);
         if(!strcmp(opt,"new")) {
-            
-            //printf("create %d\n", pid);
             pidToIndex[pid] = processNum;
             int ok = 1;
             int x[resourcesNum];
@@ -95,14 +84,10 @@ int main() {
                 if(x[i] > totalResources[i]) {
                     printf("NOT OK\n");
                     ok = 0;
-                    //break;
                 }
             }
             if(!ok)
                 continue;
-            vector<int>* v1 = new vector<int>(resourcesNum,0);
-            vector<int>* v2 = new vector<int>(resourcesNum,0);
-            vector<int>* v3 = new vector<int>(resourcesNum,0);
             finished.push_back(0);
             allocated.push_back(new int(resourcesNum));
             maxRequest.push_back(new int(resourcesNum));
@@ -114,10 +99,8 @@ int main() {
             }
             processNum++;
             printf("OK\n");
-            //printf("%d created\n", pid);
         }
         if(!strcmp(opt, "request")) {
-            //printf("%d tries to request", pidToIndex[pid]);
             int requested[resourcesNum];
             for(int i = 0; i < resourcesNum; i++) {
                 scanf("%d", &requested[i]);
@@ -127,12 +110,10 @@ int main() {
             } else {
                 printf("NOT OK\n");
             }
-            //printf("request done %d\n", pid);
         }
         if(!strcmp(opt, "terminate")) {
             finished[pidToIndex[pid]] = true;
             printf("OK\n");
-            //printf("%d terminated\n", pidToIndex[pid]);
         }
 
     }
