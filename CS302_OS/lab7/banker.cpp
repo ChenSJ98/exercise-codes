@@ -4,6 +4,7 @@
 #include<map>
 #include<string.h>
 using namespace std;
+
 int resourcesNum;
 int processNum;
 vector<int> finished;
@@ -18,10 +19,10 @@ bool newProcess(int totalResources[]) {
     for(int i = 0; i < resourcesNum; i++) {
         scanf("%d", &x[i]);
         if(x[i] > totalResources[i]) {
-            printf("NOT OK\n");
             ok = 0;
         }
     }
+    scanf("\n");
     if(!ok)
         return false;
     finished.push_back(0);
@@ -85,6 +86,15 @@ bool requestResource(int i, int request[]) {
     }
     return true;
 }
+
+void terminateProcess(int i) {
+    for(int j = 0; j < resourcesNum; j++) {
+        want[i][j] = 0;
+        maxRequest[i][j] = 0;
+        available[j] += allocated[i][j];
+        allocated[i][j] = 0;
+    }
+}
 int main() {
     processNum = 0;
     scanf("%d", &resourcesNum);
@@ -96,10 +106,15 @@ int main() {
     }
     map<int, int> pidToIndex;
     int pid;
-    char* opt;
-    while(scanf("%d %s", &pid, opt) != EOF) {
+    char opt[10];
+    while(scanf("%d %s ", &pid, opt) != EOF) {
+        bool add = false;
         if(!strcmp(opt,"new")) {
-            pidToIndex[pid] = processNum;
+            if(pidToIndex[pid] == 0) {
+                pidToIndex[pid] = processNum;
+                add = true;
+                
+            }
             if(newProcess(totalResources)) {
                 processNum++;
                 printf("OK\n");
@@ -121,7 +136,8 @@ int main() {
             }
         }
         if(!strcmp(opt, "terminate")) {
-            finished[pidToIndex[pid]] = true;
+            terminateProcess(pidToIndex[pid]);
+            finished[pidToIndex[pid]] = 1;
             printf("OK\n");
         }
 
