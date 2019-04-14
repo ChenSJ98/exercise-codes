@@ -12,6 +12,29 @@ vector<int*> allocated;
 vector<int*> maxRequest;
 vector<int*> want;
 
+bool newProcess(int totalResources[]) {
+    int ok = 1;
+    int x[resourcesNum];
+    for(int i = 0; i < resourcesNum; i++) {
+        scanf("%d", &x[i]);
+        if(x[i] > totalResources[i]) {
+            printf("NOT OK\n");
+            ok = 0;
+        }
+    }
+    if(!ok)
+        return false;
+    finished.push_back(0);
+    allocated.push_back(new int(resourcesNum));
+    maxRequest.push_back(new int(resourcesNum));
+    want.push_back(new int(resourcesNum));
+    for(int i = 0; i < resourcesNum; i++) {
+        maxRequest[processNum][i] = x[i];
+        allocated[processNum][i] = 0;
+        want[processNum][i] = x[i];
+    }
+    return true;
+}
 bool checkSafety() {
     bool checked[resourcesNum];
     for(int i = 0; i < resourcesNum; i++) {
@@ -77,28 +100,14 @@ int main() {
     while(scanf("%d %s", &pid, opt) != EOF) {
         if(!strcmp(opt,"new")) {
             pidToIndex[pid] = processNum;
-            int ok = 1;
-            int x[resourcesNum];
-            for(int i = 0; i < resourcesNum; i++) {
-                scanf("%d", &x[i]);
-                if(x[i] > totalResources[i]) {
-                    printf("NOT OK\n");
-                    ok = 0;
-                }
+            if(newProcess(totalResources)) {
+                processNum++;
+                printf("OK\n");
+            } else {
+                printf("NOT OK\n");
             }
-            if(!ok)
-                continue;
-            finished.push_back(0);
-            allocated.push_back(new int(resourcesNum));
-            maxRequest.push_back(new int(resourcesNum));
-            want.push_back(new int(resourcesNum));
-            for(int i = 0; i < resourcesNum; i++) {
-                maxRequest[processNum][i] = x[i];
-                allocated[processNum][i] = 0;
-                want[processNum][i] = x[i];
-            }
-            processNum++;
-            printf("OK\n");
+            
+            
         }
         if(!strcmp(opt, "request")) {
             int requested[resourcesNum];
