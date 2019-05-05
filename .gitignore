@@ -1,5 +1,8 @@
 
 *.class
+*.bin
+*.ipch
+ipch
 CS316_Cloud_Computing/Assignment 2/.idea/workspace.xml
 
 CS302_OS/lab4/enq
