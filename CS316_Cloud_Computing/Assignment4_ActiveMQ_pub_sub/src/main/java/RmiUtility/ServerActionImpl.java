@@ -31,7 +31,7 @@ public class ServerActionImpl extends UnicastRemoteObject implements ServerActio
 
     @Override
     public List<String> getSubscribedTopics(int userId) {
-        return dao.getSubscribedTopics(userId);
+        return dao.getSubscribedTopicsById(userId);
     }
 
     @Override

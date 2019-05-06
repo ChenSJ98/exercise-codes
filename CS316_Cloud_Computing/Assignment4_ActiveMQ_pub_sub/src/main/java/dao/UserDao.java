@@ -106,7 +106,8 @@ public class UserDao {
         }
         return true;
     }
-    public List<String> getSubscribedTopics(int userId) {
+
+    public List<String> getSubscribedTopicsById(int userId) {
         List<String> topics = new ArrayList<>();
         Connection connection = null;
         try {
@@ -131,6 +132,7 @@ public class UserDao {
         }
         return topics;
     }
+
     private void closeConnection(Connection connection) {
         if (connection != null) {
             try {
@@ -145,9 +147,7 @@ public class UserDao {
         Connection connection = null;
         int id = 0;
         try {
-            //get connection to database
             connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            //execute mysql query
             String sql = "SELECT id FROM users where username = \""
                     + username + "\"";
             PreparedStatement prst = connection.prepareStatement(sql);
