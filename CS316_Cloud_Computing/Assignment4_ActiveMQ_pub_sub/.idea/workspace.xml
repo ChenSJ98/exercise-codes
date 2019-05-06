@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52a833f7-f495-48ad-bd11-33512e1b969f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/RmiUtility/ServerActionImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RmiUtility/ServerActionImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Activity.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DisplayMessage.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/11612028_assignment2.md" beforeDir="false" afterPath="$PROJECT_DIR$/11612028_assignment2.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,10 +35,169 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/BulkRegister.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
+            <state relative-caret-position="419">
+              <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="uml://JAVA/">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>JAVA</ID>
+              <OriginalElement />
+              <nodes>
+                <node x="665.0" y="889.2994791666666">com</node>
+                <node x="617.0" y="815.2994791666666">netscape</node>
+                <node x="581.0" y="686.0">toolbarButtonGraphics</node>
+                <node x="0.0" y="963.2994791666666">sun</node>
+                <node x="337.0" y="889.2994791666666">apple</node>
+                <node x="0.0" y="815.2994791666666">groovyjarjarasm</node>
+                <node x="380.11785714285713" y="79.0">dao</node>
+                <node x="823.0" y="889.2994791666666">java</node>
+                <node x="502.0" y="889.2994791666666">javax</node>
+                <node x="233.11785714285713" y="79.0">MyRMI</node>
+                <node x="169.0" y="889.2994791666666">javafx</node>
+                <node x="597.875" y="228.0">Subscription</node>
+                <node x="455.0" y="347.0">RMIClient</node>
+                <node x="0.0" y="889.2994791666666">oracle</node>
+                <node x="155.0" y="963.2994791666666">org</node>
+                <node x="251.0" y="468.5">RMIServer</node>
+                <node x="424.0" y="815.2994791666666">resources</node>
+                <node x="0.0" y="413.0">BulkRegister</node>
+                <node x="230.0" y="815.2994791666666">META-INF</node>
+                <node x="308.0" y="963.2994791666666">jdk</node>
+                <node x="805.0" y="815.2994791666666">groovy</node>
+                <node x="303.0" y="698.8828125">groovyjarjarcommonscli</node>
+                <node x="359.61785714285713" y="0.0">Resources</node>
+                <node x="316.6428571428571" y="228.0">RmiUtility</node>
+                <node x="40.0" y="701.2994791666666">groovyjarjarantlr</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="RmiUtility" target="RmiUtility">
+                  <point x="-41.42857142857143" y="14.5" />
+                  <point x="347.71428571428567" y="287.0" />
+                  <point x="286.6428571428571" y="287.0" />
+                  <point x="286.6428571428571" y="235.25" />
+                  <point x="-72.5" y="-7.25" />
+                </edge>
+                <edge source="RMIClient" target="MyRMI">
+                  <point x="0.0" y="-147.0" />
+                  <point x="597.5" y="327.0" />
+                  <point x="587.375" y="327.0" />
+                  <point x="587.375" y="178.0" />
+                  <point x="353.7678571428571" y="178.0" />
+                  <point x="57.14999999999998" y="14.5" />
+                </edge>
+                <edge source="groovyjarjarantlr" target="groovyjarjarantlr">
+                  <point x="-62.666666666666664" y="14.5" />
+                  <point x="71.33333333333334" y="750.2994791666666" />
+                  <point x="20.0" y="750.2994791666666" />
+                  <point x="20.0" y="725.4661458333333" />
+                  <point x="-94.0" y="9.666666666666666" />
+                </edge>
+                <edge source="MyRMI" target="MyRMI">
+                  <point x="-19.049999999999997" y="14.5" />
+                  <point x="277.5678571428571" y="158.0" />
+                  <point x="183.11785714285713" y="158.0" />
+                  <point x="183.11785714285713" y="82.625" />
+                  <point x="-63.5" y="-10.875" />
+                </edge>
+                <edge source="MyRMI" target="RmiUtility">
+                  <point x="44.44999999999999" y="14.5" />
+                  <point x="341.0678571428571" y="188.0" />
+                  <point x="389.1428571428571" y="188.0" />
+                  <point x="0.0" y="-14.5" />
+                </edge>
+                <edge source="BulkRegister" target="RmiUtility">
+                  <point x="57.75" y="-81.0" />
+                  <point x="173.25" y="317.0" />
+                  <point x="368.4285714285714" y="317.0" />
+                  <point x="-20.714285714285722" y="14.5" />
+                </edge>
+                <edge source="RmiUtility" target="MyRMI">
+                  <point x="-58.0" y="-14.5" />
+                  <point x="331.1428571428571" y="208.0" />
+                  <point x="315.66785714285714" y="208.0" />
+                  <point x="19.05000000000001" y="14.5" />
+                </edge>
+                <edge source="RMIServer" target="MyRMI">
+                  <point x="-61.33333333333337" y="-25.5" />
+                  <point x="281.66666666666663" y="307.0" />
+                  <point x="221.5853896103896" y="307.0" />
+                  <point x="221.5853896103896" y="208.0" />
+                  <point x="302.96785714285716" y="208.0" />
+                  <point x="6.350000000000023" y="14.5" />
+                </edge>
+                <edge source="RMIClient" target="Subscription">
+                  <point x="57.0" y="-147.0" />
+                  <point x="654.5" y="327.0" />
+                  <point x="639.125" y="327.0" />
+                  <point x="-41.25" y="14.5" />
+                </edge>
+                <edge source="RmiUtility" target="dao">
+                  <point x="29.0" y="-14.5" />
+                  <point x="418.1428571428571" y="208.0" />
+                  <point x="407.61785714285713" y="208.0" />
+                  <point x="-27.5" y="14.5" />
+                </edge>
+                <edge source="groovyjarjarcommonscli" target="groovyjarjarcommonscli">
+                  <point x="58.25" y="14.5" />
+                  <point x="477.75" y="757.8828125" />
+                  <point x="273.0" y="757.8828125" />
+                  <point x="273.0" y="706.1328125" />
+                  <point x="-116.5" y="-7.25" />
+                </edge>
+                <edge source="BulkRegister" target="MyRMI">
+                  <point x="-57.75" y="-81.0" />
+                  <point x="57.75" y="198.0" />
+                  <point x="290.2678571428571" y="198.0" />
+                  <point x="-6.350000000000023" y="14.5" />
+                </edge>
+                <edge source="RMIServer" target="RmiUtility">
+                  <point x="61.333333333333314" y="-25.5" />
+                  <point x="404.3333333333333" y="327.0" />
+                  <point x="409.85714285714283" y="327.0" />
+                  <point x="20.714285714285722" y="14.5" />
+                </edge>
+                <edge source="RMIClient" target="RmiUtility">
+                  <point x="-57.0" y="-147.0" />
+                  <point x="540.5" y="317.0" />
+                  <point x="451.2857142857143" y="317.0" />
+                  <point x="62.14285714285717" y="14.5" />
+                </edge>
+                <edge source="dao" target="Resources">
+                  <point x="0.0" y="-14.5" />
+                  <point x="0.0" y="14.5" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="1.0" x="-237.5" y="70.5" />
+              <SelectedNodes>
+                <node>com</node>
+              </SelectedNodes>
+              <Categories>
+                <Category>Fields</Category>
+                <Category>Methods</Category>
+                <Category>Inner Classes</Category>
+              </Categories>
+              <SCOPE>All</SCOPE>
+              <VISIBILITY>private</VISIBILITY>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/MyRMI/SimpleRegistry.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1692">
+              <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,43 +206,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2682">
-              <caret line="149" selection-start-line="149" selection-end-line="149" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MyRMI/ServiceStub.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Subscription/SubscriptionUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1928">
+            <state relative-caret-position="119">
               <caret line="138" column="10" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MyRMI/SimpleRegistry.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,7 +220,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RMIServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="216">
               <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -104,7 +232,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/org/apache/activemq/activemq-all/5.13.0/activemq-all-5.13.0.jar!/org/apache/activemq/ActiveMQMessageProducerSupport.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
+            <state relative-caret-position="1512">
               <caret line="91" selection-start-line="91" selection-end-line="91" />
             </state>
           </provider>
@@ -113,16 +241,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerActionImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="38" column="45" lean-forward="true" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+            <state relative-caret-position="522">
+              <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#787#788#0" expanded="true" />
-                <element signature="e#815#816#0" expanded="true" />
+                <element signature="e#843#844#0" expanded="true" />
                 <element signature="e#916#917#0" expanded="true" />
-                <element signature="e#965#966#0" expanded="true" />
-                <element signature="e#1035#1036#0" expanded="true" />
-                <element signature="e#1059#1060#0" expanded="true" />
+                <element signature="e#974#975#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,8 +257,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="180">
+              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -143,8 +269,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RMIClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="164" column="66" selection-start-line="164" selection-start-column="66" selection-end-line="164" selection-end-column="66" />
+            <state relative-caret-position="1594">
+              <caret line="189" column="48" selection-start-line="189" selection-start-column="48" selection-end-line="189" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -158,6 +284,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="UML Class" />
+        <option value="UML Activity" />
       </list>
     </option>
   </component>
@@ -191,6 +319,8 @@
         <option value="$PROJECT_DIR$/src/main/java/BulkRegister.java" />
         <option value="$PROJECT_DIR$/src/main/java/Subscription/SubscriptionUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/dao/UserDao.java" />
+        <option value="$PROJECT_DIR$/Activity.puml" />
+        <option value="$PROJECT_DIR$/DisplayMessage.puml" />
       </list>
     </option>
   </component>
@@ -212,9 +342,10 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="1286" />
+    <option name="width" value="1274" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -224,7 +355,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -273,6 +403,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Assignment4_ActiveMQ_pub_sub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Assignment4_ActiveMQ_pub_sub" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="RmiUtility" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -283,21 +421,17 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="Subscription" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Assignment4_ActiveMQ_pub_sub" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Assignment4_ActiveMQ_pub_sub" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557113547096" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557152088088" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -373,29 +507,26 @@
       <updated>1556979206480</updated>
       <workItem from="1556979207831" duration="243000" />
       <workItem from="1557039902610" duration="24235000" />
+      <workItem from="1557147246151" duration="4054000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24538000" />
+    <option name="totallyTimeSpent" value="28592000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
-    <editor active="true" />
+    <frame x="932" y="0" width="1628" height="1440" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2167382" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1519546" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Image Layers" order="6" />
-      <window_info anchor="bottom" id="Duplicate detector" weight="0.32937685" />
-      <window_info anchor="bottom" id="Spring" />
-      <window_info anchor="bottom" id="Messages" weight="0.32789317" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.1980198" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.7160584" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39985162" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -406,11 +537,14 @@
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Duplicate detector" order="13" weight="0.32937685" />
+      <window_info anchor="bottom" id="Spring" order="14" />
+      <window_info anchor="bottom" id="Messages" order="15" weight="0.32789317" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Maven" order="3" weight="0.32988235" />
-      <window_info anchor="right" id="PlantUML" order="4" />
+      <window_info anchor="right" id="PlantUML" order="4" weight="0.35516658" />
       <window_info anchor="right" id="Palette" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Database" order="7" weight="0.32988235" />
@@ -494,13 +628,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Subscription/Publisher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Subscription/Publisher.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServiceSkeleton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -542,10 +670,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/activemq/activemq-all/5.13.0/activemq-all-5.13.0.jar!/org/apache/activemq/ActiveMQMessageProducerSupport.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Subscription/MyListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/BulkRegister.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="666">
+          <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -556,66 +688,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerActionImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="38" column="45" lean-forward="true" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#787#788#0" expanded="true" />
-            <element signature="e#815#816#0" expanded="true" />
-            <element signature="e#916#917#0" expanded="true" />
-            <element signature="e#965#966#0" expanded="true" />
-            <element signature="e#1035#1036#0" expanded="true" />
-            <element signature="e#1059#1060#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Subscription/MyListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MyRMI/SimpleRegistry.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
+        <state relative-caret-position="1692">
           <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/BulkRegister.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RMIClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="164" column="66" selection-start-line="164" selection-start-column="66" selection-end-line="164" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -624,8 +700,469 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RMIServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="216">
           <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/activemq/activemq-all/5.13.0/activemq-all-5.13.0.jar!/org/apache/activemq/ActiveMQMessageProducerSupport.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1512">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerActionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#787#788#0" expanded="true" />
+            <element signature="e#843#844#0" expanded="true" />
+            <element signature="e#916#917#0" expanded="true" />
+            <element signature="e#974#975#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RmiUtility/ServerAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClassDiagram.puml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Class_Diagram.puml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="uml://JavaScript-modules-diagram//Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$/src/main</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="984.0" y="648.5" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <VISIBILITY>Overview</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JavaScript-modules-diagram//Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/dao;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/MyRMI;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/Resources;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/RmiUtility;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/Subscription;">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$/src/main/java;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/dao;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/MyRMI;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/Resources;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/RmiUtility;/Users/Chris/Documents/GitHub/exercise-codes/CS316_Cloud_Computing/Assignment4_ActiveMQ_pub_sub/src/main/java/Subscription;</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="984.0" y="648.5" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <VISIBILITY>Overview</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/MyRMI">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>MyRMI</OriginalElement>
+          <nodes>
+            <node x="" y="">MyRMI.RORtbl</node>
+            <node x="" y="">MyRMI.testLookup</node>
+            <node x="" y="">MyRMI.RemoteObjectRef</node>
+            <node x="" y="">MyRMI.RORInvocationHandler</node>
+            <node x="" y="">MyRMI.testRebind</node>
+            <node x="" y="">MyRMI.SimpleRegistry</node>
+            <node x="" y="">MyRMI.Message</node>
+            <node x="" y="">MyRMI.CM</node>
+            <node x="" y="">MyRMI.ServiceStub</node>
+            <node x="" y="">MyRMI.LocateSimpleRegistry</node>
+            <node x="" y="">MyRMI.SimpleRegistryServer</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.8910891087794232" x="486.5777778401971" y="682.5833333469927" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Fields</Category>
+            <Category>Methods</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/MyRMI.RemoteObjectRef">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>MyRMI.RemoteObjectRef</OriginalElement>
+          <nodes>
+            <node x="" y="">MyRMI.RORInvocationHandler</node>
+            <node x="" y="">java.lang.Runnable</node>
+            <node x="" y="">MyRMI.Message</node>
+            <node x="" y="">MyRMI.LocateSimpleRegistry</node>
+            <node x="" y="">java.lang.FunctionalInterface</node>
+            <node x="" y="">MyRMI.RORtbl</node>
+            <node x="" y="">RmiUtility.ServerActionImpl</node>
+            <node x="" y="">java.rmi.server.UnicastRemoteObject</node>
+            <node x="" y="">RmiUtility.ServiceSkeleton</node>
+            <node x="" y="">RMIClient</node>
+            <node x="" y="">MyRMI.ServiceStub</node>
+            <node x="" y="">java.rmi.Remote</node>
+            <node x="" y="">Subscription.SubscriptionUser</node>
+            <node x="" y="">RMIServer</node>
+            <node x="" y="">java.rmi.server.RemoteServer</node>
+            <node x="" y="">java.rmi.server.RemoteObject</node>
+            <node x="" y="">RmiUtility.ServerAction</node>
+            <node x="" y="">BulkRegister</node>
+            <node x="" y="">MyRMI.SimpleRegistry</node>
+            <node x="" y="">MyRMI.CM</node>
+            <node x="" y="">java.io.Serializable</node>
+            <node x="" y="">MyRMI.RemoteObjectRef</node>
+            <node x="" y="">dao.UserDao</node>
+            <node x="" y="">java.lang.reflect.InvocationHandler</node>
+            <node x="" y="">MyRMI.SimpleRegistryServer</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.662089384777263" x="1454.204163099568" y="1764.4749997663312" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Fields</Category>
+            <Category>Methods</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/RMIServer">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>RMIServer</OriginalElement>
+          <nodes>
+            <node x="664.8520833333333" y="0.0">java.rmi.Remote</node>
+            <node x="0.0" y="600.0">dao.UserDao</node>
+            <node x="497.2286458333334" y="997.0">RmiUtility.ServerActionImpl</node>
+            <node x="1301.0" y="567.0">Subscription.SubscriptionUser</node>
+            <node x="770.5411458333334" y="1275.0">RMIServer</node>
+            <node x="460.8307291666667" y="367.0">java.rmi.server.RemoteServer</node>
+            <node x="370.00000000000006" y="567.0">java.rmi.server.UnicastRemoteObject</node>
+            <node x="375.9973958333333" y="79.0">java.rmi.server.RemoteObject</node>
+            <node x="978.0" y="644.5">RmiUtility.ServerAction</node>
+            <node x="1260.75" y="931.0">RMIClient</node>
+            <node x="384.1020833333333" y="0.0">java.io.Serializable</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="RmiUtility.ServerActionImpl" target="java.rmi.server.UnicastRemoteObject">
+              <point x="0.0" y="-81.0" />
+              <point x="648.7286458333334" y="911.0" />
+              <point x="664.0" y="911.0" />
+              <point x="0.0" y="147.0" />
+            </edge>
+            <edge source="RmiUtility.ServerAction" target="java.rmi.Remote">
+              <point x="0.0" y="-69.5" />
+              <point x="1129.5" y="59.0" />
+              <point x="747.1020833333333" y="59.0" />
+              <point x="35.25" y="14.5" />
+            </edge>
+            <edge source="java.rmi.server.UnicastRemoteObject" target="java.rmi.server.UnicastRemoteObject">
+              <point x="-196.0" y="147.0" />
+              <point x="468.00000000000006" y="881.0" />
+              <point x="350.00000000000006" y="881.0" />
+              <point x="350.00000000000006" y="714.0" />
+              <point x="-294.0" y="-0.0" />
+            </edge>
+            <edge source="RmiUtility.ServerActionImpl" target="RmiUtility.ServerAction">
+              <point x="121.20000000000005" y="-81.0" />
+              <point x="769.9286458333335" y="911.0" />
+              <point x="1015.875" y="911.0" />
+              <point x="-113.625" y="69.5" />
+            </edge>
+            <edge source="java.rmi.server.RemoteServer" target="java.rmi.server.RemoteServer">
+              <point x="-59.25" y="70.0" />
+              <point x="520.0807291666667" y="527.0" />
+              <point x="440.8307291666667" y="527.0" />
+              <point x="440.8307291666667" y="437.0" />
+              <point x="-118.5" y="-0.0" />
+            </edge>
+            <edge source="RMIServer" target="RmiUtility.ServerAction">
+              <point x="46.0" y="-25.5" />
+              <point x="908.5411458333334" y="1250.0" />
+              <point x="1091.625" y="1250.0" />
+              <point x="-37.875" y="69.5" />
+            </edge>
+            <edge source="RMIClient" target="RmiUtility.ServerAction">
+              <point x="-106.875" y="-147.0" />
+              <point x="1296.375" y="911.0" />
+              <point x="1167.375" y="911.0" />
+              <point x="37.875" y="69.5" />
+            </edge>
+            <edge source="java.rmi.server.RemoteObject" target="java.io.Serializable">
+              <point x="-101.66666666666669" y="-114.0" />
+              <point x="426.83072916666663" y="59.0" />
+              <point x="442.1020833333333" y="59.0" />
+              <point x="0.0" y="14.5" />
+            </edge>
+            <edge source="java.rmi.server.UnicastRemoteObject" target="java.rmi.server.RemoteServer">
+              <point x="-147.0" y="-147.0" />
+              <point x="517.0" y="547.0" />
+              <point x="638.5807291666667" y="547.0" />
+              <point x="59.25" y="70.0" />
+            </edge>
+            <edge source="RMIClient" target="Subscription.SubscriptionUser">
+              <point x="35.625" y="-147.0" />
+              <point x="1438.875" y="911.0" />
+              <point x="1387.75" y="911.0" />
+              <point x="-86.75" y="147.0" />
+            </edge>
+            <edge source="RMIServer" target="RmiUtility.ServerActionImpl">
+              <point x="-46.0" y="-25.5" />
+              <point x="816.5411458333334" y="1250.0" />
+              <point x="648.7286458333334" y="1250.0" />
+              <point x="0.0" y="81.0" />
+            </edge>
+            <edge source="java.rmi.server.RemoteObject" target="java.rmi.Remote">
+              <point x="101.66666666666669" y="-114.0" />
+              <point x="630.1640625" y="59.0" />
+              <point x="700.1020833333333" y="59.0" />
+              <point x="-11.75" y="14.5" />
+            </edge>
+            <edge source="java.rmi.server.RemoteObject" target="java.rmi.server.RemoteObject">
+              <point x="-101.66666666666669" y="114.0" />
+              <point x="426.83072916666663" y="327.0" />
+              <point x="355.9973958333333" y="327.0" />
+              <point x="355.9973958333333" y="193.0" />
+              <point x="-152.5" y="-0.0" />
+            </edge>
+            <edge source="java.rmi.server.RemoteServer" target="java.rmi.server.RemoteObject">
+              <point x="59.25" y="-70.0" />
+              <point x="638.5807291666667" y="347.0" />
+              <point x="630.1640625" y="347.0" />
+              <point x="101.66666666666669" y="114.0" />
+            </edge>
+            <edge source="java.rmi.server.UnicastRemoteObject" target="java.rmi.Remote">
+              <point x="147.0" y="-147.0" />
+              <point x="811.0" y="547.0" />
+              <point x="708.3307291666667" y="547.0" />
+              <point x="708.3307291666667" y="59.0" />
+              <point x="723.6020833333333" y="59.0" />
+              <point x="11.75" y="14.5" />
+            </edge>
+            <edge source="RmiUtility.ServerActionImpl" target="dao.UserDao">
+              <point x="-60.60000000000002" y="-81.0" />
+              <point x="588.1286458333334" y="901.0" />
+              <point x="247.5" y="901.0" />
+              <point x="82.5" y="114.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.9635958395245171" x="-9.503469545104053" y="680.4155744024672" />
+          <SelectedNodes>
+            <node>RMIServer</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Fields</Category>
+            <Category>Methods</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement />
+          <nodes>
+            <node x="665.0" y="889.2994791666666">com</node>
+            <node x="617.0" y="815.2994791666666">netscape</node>
+            <node x="581.0" y="686.0">toolbarButtonGraphics</node>
+            <node x="0.0" y="963.2994791666666">sun</node>
+            <node x="337.0" y="889.2994791666666">apple</node>
+            <node x="0.0" y="815.2994791666666">groovyjarjarasm</node>
+            <node x="380.11785714285713" y="79.0">dao</node>
+            <node x="823.0" y="889.2994791666666">java</node>
+            <node x="502.0" y="889.2994791666666">javax</node>
+            <node x="233.11785714285713" y="79.0">MyRMI</node>
+            <node x="169.0" y="889.2994791666666">javafx</node>
+            <node x="597.875" y="228.0">Subscription</node>
+            <node x="455.0" y="347.0">RMIClient</node>
+            <node x="0.0" y="889.2994791666666">oracle</node>
+            <node x="155.0" y="963.2994791666666">org</node>
+            <node x="251.0" y="468.5">RMIServer</node>
+            <node x="424.0" y="815.2994791666666">resources</node>
+            <node x="0.0" y="413.0">BulkRegister</node>
+            <node x="230.0" y="815.2994791666666">META-INF</node>
+            <node x="308.0" y="963.2994791666666">jdk</node>
+            <node x="805.0" y="815.2994791666666">groovy</node>
+            <node x="303.0" y="698.8828125">groovyjarjarcommonscli</node>
+            <node x="359.61785714285713" y="0.0">Resources</node>
+            <node x="316.6428571428571" y="228.0">RmiUtility</node>
+            <node x="40.0" y="701.2994791666666">groovyjarjarantlr</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="RmiUtility" target="RmiUtility">
+              <point x="-41.42857142857143" y="14.5" />
+              <point x="347.71428571428567" y="287.0" />
+              <point x="286.6428571428571" y="287.0" />
+              <point x="286.6428571428571" y="235.25" />
+              <point x="-72.5" y="-7.25" />
+            </edge>
+            <edge source="RMIClient" target="MyRMI">
+              <point x="0.0" y="-147.0" />
+              <point x="597.5" y="327.0" />
+              <point x="587.375" y="327.0" />
+              <point x="587.375" y="178.0" />
+              <point x="353.7678571428571" y="178.0" />
+              <point x="57.14999999999998" y="14.5" />
+            </edge>
+            <edge source="groovyjarjarantlr" target="groovyjarjarantlr">
+              <point x="-62.666666666666664" y="14.5" />
+              <point x="71.33333333333334" y="750.2994791666666" />
+              <point x="20.0" y="750.2994791666666" />
+              <point x="20.0" y="725.4661458333333" />
+              <point x="-94.0" y="9.666666666666666" />
+            </edge>
+            <edge source="MyRMI" target="MyRMI">
+              <point x="-19.049999999999997" y="14.5" />
+              <point x="277.5678571428571" y="158.0" />
+              <point x="183.11785714285713" y="158.0" />
+              <point x="183.11785714285713" y="82.625" />
+              <point x="-63.5" y="-10.875" />
+            </edge>
+            <edge source="MyRMI" target="RmiUtility">
+              <point x="44.44999999999999" y="14.5" />
+              <point x="341.0678571428571" y="188.0" />
+              <point x="389.1428571428571" y="188.0" />
+              <point x="0.0" y="-14.5" />
+            </edge>
+            <edge source="BulkRegister" target="RmiUtility">
+              <point x="57.75" y="-81.0" />
+              <point x="173.25" y="317.0" />
+              <point x="368.4285714285714" y="317.0" />
+              <point x="-20.714285714285722" y="14.5" />
+            </edge>
+            <edge source="RmiUtility" target="MyRMI">
+              <point x="-58.0" y="-14.5" />
+              <point x="331.1428571428571" y="208.0" />
+              <point x="315.66785714285714" y="208.0" />
+              <point x="19.05000000000001" y="14.5" />
+            </edge>
+            <edge source="RMIServer" target="MyRMI">
+              <point x="-61.33333333333337" y="-25.5" />
+              <point x="281.66666666666663" y="307.0" />
+              <point x="221.5853896103896" y="307.0" />
+              <point x="221.5853896103896" y="208.0" />
+              <point x="302.96785714285716" y="208.0" />
+              <point x="6.350000000000023" y="14.5" />
+            </edge>
+            <edge source="RMIClient" target="Subscription">
+              <point x="57.0" y="-147.0" />
+              <point x="654.5" y="327.0" />
+              <point x="639.125" y="327.0" />
+              <point x="-41.25" y="14.5" />
+            </edge>
+            <edge source="RmiUtility" target="dao">
+              <point x="29.0" y="-14.5" />
+              <point x="418.1428571428571" y="208.0" />
+              <point x="407.61785714285713" y="208.0" />
+              <point x="-27.5" y="14.5" />
+            </edge>
+            <edge source="groovyjarjarcommonscli" target="groovyjarjarcommonscli">
+              <point x="58.25" y="14.5" />
+              <point x="477.75" y="757.8828125" />
+              <point x="273.0" y="757.8828125" />
+              <point x="273.0" y="706.1328125" />
+              <point x="-116.5" y="-7.25" />
+            </edge>
+            <edge source="BulkRegister" target="MyRMI">
+              <point x="-57.75" y="-81.0" />
+              <point x="57.75" y="198.0" />
+              <point x="290.2678571428571" y="198.0" />
+              <point x="-6.350000000000023" y="14.5" />
+            </edge>
+            <edge source="RMIServer" target="RmiUtility">
+              <point x="61.333333333333314" y="-25.5" />
+              <point x="404.3333333333333" y="327.0" />
+              <point x="409.85714285714283" y="327.0" />
+              <point x="20.714285714285722" y="14.5" />
+            </edge>
+            <edge source="RMIClient" target="RmiUtility">
+              <point x="-57.0" y="-147.0" />
+              <point x="540.5" y="317.0" />
+              <point x="451.2857142857143" y="317.0" />
+              <point x="62.14285714285717" y="14.5" />
+            </edge>
+            <edge source="dao" target="Resources">
+              <point x="0.0" y="-14.5" />
+              <point x="0.0" y="14.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-237.5" y="70.5" />
+          <SelectedNodes>
+            <node>com</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Fields</Category>
+            <Category>Methods</Category>
+            <Category>Inner Classes</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Activity.puml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="7" lean-forward="true" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DisplayMessage.puml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="7" lean-forward="true" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RMIClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1594">
+          <caret line="189" column="48" selection-start-line="189" selection-start-column="48" selection-end-line="189" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -634,18 +1171,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Subscription/SubscriptionUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1928">
+        <state relative-caret-position="119">
           <caret line="138" column="10" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2682">
-          <caret line="149" selection-start-line="149" selection-end-line="149" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -1,0 +1,31 @@
+@startuml
+
+(*)  --> "Register"
+if "Register success" then
+-->[Yes] "choose topics"
+-->[finish registration] "Login"
+else
+-->[No] "Login"
+
+(*)  --> "Login"
+
+
+
+"Login" --> "Display new messages"
+-->"Select Option"
+
+
+"Select Option"--> "Publish content"
+-->"Stop"
+"Select Option"--> "Subscribe topics"
+-->"Stop"
+"Select Option" --> "Check new messages"
+-->"Stop"
+if "Quit?" then
+-->[Yes] (*)
+else
+-->[No] "Select Option"
+
+
+
+@enduml
