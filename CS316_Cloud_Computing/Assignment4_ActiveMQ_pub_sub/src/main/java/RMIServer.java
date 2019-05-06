@@ -14,7 +14,6 @@ public class RMIServer {
             ServerAction server = new ServerActionImpl();
             System.out.println("Get simple reg");
             reg.rebind("Server", server, "localhost", 1234);
-            //Naming.rebind("noobServer",server);
             System.out.println("noob server is up and running");
         } catch ( Exception e) {
             System.out.println("Server throws exception: " + e.toString() );

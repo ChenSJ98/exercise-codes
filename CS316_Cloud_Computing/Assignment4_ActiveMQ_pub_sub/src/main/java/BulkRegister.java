@@ -9,8 +9,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.UUID;
 
+/**
+ * A test class that simulates high concurrency rmi invocation.
+ */
 public class BulkRegister implements Runnable{
-    private static AtomicInteger RMIcounter = new AtomicInteger();
+    private static AtomicInteger rmiCounter = new AtomicInteger();
     private static AtomicInteger appCounter = new AtomicInteger();
     static CountDownLatch latch;
     static CountDownLatch done;
@@ -19,7 +22,7 @@ public class BulkRegister implements Runnable{
         ExecutorService service = Executors.newCachedThreadPool();
         latch  = new CountDownLatch(1);
         done = new CountDownLatch(N);
-        RMIcounter.set(0);
+        rmiCounter.set(0);
         appCounter.set(0);
         for(int i = 0; i < N; i++) {
             service.execute(new BulkRegister());
@@ -28,7 +31,7 @@ public class BulkRegister implements Runnable{
         try {
             done.await();
             service.shutdown();
-            System.out.println("successful RMI connections:"+ RMIcounter.get() +"/" + N);
+            System.out.println("successful RMI connections:"+ rmiCounter.get() +"/" + N);
             System.out.println("successful APP connections:"+ appCounter.get() +"/" + N);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -40,7 +43,7 @@ public class BulkRegister implements Runnable{
     @Override
     public void run() {
 
-        // use uuid as an unique random string
+        /* use uuid as an unique random string */
         String username = String.valueOf(UUID.randomUUID());
         String password = String.valueOf(UUID.randomUUID());
 
@@ -52,7 +55,7 @@ public class BulkRegister implements Runnable{
                 return;
             }
             RemoteObjectRef ror = sr.lookup("Server");
-            RMIcounter.getAndIncrement();
+            rmiCounter.getAndIncrement();
             if(ror == null) {
                 System.out.println("ror null!");
                 return;

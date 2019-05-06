@@ -60,24 +60,31 @@ public class RMIClient {
         return;
     }
 
+    /**
+     * Performs login authentication and displays user menu.
+     * @throws RemoteException
+     */
     private static void login() throws RemoteException {
         Scanner scanner = new Scanner(System.in);
-        String password = "";
         System.out.print("Username: ");
         String username = scanner.next();
         System.out.print("Password: ");
-        password = scanner.next();
+        String password = scanner.next();
         System.out.println("Authenticating...");
         int id = myStub.login(username, password);
         if (id > 0) {
             System.out.println("Login success!");
             subscriptionUser = new SubscriptionUser(username, password, activeMqUrl, id);
-            displayUserMenu(id, username, password);
+            displayUserMenu(id, username);
         } else {
             System.out.println("Login fail! Please check your credentials");
         }
     }
 
+    /**
+     * Displays all the subscribed messages of user with the given id.
+     * @param id userId
+     */
     private static void displayMessages(int id) {
         System.out.println("\n============MESSAGES============");
         try {
@@ -92,9 +99,12 @@ public class RMIClient {
 
     }
 
-    private static void displayUserMenu(int id, String username, String password) {
-
-
+    /**
+     * Displays user menu for the given user.
+     * @param id
+     * @param username
+     */
+    private static void displayUserMenu(int id, String username) {
         System.out.println("Welcome back, "+username);
         displayMessages(id);
         while(true) {
@@ -106,7 +116,7 @@ public class RMIClient {
             opt = in.nextInt();
             switch(opt) {
                 case 1 :
-                    publishContent(username);
+                    publishContent();
                     break;
                 case 2:
                     subscribeTopics(id);
@@ -125,8 +135,11 @@ public class RMIClient {
         }
     }
 
+    /**
+     * Displays user interface for subscribing topics.
+     * @param id
+     */
     private static void subscribeTopics(int id) {
-
         Scanner in = new Scanner(System.in);
         while (true) {
             System.out.println();
@@ -135,7 +148,7 @@ public class RMIClient {
             String topic = in.nextLine();
             if(topic.equals("q"))
                 break;
-            subscriptionUser.subscribeTopic(id, topic);
+            subscriptionUser.subscribeTopic(topic);
             try {
                 if(myStub.subscribeTopic(id, topic))
                     System.out.println("You have successfully subscribed to "+ topic +"!");
@@ -148,12 +161,16 @@ public class RMIClient {
 
     }
 
+    /**
+     * Displays all topics currently available on ActiveMQ server.
+     */
     private static void displayAllTopics() {
-        int count = 0;
         System.out.println("All topics:");
+        int count = 0;
         for(ActiveMQTopic topic : subscriptionUser.getAllTopics()) {
             try {
-                System.out.println("topic #" + count++ + ": " + topic.getTopicName());
+                System.out.println("topic #" + count + ": " + topic.getTopicName());
+                count++;
             } catch (JMSException e) {
                 e.printStackTrace();
             }
@@ -161,7 +178,10 @@ public class RMIClient {
 
     }
 
-    private static void publishContent(String username) {
+    /**
+     * Displays user interface for publishing content.
+     */
+    private static void publishContent() {
 
         int opt;
         Scanner in = new Scanner(System.in);
@@ -174,7 +194,7 @@ public class RMIClient {
             switch (opt) {
                 case 1:
                     displayAllTopics();
-                    publishOnTopic(username);
+                    publishOnTopic();
                     break;
                 case 2:
                     break;
@@ -186,7 +206,10 @@ public class RMIClient {
         }
     }
 
-    private static void publishOnTopic(String username) {
+    /**
+     * Displays user interface for publishing a piece of content on a specific topic.
+     */
+    private static void publishOnTopic() {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter topic and comment, press 'q' to quit.");
         System.out.println("If you enter a non-exist topic, it will be created.");
@@ -194,20 +217,20 @@ public class RMIClient {
         String topic = in.nextLine();
         System.out.println("Content:");
         String content = in.nextLine();
-        if(subscriptionUser.publishContent(username, topic, content))
+        if(subscriptionUser.publishContent(topic, content))
             System.out.println("Comment successfully published!");
     }
 
+    /**
+     * Displays user interface for registration.
+     */
     private static void register(){
         Scanner scanner = new Scanner(System.in);
         try{
-
-            String username = "";
-            String password = "";
             System.out.print("Username: ");
-            username = scanner.next();
+            String username = scanner.next();
             System.out.print("Password: ");
-            password = scanner.next();
+            String password = scanner.next();
             System.out.println("Processing...");
             if(myStub.register(username, password)){
                 System.out.println("Congratulations, you have successfully signed up as a user!");
