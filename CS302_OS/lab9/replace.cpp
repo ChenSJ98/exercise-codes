@@ -246,8 +246,8 @@ int main() {
     scanf("%d", &algorithm);
     switch(algorithm) {
         case 0 : printf("Hit ratio = %.2f%%\n", 100 * FIFO()); break;
-        case 1 : printf("Hit ratio = %.2f%%\n", 100 * Min()); break;
-        case 2 : printf("Hit ratio = %.2f%%\n", 100 * LRU()); break;
+        case 1 : printf("Hit ratio = %.2f%%\n", 100 * LRU()); break;
+        case 2 : printf("Hit ratio = %.2f%%\n", 100 * Min()); break;
         case 3 : printf("Hit ratio = %.2f%%\n", 100 * Clock()); break;
         case 4 : printf("Hit ratio = %.2f%%\n", 100 * Second_chance()); break;
         default : break;
