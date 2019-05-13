@@ -39,8 +39,8 @@ Experimental Environment: Linux and C++11
       * On average, $O(N)$ lookup and $O(N)$ replacement.
 2. Fundamenal
    * In theory, the optimal page-replacement algorithm is **MIN**, and prove it:
-        
-        In short, Min minimizes miss rate by removing the page that won't be used for the longest time. It's optimal for **a period of time**. 
+     
+        In short, Min minimizes miss rate by removing the page that won't be used for the longest time. 
         
         Strict proof of this optimality is hard. There are many papers dedicated to it. e.g. "Cohen, Ariel, and Walter A. Burkhard. "A proof of the optimality of the MIN paging algorithm using linear programming duality." Operations Research Letters 18.1 (1995): 7-13."
 
@@ -48,11 +48,11 @@ Experimental Environment: Linux and C++11
 
         Yes, use a hash set (`unordered_set` in C++11) to cut the lookup time complexity to $O(1)$. Since replacement is in $O(1)$, the overall complexity is $O(1)$.
    * Can the LRU page-replacement algorithm be improved? If yes, please provide a plan; If no, please give your proof.
-        Yes, use a hash set (`unordered_set` in C++11) to cut the lookup time to $O(1)$; Then use a min-heap to cut the cost of moving the element to the front of LRU to $O(log(N))$ on page hit. Page replacement now is in $O(1)$. The overall complexity is $O(log(N))$.
+        Yes, use a hash set (`unordered_set` in C++11) to cut the lookup time to $O(1)$; Then use a heap (`priority_queue` in C++11) to cut the cost of moving the element to the front of LRU to $O(log(N))$ on page hit. Page replacement now is in $O(1)$. The overall complexity is $O(log(N))$.
 1. Problems and Solutions
    With the help of stl, there is no significant problems during my implementation.
    
-   I implemented LRU using list(linked list) instead of priority_queue (heap) for convenience. The implemented time complexity should be $O(N)$.
+   I implemented LRU using `list`(linked list) instead of `priority_queue` (heap) for convenience. The implemented time complexity should be $O(N)$.
 2. Program running result: (hit percentage)
    |Algorithm/ test|1.in|2.in|3.in|
    |:-:|:-:|:-:|:-:|
