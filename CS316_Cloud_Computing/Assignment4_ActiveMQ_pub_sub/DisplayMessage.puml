@@ -1,0 +1,6 @@
+@startuml
+(*)  --> "call Display New Message"
+-->[access database through Java RMI] "List of topics"
+--> [connect to and pull new messages from ActiveMQ server] "Display new messages"
+-->(*)
+@enduml
