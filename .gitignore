@@ -1,7 +1,7 @@
 
 *.class
 CS316_Cloud_Computing/Assignment 2/.idea/workspace.xml
-
+*.ipch
 CS302_OS/lab4/enq
 
 CS302_OS/lab4/deq
