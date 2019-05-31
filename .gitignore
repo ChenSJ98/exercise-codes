@@ -3,7 +3,6 @@
 *.bin
 *.ipch
 ipch
-CS316_Cloud_Computing/Assignment 2/.idea/workspace.xml
 *.ipch
 CS302_OS/lab4/enq
 
@@ -14,12 +13,10 @@ CS302_OS/lab4/hello
 CS302_OS/lab4/scheduler
 
 CS302_OS/lab4/stat
-
-CS302_OS/lab4/\.vscode/
 CS302_OS/lab7/a.out
 CS302_OS/lab7/banker
 *.zip
+*/.DS_Store
 .DS_Store
-CS316_Cloud_Computing/.DS_Store
-CS302_OS/.DS_Store
-CS302_OS/lab11/OS_Lab11_report_11612028.pdf
+*/.vscode
+*/.idea
