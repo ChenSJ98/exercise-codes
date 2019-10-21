@@ -17,7 +17,7 @@ multidict==4.4.0
 numpy==1.15.1
 psutil==5.4.7
 pycparser==2.18
-python-engineio==2.2.0
+python-engineio==3.8.2.post1
 python-socketio==2.0.0
 requests==2.19.1
 six==1.11.0
